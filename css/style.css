@@ -208,3 +208,73 @@ details summary { cursor: pointer; font-weight: 700; color: var(--acento); }
 .ti-item .nm { flex: 1; }
 .ti-item code { font-size: .8rem; color: var(--suave); background: #f3f4f6; border-radius: 5px; padding: 1px 5px; }
 .ti-item .sub { color: var(--suave); }
+
+/* ================= calculadora com disposição TI-Nspire CX II CAS ================= */
+.calc-layout { display: grid; grid-template-columns: 470px minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 900px) { .calc-layout { grid-template-columns: 1fr; } .calc { margin: auto; } }
+.calc { width: 100%; max-width: 470px; background: linear-gradient(180deg, #2a2d33, #1b1d21 40%, #15171a); border-radius: 26px 26px 38px 38px; padding: 16px 16px 22px; box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 0 0 2px #3a3e46; }
+.calc-ecra { position: relative; background: #fff; border-radius: 6px; border: 6px solid #0b0c0e; height: 330px; display: flex; flex-direction: column; overflow: hidden; font-family: "Segoe UI", system-ui, sans-serif; }
+.calc-barra { display: flex; align-items: center; gap: 4px; background: linear-gradient(#f3f4f6, #dfe3e8); border-bottom: 1px solid #b8bec7; font-size: 12px; padding: 2px 6px; color: #1f2937; height: 22px; flex: none; }
+.calc-barra .tab { border: 1px solid #9aa3ad; border-bottom: none; background: #fff; padding: 0 6px; border-radius: 3px 3px 0 0; font-weight: 600; }
+.calc-barra .seta-tab { color: #6b7280; font-size: 10px; }
+.calc-barra .docnome { margin-left: 8px; color: #374151; }
+.calc-barra .ind { margin-left: auto; font-weight: 700; color: #b91c1c; font-size: 11px; min-width: 34px; text-align: right; }
+.calc-barra .rad { font-size: 10px; color: #374151; }
+.calc-barra .bat { width: 16px; height: 9px; border: 1px solid #374151; border-radius: 2px; position: relative; }
+.calc-barra .bat i { position: absolute; inset: 1px 3px 1px 1px; background: #16a34a; }
+.calc-hist { flex: 1; overflow-y: auto; padding: 0 0 2px; font-size: 14px; }
+.calc-hist .cas-linha { padding: 3px 8px; border-bottom: 1px solid #eef0f3; }
+.calc-hist .cas-linha .ent { font-family: inherit; color: #111827; font-size: 13.5px; white-space: nowrap; overflow-x: auto; }
+.calc-hist .cas-linha .sai { text-align: right; font-size: 14px; padding: 0; cursor: default; overflow-x: auto; }
+.calc-hist .cas-linha .sai .katex-display { margin: 2px 0; text-align: right; }
+.calc-hist .cas-linha .sai .katex-display > .katex { text-align: right; }
+.calc-hist .cas-linha .apx { font-size: 11px; }
+.calc-hist .cas-linha .acoes .btn { padding: 2px 8px; font-size: .72rem; }
+.calc-hist .cas-linha.erro .sai { color: #b91c1c; font-size: 12px; }
+.calc-hist .sel-ent .ent, .calc-hist .sel-sai .sai { background: #c9dcf5; outline: 1px solid #5b8fd6; }
+.calc-linha { flex: none; border-top: 1px solid #c3c9d1; padding: 4px 6px; background: #fff; }
+.calc-linha input { width: 100%; border: 1px solid #9aa3ad; border-radius: 2px; padding: 4px 6px; font-family: ui-monospace, "Consolas", monospace; font-size: 14px; outline: none; }
+.calc-linha input:focus { border-color: #2563eb; box-shadow: 0 0 0 1px #2563eb inset; }
+.calc-aviso { position: absolute; left: 50%; bottom: 46px; transform: translateX(-50%); background: #1f2937; color: #fff; font-size: 12px; padding: 4px 10px; border-radius: 6px; }
+.calc-aviso[hidden] { display: none; }
+/* menus dentro do ecrã, em cascata como na TI */
+.calc-pop { position: absolute; inset: 22px 0 0 0; }
+.calc-pop[hidden] { display: none !important; }
+.tm { position: absolute; background: #fff; border: 1px solid #6b7280; box-shadow: 2px 3px 8px rgba(0,0,0,.35); font-size: 13px; min-width: 190px; max-height: 280px; overflow-y: auto; }
+.tm-cab { background: linear-gradient(#e5e7eb, #cfd4da); font-weight: 700; padding: 2px 6px; font-size: 12px; border-bottom: 1px solid #9ca3af; position: sticky; top: 0; }
+.tm-it { display: flex; align-items: center; gap: 6px; padding: 2px 6px; white-space: nowrap; cursor: pointer; }
+.tm-it .n { width: 14px; text-align: right; color: #111; }
+.tm-it .ic { width: 16px; height: 14px; border-radius: 2px; background: #e5e7eb; border: 1px solid #c3c9d1; font-size: 9px; display: inline-flex; align-items: center; justify-content: center; color: #374151; }
+.tm-it .t { flex: 1; }
+.tm-it .s { color: #4b5563; }
+.tm-it.on { background: #3b6fb6; color: #fff; }
+.tm-it.on .s, .tm-it.on .n { color: #fff; }
+.tm-grelha { display: grid; gap: 3px; padding: 5px; }
+.tm-grelha .tm-it { justify-content: center; border: 1px solid #d1d5db; border-radius: 3px; padding: 4px 3px; min-height: 30px; font-size: 13px; }
+.tm-grelha .tm-it .katex { font-size: 1em; }
+.tm-rodape { font-size: 10.5px; color: #4b5563; padding: 3px 6px; border-top: 1px solid #e5e7eb; background: #f9fafb; }
+/* corpo e teclas */
+.calc-corpo { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.k-zona-topo { display: grid; grid-template-columns: 62px 1fr 62px; gap: 6px; align-items: center; }
+.k-col { display: flex; flex-direction: column; gap: 10px; }
+.touchpad { justify-self: center; width: 150px; height: 120px; border-radius: 22px; background: radial-gradient(#3a3e46, #23262b); border: 3px solid #8b9099; position: relative; }
+.touchpad button { position: absolute; border: none; background: transparent; color: #cfd3da; font-size: 13px; cursor: pointer; }
+.touchpad .up { top: 4px; left: 50%; transform: translateX(-50%); width: 60px; height: 30px; }
+.touchpad .dn { bottom: 4px; left: 50%; transform: translateX(-50%); width: 60px; height: 30px; }
+.touchpad .lf { left: 4px; top: 50%; transform: translateY(-50%); width: 34px; height: 50px; }
+.touchpad .rt { right: 4px; top: 50%; transform: translateY(-50%); width: 34px; height: 50px; }
+.touchpad .ct { left: 50%; top: 50%; transform: translate(-50%, -50%); width: 46px; height: 40px; border-radius: 10px; background: #2c3036; border: 2px solid #6b7280; }
+.touchpad button:hover { color: #fff; }
+.k { position: relative; border: none; border-radius: 9px; background: linear-gradient(#3d4148, #2b2e34); color: #f3f4f6; font: 600 14px/1 "Segoe UI", system-ui, sans-serif; height: 34px; cursor: pointer; box-shadow: 0 2px 0 #0e0f11, inset 0 1px 0 rgba(255,255,255,.08); padding: 0 2px; }
+.k:active { transform: translateY(1px); box-shadow: 0 1px 0 #0e0f11; }
+.k.num { background: linear-gradient(#e9ebee, #cdd1d6); color: #111827; font-size: 17px; height: 32px; }
+.k.op { background: linear-gradient(#55595f, #3d4046); }
+.k.ctrl { background: linear-gradient(#c0392b, #96281b); }
+.k.ctrl.ativo, .k.shift.ativo { box-shadow: 0 0 0 2px #fbbf24, 0 2px 0 #0e0f11; }
+.k.letra { height: 26px; font-size: 12px; border-radius: 7px; }
+.k.enter { font-size: 14px; }
+.k .sec { position: absolute; top: -13px; left: 0; right: 0; text-align: center; font-size: 10px; font-weight: 600; color: #f87171; white-space: nowrap; pointer-events: none; }
+.k-linha { display: grid; gap: 6px 7px; }
+.k-espaco-sec { margin-top: 12px; }
+.k-sep { height: 6px; }
+.calc-lado .cartao { margin-bottom: 12px; }

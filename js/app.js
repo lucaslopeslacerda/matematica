@@ -402,168 +402,348 @@ Se houver várias alíneas, escolhe a primeira. Se for um sistema de equações 
     catch (e) { $('#def-msg').innerHTML = `<span class="erro-msg">${esc(e.message === 'SEM_CHAVE' ? 'Falta a chave.' : e.message)}</span>`; }
   };
 
-  // ---------------------------------------------------------------- Calculadora CAS (estilo TI-Nspire)
+  // ---------------------------------------------------------------- Calculadora CAS (disposição TI-Nspire CX II CAS)
   // '|' marca onde fica o cursor depois de inserir
   const MENU = [
-    ['Ações', [
-      ['Definir variável', 'a:=|', ':='], ['Definir função', 'f(x):=|', 'f(x):='], ['Apagar variáveis', '@limpar_vars'], ['Limpar histórico', '@limpar_hist']]],
-    ['Número', [
-      ['Converter em decimal', 'approx(|)', 'approx'], ['Aproximar a fração', 'exact(|)', 'exact'], ['Fatorizar (números primos)', 'factor(|)', 'factor'],
-      ['Mínimo múltiplo comum', 'lcm(|,)', 'lcm'], ['Máximo divisor comum', 'gcd(|,)', 'gcd'], ['Resto da divisão', 'mod(|,)', 'mod'],
-      ['Ferramentas de números', [['Arredondar', 'round(|,2)', 'round'], ['Parte inteira (floor)', 'floor(|)', 'floor'], ['Teto (ceiling)', 'ceiling(|)', 'ceiling'], ['Valor absoluto', 'abs(|)', 'abs'], ['Sinal', 'sign(|)', 'sign']]],
-      ['Números complexos', [['Conjugado', 'conj(|)', 'conj'], ['Parte real', 'real(|)', 'real'], ['Parte imaginária', 'imag(|)', 'imag'], ['Argumento (ângulo)', 'angle(|)', 'angle'], ['Módulo', 'abs(|)', 'abs'], ['Forma polar (módulo, arg.)', 'polar(|)', 'polar']]]]],
-    ['Álgebra', [
+    ['Ações', 'A', [
+      ['Definir', 'Define |', 'Define'], ['Apagar variável', '@limpar_vars', 'DelVar'], ['Limpar histórico', '@limpar_hist', ''], ['Inserir comentário', '"|"', '◆']]],
+    ['Número', '#', [
+      ['Converter em decimal', 'approx(|)', '▸Decimal'], ['Aproximar à fração', 'exact(|)', 'exact'], ['Fatorizar', 'factor(|)', 'factor'],
+      ['Mínimo múltiplo comum', 'lcm(|,)', 'lcm'], ['Máximo divisor comum', 'gcd(|,)', 'gcd'], ['Resto', 'mod(|,)', 'mod'],
+      ['Ferramentas de números', null, [['Arredondar', 'round(|,2)', 'round'], ['Parte inteira', 'floor(|)', 'floor'], ['Teto', 'ceiling(|)', 'ceiling'], ['Valor absoluto', 'abs(|)', 'abs'], ['Sinal', 'sign(|)', 'sign']]],
+      ['Ferramentas de números complexos', null, [['Conjugado', 'conj(|)', 'conj'], ['Parte real', 'real(|)', 'real'], ['Parte imaginária', 'imag(|)', 'imag'], ['Ângulo polar', 'angle(|)', 'angle'], ['Magnitude', 'abs(|)', 'abs'], ['Converter em polar', 'polar(|)', '▸Polar']]]]],
+    ['Álgebra', 'x', [
       ['Resolver', 'solve(|,x)', 'solve'], ['Fatorizar', 'factor(|)', 'factor'], ['Expandir', 'expand(|)', 'expand'], ['Zeros', 'zeros(|,x)', 'zeros'],
-      ['Resolução numérica', 'nSolve(|,x)', 'nSolve'], ['Sistema de equações', 'solve(| and ,{x,y})', 'solve … and …'],
-      ['Denominador comum', 'comDenom(|)', 'comDenom'], ['Frações simples', 'expand(|,x)', 'expand(f,x)'],
-      ['Trigonometria', [['Expandir trigonométrica', 'tExpand(|)', 'tExpand'], ['Agrupar trigonométrica', 'tCollect(|)', 'tCollect']]]]],
-    ['Cálculo', [
-      ['Derivada', 'derivative(|,x)', 'derivative'], ['Derivada num ponto', 'derivPt(|,x,)', 'derivPt'], ['Integral', 'integral(|,x)', 'integral'],
-      ['Integral definido', 'integral(|,x,a,b)', 'integral(f,x,a,b)'], ['Limite', 'limit(|,x,0)', 'limit'], ['Limite lateral', 'limit(|,x,0,"+")', 'limit(…,"+")'],
-      ['Soma (Σ)', 'sum(|,k,1,n)', 'sum'], ['Produto (Π)', 'product(|,k,1,n)', 'product'], ['Mínimo da função', 'fMin(|,x)', 'fMin'], ['Máximo da função', 'fMax(|,x)', 'fMax'],
-      ['Reta tangente', 'tangentLine(|,x,)', 'tangentLine'], ['Reta normal', 'normalLine(|,x,)', 'normalLine'], ['Série de Taylor', 'taylor(|,x,5)', 'taylor'],
-      ['Equação diferencial', "deSolve(y'=| and y(0)=1,x,y)", 'deSolve'], ['Transformada de Laplace', 'laplace(|)', 'laplace'], ['Laplace inversa', 'ilaplace(|)', 'ilaplace']]],
-    ['Probabilidade', [['Fatorial', '|!', '!'], ['Permutações', 'nPr(|,)', 'nPr'], ['Combinações', 'nCr(|,)', 'nCr']]],
-    ['Estatística', [['Média', 'mean({|})', 'mean'], ['Mediana', 'median({|})', 'median'], ['Desvio-padrão amostral', 'stDevSamp({|})', 'stDevSamp'], ['Variância amostral', 'varSamp({|})', 'varSamp']]],
-    ['Matriz e vetor', [
-      ['Criar matriz 2×2', '[[|,],[,]]', '[[a,b],[c,d]]'], ['Criar matriz 3×3', '[[|,,],[,,],[,,]]', '[[…],[…],[…]]'], ['Transposta', 'transposta(|)', 'transposta'],
-      ['Determinante', 'det(|)', 'det'], ['Inversa', '(|)^-1', 'A^-1'], ['Forma em escada (ref)', 'ref(|)', 'ref'], ['Forma em escada reduzida (rref)', 'rref(|)', 'rref'],
-      ['Matriz identidade', 'identity(|)', 'identity'], ['Valores próprios', 'eigVl(|)', 'eigVl'], ['Vetores próprios', 'eigVc(|)', 'eigVc'], ['Característica', 'car(|)', 'car'],
-      ['Resolver sistema A·X = B', 'simult(|,)', 'simult'],
-      ['Vetor', [['Produto escalar', 'dotP(|,)', 'dotP'], ['Produto vetorial', 'crossP(|,)', 'crossP'], ['Norma', 'norm(|)', 'norm']]]]],
+      ['Resolução numérica', 'nSolve(|,x)', 'nSolve'], ['Resolver sistema de equações', null, [['Resolver sistema de equações', 'solve(| and ,{x,y})', 'solve'], ['Resolver sistema de equações lineares', 'simult(|,)', 'simult']]],
+      ['Ferramentas de polinómios', null, [['Raízes do polinómio', 'zeros(|,x)', 'zeros'], ['Frações parciais', 'expand(|,x)', 'expand(…,x)']]],
+      ['Ferramentas de frações', null, [['Fração própria', 'propFrac(|)', 'propFrac'], ['Denominador comum', 'comDenom(|)', 'comDenom']]],
+      ['Trigonometria', null, [['Expandir', 'tExpand(|)', 'tExpand'], ['Agrupar', 'tCollect(|)', 'tCollect']]]]],
+    ['Cálculo', '∫', [
+      ['Derivada', 'derivative(|,x)', 'd/dx'], ['Derivada num ponto', 'derivPt(|,x,)', 'd/dx|x='], ['Integral', 'integral(|,x,a,b)', '∫'], ['Limite', 'limit(|,x,0)', 'lim'],
+      ['Soma', 'sum(|,k,1,n)', 'Σ'], ['Produto', 'product(|,k,1,n)', 'Π'], ['Mínimo da função', 'fMin(|,x)', 'fMin'], ['Máximo da função', 'fMax(|,x)', 'fMax'],
+      ['Reta tangente', 'tangentLine(|,x,)', 'tangentLine'], ['Reta normal', 'normalLine(|,x,)', 'normalLine'], ['Séries', null, [['Taylor', 'taylor(|,x,5)', 'taylor']]],
+      ['Resolução de equações diferenciais', "deSolve(y'=| and y(0)=1,x,y)", 'deSolve'], ['Transformadas', null, [['Laplace', 'laplace(|)', 'laplace'], ['Laplace inversa', 'ilaplace(|)', 'ilaplace']]]]],
+    ['Probabilidade', '!', [['Fatorial (!)', '|!', '!'], ['Permutações', 'nPr(|,)', 'nPr'], ['Combinações', 'nCr(|,)', 'nCr']]],
+    ['Estatística', 'σ', [['Cálculos estatísticos', null, [['Média', 'mean({|})', 'mean'], ['Mediana', 'median({|})', 'median'], ['Desvio padrão amostral', 'stDevSamp({|})', 'stDevSamp'], ['Variância amostral', 'varSamp({|})', 'varSamp']]]]],
+    ['Matriz e vetor', '▦', [
+      ['Criar', null, [['Matriz 2×2', '[[|,],[,]]', ''], ['Matriz 3×3', '[[|,,],[,,],[,,]]', ''], ['Identidade', 'identity(|)', 'identity']]],
+      ['Transpor', 'transposta(|)', 'ᵀ'], ['Determinante', 'det(|)', 'det'], ['Forma de escalão-linha', 'ref(|)', 'ref'], ['Forma de escalão-linha reduzida', 'rref(|)', 'rref'],
+      ['Inversa', '(|)^-1', '⁻¹'], ['Característica', 'car(|)', 'rank'], ['Valores próprios', 'eigVl(|)', 'eigVl'], ['Vetores próprios', 'eigVc(|)', 'eigVc'],
+      ['Vetor', null, [['Produto escalar', 'dotP(|,)', 'dotP'], ['Produto vetorial', 'crossP(|,)', 'crossP'], ['Norma', 'norm(|)', 'norm']]]]],
+    ['Funções e programas', 'f', [['Definir função', 'Define f(x)=|', 'Define'], ['Definir variável', 'a:=|', ':=']]],
+  ];
+  const CATALOGO = [
+    'abs(', 'angle(', 'approx(', 'ceiling(', 'comDenom(', 'conj(', 'cos(', 'cosh(', 'crossP(', 'deSolve(', 'derivative(', 'derivPt(', 'det(', 'dotP(', 'eigVc(', 'eigVl(',
+    'exact(', 'expand(', 'factor(', 'floor(', 'fMax(', 'fMin(', 'gcd(', 'identity(', 'ilaplace(', 'imag(', 'integral(', 'laplace(', 'lcm(', 'limit(', 'ln(', 'log(',
+    'mean(', 'median(', 'mod(', 'nCr(', 'norm(', 'normalLine(', 'nPr(', 'nSolve(', 'polar(', 'product(', 'propFrac(', 'real(', 'ref(', 'root(', 'round(', 'rref(',
+    'sign(', 'simult(', 'sin(', 'sinh(', 'solve(', 'sqrt(', 'stDevSamp(', 'sum(', 'tan(', 'tangentLine(', 'taylor(', 'tCollect(', 'tExpand(', 'varSamp(', 'zeros(',
+    'acos(', 'asin(', 'atan(', 'tanh(',
+  ].sort((x, y) => x.toLowerCase().localeCompare(y.toLowerCase()));
+  const MODELOS = [
+    ['\\frac{□}{□}', '(|)/()'], ['□^{□}', '(|)^()'], ['\\sqrt{□}', 'sqrt(|)'], ['\\sqrt[□]{□}', 'root(|,)'], ['e^{□}', 'e^(|)'], ['\\log_{□}(□)', 'log(|,)'],
+    ['\\begin{cases}□\\\\□\\end{cases}', 'Piecewise((|, x<0), (, True))'], ['\\begin{cases}□\\\\□\\end{cases}\\!\\!=', 'solve(| and ,{x,y})'], ['|□|', 'abs(|)'],
+    ['\\begin{bmatrix}□&□\\\\□&□\\end{bmatrix}', '[[|,],[,]]'], ['\\begin{bmatrix}□\\\\□\\end{bmatrix}', '[[|],[]]'], ['\\frac{d}{d□}(□)', 'derivative(|,x)'],
+    ['\\int_{□}^{□}□\\,d□', 'integral(|,x,a,b)'], ['\\int □\\,d□', 'integral(|,x)'], ['\\lim\\limits_{□\\to□}□', 'limit(|,x,0)'], ['\\sum_{□}^{□}□', 'sum(|,k,1,n)'],
   ];
   const TRIG = [['sin', 'sin(|)'], ['cos', 'cos(|)'], ['tan', 'tan(|)'], ['sin⁻¹', 'asin(|)'], ['cos⁻¹', 'acos(|)'], ['tan⁻¹', 'atan(|)'], ['sinh', 'sinh(|)'], ['cosh', 'cosh(|)'], ['tanh', 'tanh(|)']];
-  const MODELOS = [
-    ['Fração', '(|)/()'], ['Potência', '(|)^()'], ['Raiz quadrada', 'sqrt(|)'], ['Raiz de índice n', 'root(|,n)'], ['Exponencial', 'e^(|)'], ['Logaritmo de base b', 'log(|,b)'],
-    ['Derivada', 'derivative(|,x)'], ['Integral indefinido', 'integral(|,x)'], ['Integral definido', 'integral(|,x,a,b)'], ['Limite', 'limit(|,x,a)'], ['Soma Σ', 'sum(|,k,1,n)'],
-    ['Matriz 2×2', '[[|,],[,]]'], ['Sistema de 2 equações', 'solve(| and ,{x,y})'], ['Módulo |x|', 'abs(|)'], ['Função por ramos', 'Piecewise((|, x<0), (x^2, True))'],
+  const RELACOES = [['=', '='], ['≠', '!='], ['<', '<'], ['≤', '<='], ['>', '>'], ['≥', '>='], ['and', ' and '], ['or', ' or '], ['not', 'not ']];
+  const SIMBOLOS = [['∞', 'oo'], ['π', 'pi'], ['θ', 'theta'], ['°', '*pi/180'], ['i', 'i'], ['e', 'e'], ['→', '→'], ['√', 'sqrt(|)'], ['!', '!'], ['≈', 'approx(|)'], ['∂', 'derivative(|,x)'], ['Σ', 'sum(|,k,1,n)']];
+
+  // ----- teclas: [rótulo, ação, rótulo ctrl, ação ctrl, classe, colunas]
+  const TOPO_E = [['esc', '@esc', '↶', '@undo'], ['▦', '@rascunho', 'save', '@nada'], ['tab', '@tab', '', '']];
+  const TOPO_D = [['⌂on', '@home', 'off', '@nada'], ['doc▾', '@doc', '+page', '@nada'], ['menu', '@menu', '', '@contexto']];
+  const LINHAS = [
+    { cols: 7, k: [['ctrl', '@ctrl', '', '', 'ctrl'], ['⇧shift', '@shift', 'CAPS', '@caps', ''], null, null, null, ['var', '@var', 'sto→', '→', ''], ['del', '@del', 'clear', '@clear', '']] },
+    { cols: 7, sec: true, k: [['=', '=', '≠≥▸', '@rel', 'op'], ['trig', '@trig', '?', '@ajuda', 'op'], ['7', '7', '', '', 'num'], ['8', '8', '', '', 'num'], ['9', '9', '', '', 'num'], ['⊞', '@modelos', ':=', ':=', 'op'], ['📖', '@catalogo', '∞β°', '@simbolos', 'op']] },
+    { cols: 7, sec: true, k: [['^', '^', 'ⁿ√x', 'root(|,)', 'op'], ['x²', '^2', '√', 'sqrt(|)', 'op'], ['4', '4', '', '', 'num'], ['5', '5', '', '', 'num'], ['6', '6', '', '', 'num'], ['×', '*', '""', '"|"', 'op'], ['÷', '/', '□/□', '(|)/()', 'op']] },
+    { cols: 7, sec: true, k: [['eˣ', 'e^(|)', 'ln', 'ln(|)', 'op'], ['10ˣ', '10^(|)', 'log', 'log(|)', 'op'], ['1', '1', '', '', 'num'], ['2', '2', '', '', 'num'], ['3', '3', '', '', 'num'], ['+', '+', '', '', 'op'], ['−', '-', '', '', 'op']] },
+    { cols: 7, sec: true, k: [['(', '(', '[ ]', '[|]', 'op'], [')', ')', '{ }', '{|}', 'op'], ['0', '0', '', '', 'num'], ['.', '.', 'capture', '@nada', 'num'], ['(−)', '-', 'ans', 'ans', 'num'], ['enter', '@enter', '≈', '@aprox', 'enter', 2]] },
   ];
-  // teclado: [rótulo, ação, classe, legenda]
-  const TECLADO = [
-    [['menu', '@menu', 'azul'], ['var', '@var', 'claro'], ['trig', '@trig', 'claro'], ['⊞ modelos', '@modelos', 'claro'], ['⌫ del', '@del', 'vermelho'], ['clear', '@clear', 'vermelho']],
-    [['◀', '@esq', ''], ['▶', '@dir', ''], ['↑ hist.', '@cima', ''], ['ans', 'ans', ''], ['=', '=', ''], [':=', ':=', '']],
-    [['x²', '^2', ''], ['^', '^', ''], ['√', 'sqrt(|)', ''], ['eˣ', 'e^(|)', ''], ['ln', 'ln(|)', ''], ['log', 'log(|)', '', 'base 10']],
-    [['(', '(', ''], [')', ')', ''], [',', ',', ''], ['{ }', '{|}', ''], ['[ ]', '[|]', ''], ['!', '!', '']],
-    [['x', 'x', 'claro'], ['y', 'y', 'claro'], ['z', 'z', 'claro'], ['π', 'pi', 'claro'], ['i', 'i', 'claro', 'complexo'], ['∞', 'oo', 'claro']],
-    ['sep'],
-    [['7', '7', 'num'], ['8', '8', 'num'], ['9', '9', 'num'], ['÷', '/', 'op'], ['and', ' and ', 'claro']],
-    [['4', '4', 'num'], ['5', '5', 'num'], ['6', '6', 'num'], ['×', '*', 'op'], ['<', '<', 'claro']],
-    [['1', '1', 'num'], ['2', '2', 'num'], ['3', '3', 'num'], ['−', '-', 'op'], ['>', '>', 'claro']],
-    [['0', '0', 'num'], ['.', '.', 'num'], ['(−)', '-', 'num'], ['+', '+', 'op'], ['enter', '@enter', 'enter']],
+  const LETRAS = [
+    ['EE', '*10^(|)'], 'A', 'B', 'C', 'D', 'E', 'F', 'G', ['?!▸', '@pont'],
+    ['π▸', 'pi'], 'H', 'I', 'J', 'K', 'L', 'M', 'N', ['⚑▸', ':='],
+    [',', ','], 'O', 'P', 'Q', 'R', 'S', 'T', 'U', ['↵', '@enter'],
+    null, 'V', 'W', 'X', 'Y', 'Z', ['␣', ' ', 2], null,
   ];
+
   const inpCas = $('#cas-in');
+  const popEl = $('#calc-pop');
+  let modCtrl = false, modShift = false, caps = false, selHist = -1, ultimaEntrada = '';
+  const histCas = []; let iHist = 0;
+
+  function atualizarInd() {
+    $('#ind-mod').textContent = modCtrl ? 'ctrl' : caps ? 'CAPS' : modShift ? 'shift' : '';
+    $('.k.ctrl')?.classList.toggle('ativo', modCtrl);
+    $('.k.shift')?.classList.toggle('ativo', modShift || caps);
+  }
+  function aviso(txt) { const a = $('#calc-aviso'); a.textContent = txt; a.hidden = false; clearTimeout(aviso.t); aviso.t = setTimeout(() => (a.hidden = true), 1600); }
   function inserir(modelo) {
     const s = inpCas.selectionStart ?? inpCas.value.length, e = inpCas.selectionEnd ?? s;
-    let txt = modelo, pos = modelo.indexOf('|');
-    const selecionado = inpCas.value.slice(s, e);
-    if (pos >= 0) txt = modelo.replace('|', selecionado); else pos = txt.length;
+    const sel = inpCas.value.slice(s, e);
+    let pos = modelo.indexOf('|');
+    const txt = pos >= 0 ? modelo.replace('|', sel) : modelo;
+    if (pos < 0) pos = txt.length; else pos += sel.length;
+    ultimaEntrada = inpCas.value;
     inpCas.value = inpCas.value.slice(0, s) + txt + inpCas.value.slice(e);
-    inpCas.focus();
-    const c = s + (modelo.includes('|') ? pos + selecionado.length : txt.length);
-    inpCas.selectionStart = inpCas.selectionEnd = c;
+    inpCas.focus(); inpCas.selectionStart = inpCas.selectionEnd = s + pos;
+    limparSel();
   }
-  function tecla(acao) {
-    if (acao === '@menu') return abrirMenu();
-    if (acao === '@trig') return abrirLista('trig', TRIG.map(([n, m]) => [n, m, m.replace('|', '…')]));
-    if (acao === '@modelos') return abrirLista('Modelos', MODELOS.map(([n, m]) => [n, m, m.replace('|', '…')]));
-    if (acao === '@var') return abrirVars();
-    if (acao === '@enter') return calcCas();
-    if (acao === '@clear') { inpCas.value = ''; return inpCas.focus(); }
-    if (acao === '@del') {
-      const s = inpCas.selectionStart, e = inpCas.selectionEnd;
-      if (s !== e) inpCas.value = inpCas.value.slice(0, s) + inpCas.value.slice(e);
-      else if (s > 0) { inpCas.value = inpCas.value.slice(0, s - 1) + inpCas.value.slice(s); inpCas.selectionStart = inpCas.selectionEnd = s - 1; }
-      return inpCas.focus();
-    }
-    if (acao === '@esq' || acao === '@dir') { const p = Math.max(0, inpCas.selectionStart + (acao === '@esq' ? -1 : 1)); inpCas.focus(); inpCas.selectionStart = inpCas.selectionEnd = p; return; }
-    if (acao === '@cima') { if (iHist > 0) { iHist--; inpCas.value = histCas[iHist]; } return inpCas.focus(); }
-    inserir(acao);
-  }
-  $('#ti-teclado').innerHTML = TECLADO.map(l => l[0] === 'sep' ? '<div class="ti-sep"></div>' :
-    `<div class="ti-linha" style="grid-template-columns:repeat(${l.length},1fr)">` + l.map(([r, a, c, leg]) =>
-      `<button class="ti-tecla ${c}" data-a="${esc(a)}">${esc(r)}${leg ? `<small>${esc(leg)}</small>` : ''}</button>`).join('') + '</div>').join('');
-  $$('#ti-teclado .ti-tecla').forEach(b => { b.onmousedown = e => e.preventDefault(); b.onclick = () => tecla(b.dataset.a); });
 
-  // menus
-  const pop = $('#ti-pop');
-  const fecharPop = () => { pop.hidden = true; pop.innerHTML = ''; inpCas.focus(); };
-  pop.onclick = e => { if (e.target === pop) fecharPop(); };
-  const tecla36 = i => i < 9 ? String(i + 1) : String.fromCharCode(65 + i - 9);
-  function abrirLista(titulo, itens, voltar) {
-    pop.hidden = false;
-    pop.innerHTML = `<div class="ti-menu"><div class="ti-menu-cab">${voltar ? '<button class="voltar">◀</button>' : ''}<span>${esc(titulo)}</span><button class="fechar">✕</button></div>` +
-      itens.map((it, i) => `<div class="ti-item" tabindex="0" data-i="${i}"><span class="k">${tecla36(i)}</span><span class="nm">${esc(it[0])}${Array.isArray(it[1]) ? ' <span class="sub">▸</span>' : ''}</span>${it[2] ? `<code>${esc(it[2])}</code>` : ''}</div>`).join('') + '</div>';
-    $('.fechar', pop).onclick = fecharPop;
-    if (voltar) $('.voltar', pop).onclick = voltar;
-    const escolher = i => {
-      const it = itens[i]; if (!it) return;
-      if (Array.isArray(it[1])) return abrirLista(titulo + ' › ' + it[0], it[1], () => abrirLista(titulo, itens, voltar));
-      fecharPop();
-      if (it[1] === '@limpar_vars') { chamar('cas_limpar'); return; }
-      if (it[1] === '@limpar_hist') { $('#cas-ecra').innerHTML = ''; return; }
-      inserir(it[1]);
-    };
-    $$('.ti-item', pop).forEach(el => el.onclick = () => escolher(+el.dataset.i));
-    pop.onkeydown = e => {
-      if (e.key === 'Escape') return fecharPop();
-      const k = e.key.toUpperCase(); const i = /^[1-9]$/.test(k) ? +k - 1 : /^[A-Z]$/.test(k) ? k.charCodeAt(0) - 56 : -1;
-      if (i >= 0) { e.preventDefault(); escolher(i); }
-      if (e.key === 'Enter' && document.activeElement.dataset.i) { e.preventDefault(); escolher(+document.activeElement.dataset.i); }
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); const it = $$('.ti-item', pop); const j = it.indexOf(document.activeElement); it[(j + (e.key === 'ArrowDown' ? 1 : -1) + it.length) % it.length]?.focus(); }
-    };
-    $('.ti-item', pop)?.focus();
+  // ----- menus no ecrã (em cascata)
+  let pilha = []; // [{el, itens, i}]
+  const tecla36 = i => (i < 9 ? String(i + 1) : String.fromCharCode(65 + i - 9));
+  function fecharMenus() { pilha = []; popEl.innerHTML = ''; popEl.hidden = true; inpCas.focus(); }
+  function abrirPainel(titulo, itens, x = 4, y = 4, opts = {}) {
+    popEl.hidden = false;
+    const el = document.createElement('div'); el.className = 'tm';
+    el.style.left = x + 'px'; el.style.top = y + 'px';
+    if (opts.grelha) {
+      el.innerHTML = (titulo ? `<div class="tm-cab">${esc(titulo)}</div>` : '') + `<div class="tm-grelha" style="grid-template-columns:repeat(${opts.grelha},1fr)">` +
+        itens.map((it, i) => `<div class="tm-it" data-i="${i}">${opts.tex ? tex(it[0]) : esc(it[0])}</div>`).join('') + '</div>' + (opts.rodape ? `<div class="tm-rodape">${esc(opts.rodape)}</div>` : '');
+    } else {
+      el.innerHTML = (titulo ? `<div class="tm-cab">${esc(titulo)}</div>` : '') + itens.map((it, i) =>
+        `<div class="tm-it" data-i="${i}">${opts.semNum ? '' : `<span class="n">${tecla36(i)}</span>`}${it.ic ? `<span class="ic">${esc(it.ic)}</span>` : ''}<span class="t">${esc(it.t)}</span>${it.sub ? '<span class="s">▸</span>' : it.dica ? `<span class="s" style="font-size:10px">${esc(it.dica)}</span>` : ''}</div>`).join('') +
+        (opts.rodape ? `<div class="tm-rodape">${esc(opts.rodape)}</div>` : '');
+    }
+    popEl.appendChild(el);
+    const nivel = { el, itens, i: 0, grelha: opts.grelha, aoEscolher: opts.aoEscolher };
+    pilha.push(nivel);
+    el.querySelectorAll('.tm-it').forEach(r => {
+      r.onmouseenter = () => marcar(nivel, +r.dataset.i);
+      r.onclick = () => { marcar(nivel, +r.dataset.i); escolherAtual(); };
+    });
+    marcar(nivel, 0);
+    // não deixar sair do ecrã
+    const W = popEl.clientWidth, H = popEl.clientHeight;
+    if (el.offsetLeft + el.offsetWidth > W) el.style.left = Math.max(0, W - el.offsetWidth - 2) + 'px';
+    if (el.offsetTop + el.offsetHeight > H) el.style.top = Math.max(0, H - el.offsetHeight - 2) + 'px';
+    return nivel;
   }
-  function abrirMenu() { abrirLista('menu', MENU.map(([n, sub]) => [n, sub])); }
-  function abrirVars() {
-    if (!motor) return;
-    const r = chamar('cas_vars');
-    const itens = r.vars.map(v => [v.nome, v.nome, '']);
-    if (!itens.length) itens.push(['(ainda não há variáveis — usa := para guardar)', '', '']);
-    abrirLista('var — variáveis guardadas', itens);
+  function marcar(n, i) {
+    n.i = Math.max(0, Math.min(n.itens.length - 1, i));
+    n.el.querySelectorAll('.tm-it').forEach(r => r.classList.toggle('on', +r.dataset.i === n.i));
+    n.el.querySelector(`.tm-it[data-i="${n.i}"]`)?.scrollIntoView({ block: 'nearest' });
   }
+  function escolherAtual() {
+    const n = pilha[pilha.length - 1]; if (!n) return;
+    const it = n.itens[n.i];
+    if (n.aoEscolher) return n.aoEscolher(it);
+    if (it.sub) {
+      // fecha submenus abertos à direita deste nível e abre o novo
+      const r = n.el.querySelector(`.tm-it[data-i="${n.i}"]`);
+      const x = n.el.offsetLeft + n.el.offsetWidth - 14, y = n.el.offsetTop + r.offsetTop;
+      abrirPainel(null, it.sub, x, y);
+      return;
+    }
+    fecharMenus();
+    executar(it.ins);
+  }
+  const paraItens = lista => lista.map(([t, ins, extra]) => Array.isArray(extra) ? { t, sub: paraItens(extra) } : { t, ins, dica: extra });
+  function abrirMenu() {
+    fecharMenus();
+    abrirPainel(null, MENU.map(([t, ic, sub]) => ({ t, ic, sub: paraItens(sub) })), 4, 4);
+  }
+  function abrirGrelha(titulo, lista, cols, ehTex, rodape) {
+    fecharMenus();
+    abrirPainel(titulo, lista, 30, 20, { grelha: cols, tex: ehTex, rodape, aoEscolher: it => { fecharMenus(); executar(it[1]); } });
+  }
+  function abrirCatalogo() {
+    fecharMenus();
+    abrirPainel('Catálogo  (escreve uma letra para saltar)', CATALOGO.map(c => ({ t: c, ins: c + '|)' })), 30, 6, { semNum: true, rodape: 'enter = inserir · esc = sair' });
+  }
+  function abrirVarsCalc() {
+    fecharMenus();
+    const r = motor ? chamar('cas_vars') : { vars: [] };
+    const itens = r.vars.length ? r.vars.map(v => ({ t: v.nome, ins: v.nome })) : [{ t: '(sem variáveis: usa := ou sto→)', ins: '' }];
+    abrirPainel('Variáveis', itens, 40, 30);
+  }
+  function abrirDoc() {
+    fecharMenus();
+    abrirPainel(null, [{ t: 'Limpar histórico', ins: '@limpar_hist' }, { t: 'Apagar variáveis', ins: '@limpar_vars' }, { t: 'Copiar último resultado', ins: '@copiar' }], 200, 4);
+  }
+  function navegar(tecla) {
+    const n = pilha[pilha.length - 1]; if (!n) return false;
+    const c = n.grelha || 1;
+    if (tecla === 'ArrowDown') marcar(n, n.i + c);
+    else if (tecla === 'ArrowUp') marcar(n, n.i - c);
+    else if (tecla === 'ArrowRight') { if (n.grelha) marcar(n, n.i + 1); else if (n.itens[n.i].sub) escolherAtual(); }
+    else if (tecla === 'ArrowLeft') { if (n.grelha) marcar(n, n.i - 1); else if (pilha.length > 1) { pilha.pop().el.remove(); } }
+    else if (tecla === 'Enter') escolherAtual();
+    else if (tecla === 'Escape') { if (pilha.length > 1) pilha.pop().el.remove(); else fecharMenus(); }
+    else if (/^[1-9a-zA-Z]$/.test(tecla)) {
+      if (n.itens[0] && n.itens[0].t && n.itens[0].t.endsWith('(') || (n.el.querySelector('.tm-cab')?.textContent || '').startsWith('Catálogo')) {
+        const j = n.itens.findIndex(it => it.t.toLowerCase().startsWith(tecla.toLowerCase())); if (j >= 0) marcar(n, j);
+      } else if (!n.grelha) {
+        const k = tecla.toUpperCase(); const i = /^[1-9]$/.test(k) ? +k - 1 : k.charCodeAt(0) - 56;
+        if (i >= 0 && i < n.itens.length) { marcar(n, i); escolherAtual(); }
+      }
+    } else return false;
+    return true;
+  }
+
+  // ----- histórico: seleção com ▲▼ (como na TI)
+  function linhasSel() {
+    const out = [];
+    $$('#cas-ecra .cas-linha').forEach(l => { out.push([l, 'ent']); if (!l.classList.contains('erro')) out.push([l, 'sai']); });
+    return out;
+  }
+  function limparSel() { selHist = -1; $$('#cas-ecra .cas-linha').forEach(l => l.classList.remove('sel-ent', 'sel-sai')); }
+  function moverSel(d) {
+    const L = linhasSel(); if (!L.length) return;
+    selHist = selHist < 0 ? (d < 0 ? L.length - 1 : -1) : selHist + d;
+    if (selHist >= L.length || selHist < 0) { limparSel(); return; }
+    $$('#cas-ecra .cas-linha').forEach(l => l.classList.remove('sel-ent', 'sel-sai'));
+    const [l, t] = L[selHist]; l.classList.add('sel-' + t); l.scrollIntoView({ block: 'nearest' });
+  }
+  function copiarSel() {
+    const L = linhasSel(); const [l, t] = L[selHist] || [];
+    if (!l) return false;
+    inserir(t === 'ent' ? l.dataset.ent : (l.dataset.texto || l.dataset.ent));
+    return true;
+  }
+
+  // ----- ações
+  function executar(acao) {
+    if (acao == null || acao === '') return;
+    switch (acao) {
+      case '@menu': return abrirMenu();
+      case '@contexto': return abrirDoc();
+      case '@doc': return abrirDoc();
+      case '@trig': return abrirGrelha('trig', TRIG, 3, false);
+      case '@rel': return abrirGrelha(null, RELACOES, 3, false);
+      case '@modelos': return abrirGrelha('Modelos', MODELOS, 4, true, 'setas + enter, ou clica');
+      case '@catalogo': return abrirCatalogo();
+      case '@simbolos': return abrirGrelha('Símbolos', SIMBOLOS, 4, false);
+      case '@var': return abrirVarsCalc();
+      case '@enter': if (selHist >= 0) { copiarSel(); limparSel(); return; } return calcCas(false);
+      case '@aprox': return calcCas(true);
+      case '@esc': if (!popEl.hidden) return fecharMenus(); limparSel(); return;
+      case '@undo': { const t = inpCas.value; inpCas.value = ultimaEntrada; ultimaEntrada = t; return inpCas.focus(); }
+      case '@clear': ultimaEntrada = inpCas.value; inpCas.value = ''; return inpCas.focus();
+      case '@del': {
+        const s0 = inpCas.selectionStart, e0 = inpCas.selectionEnd; ultimaEntrada = inpCas.value;
+        if (s0 !== e0) { inpCas.value = inpCas.value.slice(0, s0) + inpCas.value.slice(e0); inpCas.selectionStart = inpCas.selectionEnd = s0; }
+        else if (s0 > 0) { inpCas.value = inpCas.value.slice(0, s0 - 1) + inpCas.value.slice(s0); inpCas.selectionStart = inpCas.selectionEnd = s0 - 1; }
+        return inpCas.focus();
+      }
+      case '@ctrl': modCtrl = !modCtrl; return atualizarInd();
+      case '@shift': modShift = !modShift; return atualizarInd();
+      case '@caps': caps = !caps; modShift = false; return atualizarInd();
+      case '@limpar_hist': $('#cas-ecra').innerHTML = ''; return;
+      case '@limpar_vars': if (motor) chamar('cas_limpar'); return aviso('Variáveis apagadas');
+      case '@copiar': { const l = $$('#cas-ecra .cas-linha').pop(); if (l) inserir(l.dataset.texto || ''); return; }
+      case '@ajuda': return abrirGrelha('Ajuda rápida', [['menu = comandos por categoria', ''], ['📖 = catálogo A–Z', ''], ['⊞ = modelos', ''], ['ctrl+enter = ≈ decimal', ''], ['▲▼ + enter = reutilizar', '']], 1, false);
+      case '@pont': return abrirGrelha(null, [['!', '!'], ['?', '?'], ['"', '"|"'], [':', ':'], [';', ';'], ['_', '_']], 3, false);
+      case '@home': return aviso('Página inicial — esta calculadora só tem a aplicação Calculadora');
+      case '@rascunho': return aviso('Rascunho: esta calculadora já funciona como rascunho');
+      case '@tab': return aviso('tab: na TI muda de campo nos modelos — aqui usa ◂ ▸');
+      case '@nada': return;
+      case '→': {
+        // sto→: guarda o resultado anterior (ou a expressão escrita) numa variável
+        inserir('→'); return;
+      }
+      default: return inserir(acao);
+    }
+  }
+  function premir(k) {
+    let [rot, ac, , acCtrl] = k;
+    if (modCtrl && acCtrl) { modCtrl = false; atualizarInd(); return executar(acCtrl); }
+    if (modCtrl && ac !== '@ctrl') { modCtrl = false; atualizarInd(); }
+    if (!popEl.hidden && ['@enter', '@esc'].includes(ac)) return navegar(ac === '@enter' ? 'Enter' : 'Escape');
+    executar(ac);
+  }
+  function premirLetra(L) {
+    const maiusc = caps !== modShift; // shift inverte o CAPS
+    if (modShift) { modShift = false; atualizarInd(); }
+    if (!popEl.hidden && navegar(L)) return;
+    inserir(maiusc ? L : L.toLowerCase());
+  }
+
+  // ----- construir o corpo da calculadora
+  const corpo = $('#calc-corpo');
+  const btnHTML = (k, extra = '') => {
+    if (!k) return '<span></span>';
+    const [rot, , sec, , cls = '', span = 1] = k;
+    return `<button class="k ${cls} ${rot === '⇧shift' ? 'shift' : ''}" ${span > 1 ? `style="grid-column:span ${span}"` : ''} ${extra}>${sec ? `<span class="sec">${esc(sec)}</span>` : ''}${esc(rot)}</button>`;
+  };
+  let html = `<div class="k-zona-topo">
+    <div class="k-col">${TOPO_E.map((k, i) => btnHTML(k, `data-g="te" data-i="${i}"`)).join('')}</div>
+    <div class="touchpad"><button class="up" data-t="ArrowUp">▲</button><button class="lf" data-t="ArrowLeft">◀</button><button class="ct" data-t="Enter">●</button><button class="rt" data-t="ArrowRight">▶</button><button class="dn" data-t="ArrowDown">▼</button></div>
+    <div class="k-col">${TOPO_D.map((k, i) => btnHTML(k, `data-g="td" data-i="${i}"`)).join('')}</div></div>`;
+  LINHAS.forEach((L, li) => {
+    html += `<div class="k-linha ${L.sec ? 'k-espaco-sec' : ''}" style="grid-template-columns:repeat(${L.cols},1fr)">` + L.k.map((k, i) => btnHTML(k, `data-g="l${li}" data-i="${i}"`)).join('') + '</div>';
+  });
+  html += '<div class="k-sep"></div><div class="k-linha" style="grid-template-columns:repeat(9,1fr)">' + LETRAS.map((k, i) => {
+    if (!k) return '<span></span>';
+    if (typeof k === 'string') return `<button class="k letra" data-letra="${k}">${k}</button>`;
+    return `<button class="k letra" data-g="lt" data-i="${i}" ${k[2] ? `style="grid-column:span ${k[2]}"` : ''}>${esc(k[0])}</button>`;
+  }).join('') + '</div>';
+  corpo.innerHTML = html;
+  const grupos = { te: TOPO_E, td: TOPO_D, lt: LETRAS.map(k => (Array.isArray(k) ? [k[0], k[1]] : null)) };
+  LINHAS.forEach((L, li) => (grupos['l' + li] = L.k));
+  corpo.querySelectorAll('button').forEach(b => {
+    b.addEventListener('mousedown', e => e.preventDefault());
+    b.onclick = () => {
+      if (b.dataset.t) { if (!popEl.hidden) return navegar(b.dataset.t); if (b.dataset.t === 'ArrowUp') return moverSel(-1); if (b.dataset.t === 'ArrowDown') return moverSel(1);
+        if (b.dataset.t === 'Enter') return executar('@enter');
+        const p0 = inpCas.selectionStart + (b.dataset.t === 'ArrowLeft' ? -1 : 1); inpCas.focus(); inpCas.selectionStart = inpCas.selectionEnd = Math.max(0, p0); return; }
+      if (b.dataset.letra) return premirLetra(b.dataset.letra);
+      premir(grupos[b.dataset.g][+b.dataset.i]);
+    };
+  });
+
+  // teclado físico
+  inpCas.addEventListener('keydown', e => {
+    if (!popEl.hidden) { if (navegar(e.key)) e.preventDefault(); return; }
+    if (e.key === 'Enter') { e.preventDefault(); if (selHist >= 0) { copiarSel(); limparSel(); } else calcCas(e.ctrlKey || e.metaKey); return; }
+    if (e.key === 'ArrowUp') { e.preventDefault(); return moverSel(-1); }
+    if (e.key === 'ArrowDown') { e.preventDefault(); return moverSel(1); }
+    if (e.key === 'Escape') { limparSel(); return; }
+    if (selHist >= 0) limparSel();
+  });
+  popEl.addEventListener('mousedown', e => e.preventDefault());
 
   const CMDS = [
-    ['solve(x^2=4,x)', 'resolver equação → x = −2 ou x = 2'], ['solve(x+y=3 and x-y=1,{x,y})', 'sistema'], ['zeros(x^3-x,x)', 'zeros → {−1, 0, 1}'],
-    ['factor(x^2-5x+6)', 'fatorizar (factor(120) dá os fatores primos)'], ['expand((x+1)^3)', 'desenvolver; expand(f,x) = frações simples'],
+    ['solve(x^2=4,x)', 'resolver → x = −2 ou x = 2'], ['solve(x+y=3 and x-y=1,{x,y})', 'sistema'], ['zeros(x^3-x,x)', 'zeros'],
+    ['factor(x^2-5x+6)', 'fatorizar (factor(120) dá os fatores primos)'], ['expand((x+1)^3)', 'desenvolver; expand(f,x) = frações parciais'],
     ['derivative(x^3*sin(x),x)', 'derivada'], ['integral(x*e^x,x)', 'primitiva'], ['integral(x^2,x,0,1)', 'integral definido'], ['limit(sin(x)/x,x,0)', 'limite'],
-    ['sum(1/k^2,k,1,oo)', 'somatório'], ['taylor(cos(x),x,6)', 'Taylor até ordem 6'], ["deSolve(y''+y=0 and y(0)=1 and y'(0)=0,x,y)", 'equação diferencial'],
-    ['A:=[[1,2],[3,4]]', 'guardar matriz'], ['det(A)', 'determinante'], ['A^-1', 'inversa'], ['rref(A)', 'escalonar'], ['eigVl(A)', 'valores próprios'],
-    ['f(x):=x^2+1', 'definir função; depois f(3)'], ['nCr(5,2)', 'combinações'], ['mean({1,2,3,4})', 'média'], ['approx(pi)', 'valor decimal'],
-    ['laplace(exp(-2t))', 'transformada de Laplace'], ['(3+4i)*(1-2i)', 'complexos'],
+    ['sum(1/k^2,k,1,oo)', 'somatório'], ['taylor(cos(x),x,6)', 'Taylor'], ["deSolve(y''+y=0 and y(0)=1 and y'(0)=0,x,y)", 'equação diferencial'],
+    ['[[1,2],[3,4]]→a', 'sto→: guardar numa variável'], ['det(a)', 'determinante'], ['a^-1', 'inversa'], ['rref(a)', 'escalonar'], ['eigVl(a)', 'valores próprios'],
+    ['f(x):=x^2+1', 'definir função; depois f(3)'], ['nCr(5,2)', 'combinações'], ['mean({1,2,3,4})', 'média'], ['approx(pi)', 'valor decimal (ou ctrl+enter)'],
   ];
-  $('#cmds').innerHTML = '<p class="ajuda">Clica num exemplo para o pôr na linha de entrada. No site <code>log</code> é de base 10 (como na TI) e <code>ln</code> é o natural. Os nomes em português também funcionam (<code>resolver</code>, <code>derivar</code>, <code>integrar</code>…).</p>' +
+  $('#cmds').innerHTML = '<p class="ajuda">Clica para pôr na linha de entrada. <code>log</code> é de base 10 (como na TI) e <code>ln</code> é o natural.</p>' +
     CMDS.map(([c, d]) => `<div><code>${esc(c)}</code> — ${esc(d)}</div>`).join('');
   $$('#cmds code').forEach(c => c.onclick = () => { inpCas.value = c.textContent; inpCas.focus(); });
 
-  const histCas = []; let iHist = 0;
-  function calcCas() {
-    const linha = inpCas.value.trim(); if (!linha) return;
-    if (!motor) { alert('O motor ainda está a carregar.'); return; }
+  function calcCas(aprox) {
+    let linha = inpCas.value.trim(); if (!linha) return;
+    if (!motor) { aviso('O motor ainda está a carregar…'); return; }
     histCas.push(linha); iHist = histCas.length;
-    $('.ti-vazio')?.remove();
-    const r = chamar('cas', linha);
+    // sto→  (expr→nome)  passa a  nome:=expr
+    let calc = linha;
+    const dm = calc.match(/^Define\s+(.+?)\s*:?=\s*(.+)$/i);
+    if (dm) calc = `${dm[1]}:=${dm[2]}`;
+    const m = calc.match(/^(.*)→\s*([A-Za-z_]\w*)\s*$/);
+    if (m) calc = `${m[2]}:=${m[1] || 'ans'}`;
+    if (aprox) calc = `approx(${calc})`;
+    const r = chamar('cas', calc);
     const el = document.createElement('div');
     el.className = 'cas-linha' + (r.ok ? '' : ' erro');
+    el.dataset.ent = linha; if (r.texto) el.dataset.texto = r.texto;
     el.innerHTML = `<div class="ent">${esc(linha)}</div>` + (r.ok
-      ? `<div class="sai" title="clica para copiar o resultado para a linha de entrada">${tex(r.saida, true)}</div>${r.aprox ? `<div class="apx">≈ ${tex(r.aprox)}</div>` : ''}${r.sugestao ? '<div class="acoes"><button class="btn sec peq">Ver passos</button></div>' : ''}`
+      ? `<div class="sai">${tex(r.saida, true)}</div>${r.aprox && !aprox ? `<div class="apx">≈ ${tex(r.aprox)}</div>` : ''}${r.sugestao ? '<div class="acoes"><button class="btn sec peq">Ver passos</button></div>' : ''}`
       : `<div class="sai">${esc(r.erro)}</div>`);
     if (r.ok && r.sugestao) $('button', el).onclick = () => abrirNoSolver(r.sugestao);
-    if (r.ok && r.texto) $('.sai', el).onclick = () => inserir(r.texto);
     $('#cas-ecra').appendChild(el); $('#cas-ecra').scrollTop = 1e9;
-    inpCas.value = '';
+    ultimaEntrada = linha; inpCas.value = ''; limparSel(); inpCas.focus();
   }
   function abrirNoSolver(s) {
     const a = s.args;
-    const q = new URLSearchParams({ tipo: s.tipo, a: s.tipo === 'equacao' ? a[0] : a[0] || '' });
+    const q = new URLSearchParams({ tipo: s.tipo, a: a[0] || '' });
     if (s.tipo === 'integral' && a.length >= 4) { q.set('b', a[2]); q.set('c', a[3]); }
     if (s.tipo === 'limite' && a.length >= 3) q.set('b', a[2]);
     location.hash = 'solver?' + q.toString();
   }
-  inpCas.addEventListener('keydown', e => {
-    if (e.key === 'Enter') calcCas();
-    if (e.key === 'ArrowUp' && iHist > 0) { iHist--; e.target.value = histCas[iHist]; e.preventDefault(); }
-    if (e.key === 'ArrowDown') { iHist = Math.min(histCas.length, iHist + 1); e.target.value = histCas[iHist] || ''; }
-  });
 
   // ---------------------------------------------------------------- Arranque
   document.addEventListener('DOMContentLoaded', () => {

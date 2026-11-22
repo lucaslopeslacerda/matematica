@@ -66,19 +66,35 @@
 <!-- ================= CAS ================= -->
 <section class="vista" id="v-cas">
   <h1>Calculadora CAS</h1>
-  <p class="sub">Funciona como a aplicação Calculadora da TI-Nspire CX CAS: os mesmos nomes de comandos (<code>solve</code>, <code>factor</code>, <code>zeros</code>, <code>deSolve</code>…), a tecla <b>menu</b> com as mesmas categorias e um teclado parecido. O que aprenderes aqui serve na calculadora.</p>
-  <div class="ti">
-    <div class="ti-ecra-wrap">
-      <div class="ti-barra"><span>1.1</span><b>Calculadora</b><span class="ti-modo">CAS · RAD</span></div>
-      <div class="cas-ecra" id="cas-ecra"><div class="ti-vazio">Escreve uma conta ou usa a tecla <b>menu</b>. Ex.: <code>solve(x^2=4,x)</code></div></div>
-      <div class="cas-entrada"><input id="cas-in" placeholder="escreve aqui…  (Enter = calcular · ↑ = histórico)" autocomplete="off" spellcheck="false"></div>
+  <p class="sub">Disposição das teclas, funções secundárias (<b>ctrl</b>) e menus iguais aos da TI-Nspire CX II CAS. Podes clicar nas teclas ou escrever com o teclado do computador. Nos menus, usa as setas do touchpad (ou do teclado), <b>enter</b> e <b>esc</b>, ou carrega no número do item.</p>
+  <div class="calc-layout">
+    <div class="calc">
+      <div class="calc-ecra">
+        <div class="calc-barra"><span class="seta-tab">◂</span><span class="tab ativo">1.1</span><span class="seta-tab">▸</span><span class="docnome">*Matemática</span>
+          <span class="ind" id="ind-mod"></span><span class="rad">RAD</span><span class="bat"><i></i></span></div>
+        <div class="calc-hist" id="cas-ecra"></div>
+        <div class="calc-linha"><input id="cas-in" autocomplete="off" spellcheck="false" aria-label="linha de entrada"></div>
+        <div class="calc-pop" id="calc-pop" hidden></div>
+        <div class="calc-aviso" id="calc-aviso" hidden></div>
+      </div>
+      <div class="calc-corpo" id="calc-corpo"></div>
     </div>
-    <div class="ti-teclado" id="ti-teclado"></div>
+    <div class="calc-lado">
+      <div class="cartao">
+        <b>Como funciona</b>
+        <ul class="ajuda" style="font-size:.88rem;padding-left:18px;margin:8px 0 0">
+          <li><b>ctrl</b> e depois uma tecla: função escrita por cima da tecla (ex.: <b>ctrl</b> + <b>x²</b> = √, <b>ctrl</b> + <b>enter</b> = valor aproximado ≈, <b>ctrl</b> + <b>(−)</b> = ans).</li>
+          <li><b>shift</b>: maiúsculas. <b>ctrl</b> + <b>shift</b> = CAPS fixo.</li>
+          <li><b>▲ ▼ no touchpad</b>: seleciona contas anteriores; <b>enter</b> copia-as para a linha.</li>
+          <li><b>⊞</b> = modelos, <b>📖</b> = catálogo de todos os comandos, <b>var</b> = variáveis guardadas, <b>ctrl</b> + <b>var</b> = sto→ (guardar).</li>
+          <li><b>doc ▾</b> e <b>ctrl</b> + <b>menu</b>: ações sobre o histórico.</li>
+        </ul>
+      </div>
+      <details class="cartao"><summary><b>Exemplos de comandos (TI-Nspire)</b></summary>
+        <div class="cmd-lista" id="cmds" style="margin-top:10px"></div>
+      </details>
+    </div>
   </div>
-  <div class="ti-pop" id="ti-pop" hidden></div>
-  <details class="cartao" style="margin-top:16px"><summary><b>Guia rápido: TI-Nspire ↔ este site</b></summary>
-    <div class="cmd-lista" id="cmds" style="margin-top:10px"></div>
-  </details>
 </section>
 
 <!-- ================= DEFINIÇÕES ================= -->
