@@ -1140,6 +1140,8 @@ def cas(linha):
         if de is not None:
             CAS_VARS['ans'] = de
             return ok(entrada=linha_orig, saida=_lat_any(de), aprox='', sugestao=None)
+        # notação científica da TI (tecla EE): 10E-3 → (10*10^(-3)), exata
+        linha = re.sub(r'(?<![\w.])(\d+(?:\.\d+)?)[Ee]([+-]?\d+)(?![\w.])', r'(\1*10^(\2))', linha)
         if not linha.lstrip().startswith('edo('):
             linha = _ti_pre(linha)
         sem_aspas = re.sub(r'"[^"]*"|\'[^\']*\'', '', linha)

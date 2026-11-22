@@ -460,7 +460,7 @@ Se houver várias alíneas, escolhe a primeira. Se for um sistema de equações 
     { cols: 7, sec: true, k: [['(', '(', '[ ]', '[|]', 'op'], [')', ')', '{ }', '{|}', 'op'], ['0', '0', '', '', 'num'], ['.', '.', 'capture', '@nada', 'num'], ['(−)', '-', 'ans', 'ans', 'num'], ['enter', '@enter', '≈', '@aprox', 'enter', 2]] },
   ];
   const LETRAS = [
-    ['EE', '*10^(|)'], 'A', 'B', 'C', 'D', 'E', 'F', 'G', ['?!▸', '@pont'],
+    ['EE', 'E'], 'A', 'B', 'C', 'D', 'E', 'F', 'G', ['?!▸', '@pont'],
     ['π▸', 'pi'], 'H', 'I', 'J', 'K', 'L', 'M', 'N', ['⚑▸', ':='],
     [',', ','], 'O', 'P', 'Q', 'R', 'S', 'T', 'U', ['↵', '@enter'],
     null, 'V', 'W', 'X', 'Y', 'Z', ['␣', ' ', 2], null,
