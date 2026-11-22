@@ -54,7 +54,7 @@ def P(s, extra=None):
 def L(e):
     """LaTeX de uma expressão, marcado com \x01…\x02 (vira $…$ nos textos e desaparece nas fórmulas)."""
     s = _latex(e)
-    s = s.replace(r'\log', r'\ln')
+    s = s.replace(r'\log', r'\ln').replace(r'\text{for}', r'\text{se}').replace(r'\text{otherwise}', r'\text{caso contrário}')
     return '\x01' + s + '\x02'
 
 
@@ -864,29 +864,300 @@ def _edo(eq, ics=''):
     return sp.dsolve(eqs, yf(x), ics=cond or None)
 
 
+# ---------------------------------------------------------------- Comandos ao estilo TI-Nspire CX CAS
+class Saida:
+    """Resultado já formatado em LaTeX (ex.: 'x = 2 ou x = 3')."""
+    def __init__(self, latex):
+        self.latex = latex
+
+
+def _var_padrao(e):
+    fs = sorted(getattr(e, 'free_symbols', set()), key=str)
+    return x if x in fs or not fs else fs[0]
+
+
+def _eq(e):
+    return e if isinstance(e, sp.Equality) else sp.Eq(e, 0)
+
+
+def ti_solve(eq, var=None, *extra):
+    if isinstance(eq, (list, tuple)):
+        eqs = [_eq(q) for q in eq]
+        vs = list(var) if isinstance(var, (list, tuple)) else ([var] if var is not None else sorted(set().union(*[q.free_symbols for q in eqs]), key=str))
+        sol = sp.solve(eqs, vs, dict=True)
+        if not sol:
+            return Saida(r'\text{false (sem solução)}')
+        return Saida(r'\;\text{ ou }\;'.join(r'\left(' + r',\; '.join('%s = %s' % (L(k), L(v)) for k, v in d.items()) + r'\right)' for d in sol))
+    eq = _eq(eq)
+    var = var if var is not None else _var_padrao(eq)
+    sol = sp.solve(eq, var)
+    if not sol:
+        return Saida(r'\text{false (sem solução)}')
+    return Saida(r'\;\text{ ou }\;'.join('%s = %s' % (L(var), L(v)) for v in sol))
+
+
+def ti_zeros(e, var=None):
+    var = var if var is not None else _var_padrao(e)
+    return list(sp.solve(_eq(e), var))
+
+
+def ti_nsolve(eq, var=None, palpite=0):
+    eq = _eq(eq)
+    var = var if var is not None else _var_padrao(eq)
+    return Saida('%s = %s' % (L(var), L(sp.nsolve(eq.lhs - eq.rhs, var, palpite))))
+
+
+def ti_factor(e, var=None):
+    if isinstance(e, sp.Integer) or (isinstance(e, sp.Basic) and e.is_Integer):
+        f = sp.factorint(e)
+        return Saida(r' \cdot '.join(('%d^{%d}' % (b, k) if k > 1 else '%d' % b) for b, k in sorted(f.items())) or '1')
+    return sp.factor(e)
+
+
+def ti_expand(e, var=None):
+    if var is not None:
+        return sp.apart(sp.together(e), var)
+    return sp.expand(e)
+
+
+def ti_taylor(f, var=x, n=5, a=0):
+    return sp.series(f, var, a, int(n) + 1).removeO()
+
+
+def _extremo(f, var, maximo):
+    crit = [c for c in sp.solve(sp.diff(f, var), var) if c.is_real]
+    if not crit:
+        return Saida(r'\text{sem extremos}')
+    vals = [(sp.simplify(f.subs(var, c)), c) for c in crit]
+    alvo = max(vals, key=lambda t: float(t[0])) if maximo else min(vals, key=lambda t: float(t[0]))
+    return Saida('%s = %s' % (L(var), L(alvo[1])))
+
+
+def ti_tangente(f, var=x, a=0):
+    m = sp.diff(f, var).subs(var, a)
+    return sp.Eq(y, sp.expand(m * (var - a) + f.subs(var, a)))
+
+
+def ti_normal(f, var=x, a=0):
+    m = sp.diff(f, var).subs(var, a)
+    return sp.Eq(y, sp.expand(-(var - a) / m + f.subs(var, a)))
+
+
+def _lista(v):
+    return list(v) if isinstance(v, (list, tuple, sp.Matrix)) else [v]
+
+
+def ti_mean(v):
+    v = _lista(v); return sp.nsimplify(sum(v)) / len(v)
+
+
+def ti_median(v):
+    v = sorted(_lista(v), key=float); n = len(v)
+    return v[n // 2] if n % 2 else (v[n // 2 - 1] + v[n // 2]) / 2
+
+
+def ti_var(v):
+    v = _lista(v); m = ti_mean(v); return sum((t - m) ** 2 for t in v) / (len(v) - 1)
+
+
+def ti_sum(e, k, a, b):
+    return sp.summation(e, (k, a, b))
+
+
+def ti_prod(e, k, a, b):
+    return sp.product(e, (k, a, b))
+
+
+def ti_ref(M):
+    M = sp.Matrix(M)
+    A = M.echelon_form()
+    return A
+
+
+def ti_eigvc(M):
+    vecs = sp.Matrix(M).eigenvects()
+    return Saida(r',\; '.join(r'\lambda = %s:\ %s' % (L(val), r',\ '.join(L(v.T) for v in vs)) for val, mult, vs in vecs))
+
+
+TI_FUN = {
+    'solve': ti_solve, 'resolver': ti_solve, 'zeros': ti_zeros, 'nSolve': ti_nsolve, 'nsolve': ti_nsolve,
+    'factor': ti_factor, 'fatorizar': ti_factor, 'fatorar': ti_factor, 'expand': ti_expand, 'expandir': ti_expand,
+    'comDenom': sp.together, 'propFrac': sp.apart, 'tExpand': sp.expand_trig, 'tCollect': sp.trigsimp,
+    'approx': lambda e, n=10: sp.N(e, n), 'exact': lambda e: sp.nsimplify(e, rational=True),
+    'floor': sp.floor, 'ceiling': sp.ceiling, 'round': lambda e, n=0: sp.Float(round(float(e), int(n))) if n else sp.Integer(round(float(e))),
+    'mod': sp.Mod, 'gcd': sp.gcd, 'lcm': sp.lcm, 'nCr': sp.binomial, 'nPr': lambda n, r: sp.factorial(n) / sp.factorial(n - r),
+    'derivative': sp.diff, 'd': sp.diff,
+    'limit': lambda f, v=x, a=0, lado='+-': sp.limit(f, v, a, dir=str(lado).strip('"\'') or '+-'),
+    'limite': lambda f, v=x, a=0, lado='+-': sp.limit(f, v, a, dir=str(lado).strip('"\'') or '+-'),
+    'sum': ti_sum, 'soma': ti_sum, 'product': ti_prod,
+    'fMin': lambda f, v=x: _extremo(f, v, False), 'fMax': lambda f, v=x: _extremo(f, v, True),
+    'tangentLine': ti_tangente, 'normalLine': ti_normal, 'taylor': ti_taylor,
+    'identity': sp.eye, 'ref': ti_ref, 'rref': lambda M: sp.Matrix(M).rref()[0], 'eigVl': lambda M: list(sp.Matrix(M).eigenvals(multiple=True)),
+    'eigVc': ti_eigvc, 'dotP': lambda a, b: sp.Matrix(a).dot(sp.Matrix(b)), 'crossP': lambda a, b: sp.Matrix(a).cross(sp.Matrix(b)),
+    'norm': lambda v: sp.sqrt(sum(t ** 2 for t in sp.Matrix(v))), 'simult': lambda A, b: sp.Matrix(A).LUsolve(sp.Matrix(b)),
+    'conj': sp.conjugate, 'real': sp.re, 'imag': sp.im, 'angle': sp.arg,
+    'mean': ti_mean, 'media': ti_mean, 'median': ti_median, 'mediana': ti_median, 'varSamp': ti_var,
+    'stDevSamp': lambda v: sp.sqrt(ti_var(v)), 'max': sp.Max, 'min': sp.Min, 'sign': sp.sign,
+    'log': lambda a, b=None: sp.log(a, b) if b is not None else sp.log(a, 10), 'ln': sp.log, 'sqrt': sp.sqrt,
+    'root': lambda a, n=2: sp.root(a, n), 'abs': sp.Abs, 'Matrix': sp.Matrix, 'matriz': sp.Matrix,
+    'derivPt': lambda f, v, a: sp.diff(f, v).subs(v, a), 'Piecewise': sp.Piecewise, 'piecewise': sp.Piecewise,
+    'True': sp.true, 'sinh': sp.sinh, 'cosh': sp.cosh, 'tanh': sp.tanh,
+}
+
+
+def cas_vars():
+    return ok(vars=[{'nome': k, 'valor': _lat_any(v)} for k, v in CAS_VARS.items()])
+
+
+def _texto(r):
+    if isinstance(r, Saida):
+        return None
+    try:
+        if isinstance(r, sp.MatrixBase):
+            return str(r.tolist()).replace(' ', '')
+        t = sp.sstr(r).replace('**', '^').replace('I', 'i') if isinstance(r, sp.Basic) else None
+        return t
+    except Exception:
+        return None
+
+
+def _fecha(s, i):
+    """índice do parêntese que fecha o que abre em s[i]."""
+    par = {'(': ')', '[': ']'}
+    pilha = []
+    for j in range(i, len(s)):
+        c = s[j]
+        if c in '([':
+            pilha.append(par[c])
+        elif c in ')]':
+            pilha.pop()
+            if not pilha:
+                return j
+        elif c == '"':
+            j2 = s.index('"', j + 1)
+    return len(s) - 1
+
+
+def _partes(s):
+    out, nivel, cur, aspas = [], 0, '', False
+    for c in s:
+        if c == '"':
+            aspas = not aspas
+        if not aspas:
+            if c in '([':
+                nivel += 1
+            elif c in ')]':
+                nivel -= 1
+        if c == ',' and nivel == 0 and not aspas:
+            out.append(cur); cur = ''
+        else:
+            cur += c
+    out.append(cur)
+    return out
+
+
+def _topo_igual(p):
+    nivel, aspas = 0, False
+    for i, c in enumerate(p):
+        if c == '"':
+            aspas = not aspas
+        if aspas:
+            continue
+        if c in '([':
+            nivel += 1
+        elif c in ')]':
+            nivel -= 1
+        elif c == '=' and nivel == 0:
+            ant = p[i - 1] if i else ''
+            dep = p[i + 1] if i + 1 < len(p) else ''
+            if ant not in '<>!=:' and dep != '=':
+                return i
+    return -1
+
+
+def _ti_pre(s, topo=True):
+    """Converte a sintaxe da TI: '=' dentro de argumentos → Eq(), 'and' → lista, {…} → […]."""
+    s = s.replace('{', '[').replace('}', ']')
+    out, i = '', 0
+    while i < len(s):
+        c = s[i]
+        if c == '"':
+            j = s.index('"', i + 1); out += s[i:j + 1]; i = j + 1; continue
+        if c in '([':
+            j = _fecha(s, i)
+            dentro = s[i + 1:j]
+            partes = []
+            for p in _partes(dentro):
+                p = _ti_pre(p, False)
+                if re.search(r'\sand\s', p):
+                    p = '[' + ','.join(re.split(r'\sand\s', p)) + ']'
+                    p = _ti_pre(p, False)
+                k = _topo_igual(p)
+                if k >= 0:
+                    p = 'Eq(%s,%s)' % (p[:k], p[k + 1:])
+                partes.append(p)
+            out += c + ','.join(partes) + s[j]
+            i = j + 1
+            continue
+        out += c
+        i += 1
+    return out
+
+
+def _desolve(linha):
+    """deSolve(y''+y=0 and y(0)=1, x, y) → _edo."""
+    m = re.match(r"^\s*deSolve\s*\((.*)\)\s*$", linha)
+    if not m:
+        return None
+    args = _partes(m.group(1))
+    partes = re.split(r'\sand\s', args[0])
+    return _edo(partes[0].strip().strip('"'), ', '.join(p.strip() for p in partes[1:]))
+
+
 def cas(linha):
     linha_orig = linha.strip()
     try:
         linha = _clean(linha, virgula=False)
         nome = None
+        mf = re.match(r'^\s*([A-Za-z_]\w*)\s*\(\s*([A-Za-z_]\w*(?:\s*,\s*[A-Za-z_]\w*)*)\s*\)\s*:=\s*(.+)$', linha)
+        if mf:
+            fn, args, corpo = mf.group(1), [a.strip() for a in mf.group(2).split(',')], mf.group(3)
+            dd = dict(LOCAL); dd.update(CAS_FUN); dd.update(TI_FUN); dd.update(CAS_VARS)
+            syms = tuple(sp.Symbol(a_) for a_ in args)
+            for a_, s_ in zip(args, syms):
+                dd[a_] = s_
+            expr = parse_expr(_ti_pre(corpo), local_dict=dd, transformations=TRANSF)
+            CAS_VARS[fn] = sp.Lambda(syms, expr)
+            return ok(entrada=linha_orig, saida=r'\text{Feito: } %s(%s) = %s' % (fn, ','.join(args), L(expr)), aprox='', sugestao=None, texto=None)
         m = re.match(r'^\s*([A-Za-z_]\w*)\s*:=\s*(.+)$', linha)
         if m:
             nome, linha = m.group(1), m.group(2)
         d = dict(LOCAL)
         d.update(CAS_FUN)
+        d.update(TI_FUN)
         d.update(CAS_VARS)
+        de = _desolve(linha)
+        if de is not None:
+            CAS_VARS['ans'] = de
+            return ok(entrada=linha_orig, saida=_lat_any(de), aprox='', sugestao=None)
+        if not linha.lstrip().startswith('edo('):
+            linha = _ti_pre(linha)
         sem_aspas = re.sub(r'"[^"]*"|\'[^\']*\'', '', linha)
-        if '==' not in sem_aspas and re.search(r'(?<![<>!=:])=(?!=)', sem_aspas) and not nome:
+        if '==' not in sem_aspas and _topo_igual(sem_aspas) >= 0 and not nome:
             esq, dr = linha.split('=', 1)
-            r = sp.solve(sp.Eq(parse_expr(esq, local_dict=d, transformations=TRANSF), parse_expr(dr, local_dict=d, transformations=TRANSF)))
+            r = ti_solve(sp.Eq(parse_expr(esq, local_dict=d, transformations=TRANSF), parse_expr(dr, local_dict=d, transformations=TRANSF)))
             entrada = r'%s = %s' % (L(parse_expr(esq, local_dict=d, transformations=TRANSF)), L(parse_expr(dr, local_dict=d, transformations=TRANSF)))
         else:
             r = parse_expr(linha, local_dict=d, transformations=TRANSF)
             entrada = _latex_entrada(linha, d)
+        if isinstance(r, list) and r and all(isinstance(q, list) for q in r) and len(set(len(q) for q in r)) == 1:
+            r = sp.Matrix(r)
         if isinstance(r, sp.Basic) and r.is_number and r.has(sp.I):
             r = sp.expand(r)
         if nome:
             CAS_VARS[nome] = r
+        if not isinstance(r, Saida):
+            CAS_VARS['ans'] = r
         saida = _lat_any(r)
         aprox = ''
         try:
@@ -894,8 +1165,8 @@ def cas(linha):
                 aprox = L(sp.N(r, 10))
         except Exception:
             pass
-        sug = _sugestao(linha)
-        return ok(entrada=linha_orig, saida=saida, aprox=aprox, sugestao=sug)
+        sug = None if nome else _sugestao(_clean(linha_orig, virgula=False))
+        return ok(entrada=linha_orig, saida=saida, aprox=aprox, sugestao=sug, texto=_texto(r))
     except Exception as ex:
         return err('Erro: %s' % ex)
 
@@ -909,6 +1180,10 @@ def _latex_entrada(linha, d):
 
 
 def _lat_any(r):
+    if isinstance(r, Saida):
+        return r.latex
+    if isinstance(r, bool):
+        return r'\text{%s}' % ('true' if r else 'false')
     if isinstance(r, (list, tuple)):
         return r'\left\{%s\right\}' % r',\; '.join(_lat_any(i) for i in r) if r else r'\varnothing'
     if isinstance(r, dict):
@@ -920,15 +1195,15 @@ def _lat_any(r):
 
 
 def _sugestao(linha):
-    m = re.match(r'^\s*(derivar|diff|derivada|integrar|integrate|integral|limite|limit|resolver|solve)\s*\((.*)\)\s*$', linha)
+    m = re.match(r'^\s*(derivar|diff|derivada|derivative|integrar|integrate|integral|limite|limit|resolver|solve)\s*\((.*)\)\s*$', linha)
     if not m:
         return None
     f, args = m.group(1), m.group(2)
     partes = [a.strip('"\'') for a in _split_args(args)]
-    if partes and partes[0].startswith('['):
+    if partes and (partes[0].startswith('[') or partes[0].startswith('{') or ' and ' in partes[0]):
         return None
     tipo = {'derivar': 'derivada', 'diff': 'derivada', 'derivada': 'derivada', 'integrar': 'integral', 'integrate': 'integral',
-            'integral': 'integral', 'limite': 'limite', 'limit': 'limite', 'resolver': 'equacao', 'solve': 'equacao'}[f]
+            'integral': 'integral', 'limite': 'limite', 'limit': 'limite', 'resolver': 'equacao', 'solve': 'equacao', 'derivative': 'derivada'}[f]
     return {'tipo': tipo, 'args': partes}
 
 

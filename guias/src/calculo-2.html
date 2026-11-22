@@ -1,0 +1,207 @@
+<!-- titulo: Cálculo 2 -->
+<section id="inicio">
+  <h2>Cálculo 2 — o mapa</h2>
+  <p>Cálculo 2 tem três blocos:</p>
+  <ul><li><b>Técnicas de integração</b>: partes, substituição, frações simples, trigonométricos e impróprios. A pergunta é sempre "qual técnica serve aqui?".</li>
+    <li><b>Séries</b>: somas infinitas e aproximar funções por polinómios (Taylor).</li>
+    <li><b>Equações diferenciais</b> e <b>funções de várias variáveis</b>: a ponte para a física e os circuitos.</li></ul>
+  <div class="caixa como"><b>Fluxograma: que técnica de integração usar?</b><ol>
+    <li>É imediata ou quase imediata (aparece uma função e a sua derivada)? Primitiva direta, ver <a href="calculo-1.html#primitivas">Cálculo 1</a>.</li>
+    <li>Há uma função "dentro" de outra e a derivada da de dentro aparece? <a href="#substituicao">Substituição</a>.</li>
+    <li>É um produto de tipos diferentes (polinómio × exp/trig, ou $\ln$, ou arco)? <a href="#partes">Partes</a>.</li>
+    <li>É uma fração de polinómios? <a href="#fracoes">Frações simples</a>.</li>
+    <li>Tem potências de seno ou cosseno? <a href="#trigonometricos">Integrais trigonométricos</a>.</li>
+    <li>Tem $\sqrt{a^2 - x^2}$, $\sqrt{a^2 + x^2}$ ou $\sqrt{x^2 - a^2}$? Substituição trigonométrica.</li></ol></div>
+</section>
+
+<section id="partes">
+  <h2>1. Integração por partes</h2>
+  <div class="caixa def"><b>Fórmula</b>$\displaystyle\int u\,dv = u\,v - \int v\,du$. Vem da regra do produto: $(uv)' = u'v + uv'$.</div>
+  <div class="caixa como"><b>Como escolher o $u$: regra LIATE</b>Escolhe para $u$ o que aparecer primeiro nesta lista. O resto é o $dv$.
+    <ol><li><b>L</b>ogaritmos ($\ln x$)</li><li><b>I</b>nversas trigonométricas ($\operatorname{arctg}x$)</li><li><b>A</b>lgébricas ($x^2$, $x$)</li><li><b>T</b>rigonométricas ($\operatorname{sen}x$)</li><li><b>E</b>xponenciais ($e^x$)</li></ol>
+    Objetivo: $u$ fica mais simples ao derivar e $dv$ é fácil de integrar.</div>
+  <div class="exemplo"><div class="ex-tit">Exemplo 1: $\int x\,e^x\,dx$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$u = x$, $dv = e^x dx$, logo $du = dx$ e $v = e^x$. $\int xe^x dx = xe^x - \int e^x dx = xe^x - e^x + C = (x-1)e^x + C$.</p>
+    <a class="btn sec peq" href="../index.html#solver?tipo=integral&a=x*e%5Ex">Ver no solver</a></details></div></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo 2: $\int \ln x\,dx$ (o truque do "$dv = dx$")</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$u = \ln x$, $dv = dx$, logo $du = \frac1x dx$ e $v = x$. $\int\ln x\,dx = x\ln x - \int x\cdot\frac1x dx = x\ln x - x + C$.</p></details></div></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo 3 (cíclico): $\int e^x\cos x\,dx$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>Partes duas vezes: $I = e^x\operatorname{sen}x + e^x\cos x - I$. O integral original reaparece, por isso passa-se para o outro lado: $2I = e^x(\operatorname{sen}x + \cos x)$, logo $I = \frac{e^x(\operatorname{sen}x + \cos x)}{2} + C$.</p>
+    <a class="btn sec peq" href="../index.html#solver?tipo=integral&a=e%5Ex*cos(x)">Ver no solver</a></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> $\int x\operatorname{sen}x\,dx$ e $\int x^2 e^x dx$.
+    <details class="resp"><summary>Ver resposta</summary>$-x\cos x + \operatorname{sen}x + C$. Partes duas vezes: $(x^2 - 2x + 2)e^x + C$.</details></div>
+</section>
+
+<section id="substituicao">
+  <h2>2. Integração por substituição</h2>
+  <div class="caixa def"><b>Ideia</b>Se aparece $f\big(g(x)\big)\,g'(x)$, faz-se $u = g(x)$, $du = g'(x)\,dx$, e o integral passa a ser $\int f(u)\,du$. É a regra da cadeia ao contrário.</div>
+  <div class="caixa como"><b>Como fazer</b><ol>
+    <li>Escolhe $u$: normalmente o que está "dentro" (de uma raiz, potência, exponencial ou trig).</li>
+    <li>Calcula $du$ e substitui tudo. No fim <b>não pode sobrar nenhum $x$</b>.</li>
+    <li>Integra em $u$ e volta a $x$. Num integral definido, em alternativa, muda também os limites.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $\int x\sqrt{x^2 + 1}\,dx$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$u = x^2 + 1$, $du = 2x\,dx \Rightarrow x\,dx = \frac{du}{2}$.</p>
+    <p>$\int \sqrt u\,\frac{du}{2} = \frac12\cdot\frac{u^{3/2}}{3/2} = \frac13(x^2+1)^{3/2} + C$.</p></details></div></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo definido: $\int_0^1 x\,e^{x^2}dx$ (mudando os limites)</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$u = x^2$: quando $x = 0$, $u = 0$; quando $x = 1$, $u = 1$. $\frac12\int_0^1 e^u du = \frac12(e - 1)$.</p></details></div></div>
+  <h3>Substituição trigonométrica</h3>
+  <table class="tabela"><tr><th>Se aparece</th><th>Substitui</th><th>Porque</th></tr>
+    <tr><td>$\sqrt{a^2 - x^2}$</td><td>$x = a\operatorname{sen}\theta$</td><td>$a^2 - a^2\operatorname{sen}^2\theta = a^2\cos^2\theta$</td></tr>
+    <tr><td>$\sqrt{a^2 + x^2}$</td><td>$x = a\operatorname{tg}\theta$</td><td>$1 + \operatorname{tg}^2\theta = \sec^2\theta$</td></tr>
+    <tr><td>$\sqrt{x^2 - a^2}$</td><td>$x = a\sec\theta$</td><td>$\sec^2\theta - 1 = \operatorname{tg}^2\theta$</td></tr></table>
+  <div class="experimenta"><b>Experimenta</b> $\int \dfrac{\cos x}{1 + \operatorname{sen}^2x}dx$.
+    <details class="resp"><summary>Ver resposta</summary>$u = \operatorname{sen}x$: $\int\frac{du}{1+u^2} = \operatorname{arctg}(\operatorname{sen}x) + C$.</details></div>
+</section>
+
+<section id="fracoes">
+  <h2>3. Frações simples (funções racionais)</h2>
+  <p>Para integrar $\dfrac{P(x)}{Q(x)}$, parte-se a fração em pedaços que se sabem integrar.</p>
+  <div class="caixa como"><b>Como fazer</b><ol>
+    <li>Se $\operatorname{grau}P \geq \operatorname{grau}Q$, faz primeiro a <b>divisão</b> de polinómios.</li>
+    <li>Fatoriza $Q$ completamente.</li>
+    <li>Escreve a decomposição:
+      <ul><li>cada fator $(x - a)$ dá $\dfrac{A}{x-a}$;</li>
+        <li>cada fator $(x-a)^k$ dá $\dfrac{A_1}{x-a} + \dots + \dfrac{A_k}{(x-a)^k}$;</li>
+        <li>cada fator $x^2 + px + q$ sem raízes reais dá $\dfrac{Bx + C}{x^2 + px + q}$.</li></ul></li>
+    <li>Encontra as constantes, substituindo $x$ pelas raízes (é o mais rápido) ou igualando coeficientes.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $\int\dfrac{x + 5}{(x-1)(x+2)}dx$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$\dfrac{x+5}{(x-1)(x+2)} = \dfrac{A}{x-1} + \dfrac{B}{x+2} \Rightarrow x + 5 = A(x+2) + B(x-1)$.</p>
+    <p>$x = 1$: $6 = 3A$, logo $A = 2$. $x = -2$: $3 = -3B$, logo $B = -1$.</p>
+    <p>$\int = 2\ln|x - 1| - \ln|x + 2| + C$.</p>
+    <a class="btn sec peq" href="../index.html#solver?tipo=integral&a=(x%2B5)%2F((x-1)(x%2B2))">Ver no solver</a></details></div></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo com raiz repetida: $\int\dfrac{dx}{x^2(x+1)}$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$\dfrac{1}{x^2(x+1)} = \dfrac{A}{x} + \dfrac{B}{x^2} + \dfrac{C}{x+1}$, logo $1 = Ax(x+1) + B(x+1) + Cx^2$.</p>
+    <p>$x=0$: $B = 1$. $x=-1$: $C = 1$. Coeficiente de $x^2$: $A + C = 0 \Rightarrow A = -1$.</p>
+    <p>$\int = -\ln|x| - \frac1x + \ln|x+1| + C$.</p></details></div></div>
+  <p>Na CAS: <code>expand((x+5)/((x-1)(x+2)),x)</code> faz a decomposição (como na TI-Nspire).</p>
+</section>
+
+<section id="trigonometricos">
+  <h2>4. Integrais trigonométricos</h2>
+  <div class="caixa como"><b>Potências de seno e cosseno: $\int\operatorname{sen}^m x\cos^n x\,dx$</b><ol>
+    <li><b>Uma das potências é ímpar</b>: guarda um fator dessa função, converte o resto com $\operatorname{sen}^2 = 1 - \cos^2$ e substitui.</li>
+    <li><b>Ambas são pares</b>: baixa a potência com $\operatorname{sen}^2x = \frac{1-\cos2x}{2}$ e $\cos^2x = \frac{1+\cos2x}{2}$.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplos</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$\int\operatorname{sen}^2x\,dx = \int\frac{1-\cos2x}{2}dx = \frac x2 - \frac{\operatorname{sen}2x}{4} + C$</p>
+    <p>$\int\operatorname{sen}^3x\,dx = \int(1 - \cos^2x)\operatorname{sen}x\,dx$. Com $u = \cos x$: $-\int(1-u^2)du = -\cos x + \frac{\cos^3x}{3} + C$</p>
+    <p>$\int\operatorname{tg}x\,dx = \int\frac{\operatorname{sen}x}{\cos x}dx = -\ln|\cos x| + C$</p></details></div></div>
+  <div class="caixa nota"><b>Para circuitos</b>A potência média em corrente alternada usa $\frac1T\int_0^T\cos^2(\omega t)\,dt = \frac12$. É daí que vem o valor eficaz $V_{ef} = \frac{V_m}{\sqrt2}$.</div>
+</section>
+
+<section id="improprios">
+  <h2>5. Integrais impróprios</h2>
+  <p>São integrais com um limite infinito, ou em que a função "explode" no intervalo. Calculam-se com um <b>limite</b>. Se o limite for finito, o integral <b>converge</b>; caso contrário, <b>diverge</b>.</p>
+  <div class="caixa def"><b>Definição</b>$\displaystyle\int_a^{+\infty}f(x)dx = \lim_{b\to+\infty}\int_a^b f(x)dx$</div>
+  <p>A área debaixo de $\frac{1}{x^p}$ a partir de $x = 1$ é finita só se $p > 1$. Aumenta o limite superior $B$ e vê se a área "estabiliza":</p>
+  <div class="gw" data-f="1/x^p|1/xᵖ" data-sliders="p:0.5:3:0.1:2;B:2:40:1:10:limite superior B" data-x="0,40" data-y="0,1.5" data-area="0:1:B"
+       data-formula="\int_1^{ {B} }\frac{dx}{x^{ {p} }} \quad\text{converge quando } B\to\infty \iff p > 1"></div>
+  <div class="caixa def"><b>Resultado a saber</b>$\displaystyle\int_1^{+\infty}\frac{dx}{x^p}$ converge (e vale $\frac{1}{p-1}$) se $p > 1$, e diverge se $p \leq 1$.</div>
+  <div class="exemplo"><div class="ex-tit">Exemplos</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$\int_1^{\infty}\frac{dx}{x^2} = \lim_{b\to\infty}\left[-\frac1x\right]_1^b = \lim\left(1 - \frac1b\right) = 1$ (converge).</p>
+    <p>$\int_0^1\frac{dx}{\sqrt x} = \lim_{a\to0^+}\left[2\sqrt x\right]_a^1 = 2$ (converge, apesar de a função ir para $\infty$ em 0).</p>
+    <p>$\int_0^{\infty}e^{-x}dx = \lim\left[-e^{-x}\right]_0^b = 1$. A transformada de Laplace usa integrais destes.</p></details></div></div>
+</section>
+
+<section id="series">
+  <h2>6. Séries numéricas</h2>
+  <p>Uma série $\sum_{n=1}^{\infty}a_n$ é o limite das somas parciais $S_N = a_1 + \dots + a_N$. Pontos azuis: os termos $a_n$. Pontos verdes: as somas $S_N$. Converge se os verdes estabilizam.</p>
+  <div class="gw" data-tipo="sucessao" data-u="1/n^p" data-sliders="p:0.5:3:0.1:2" data-n="1,40" data-soma data-y="0,5" data-formula="\sum_{n=1}^{\infty}\frac{1}{n^{ {p} }}"></div>
+  <p class="ajuda">Com $p = 2$ converge para $\frac{\pi^2}{6} \approx 1{,}645$. Com $p = 1$ (série harmónica) cresce sem parar, embora devagar.</p>
+  <div class="caixa como"><b>Que critério usar?</b>
+    <table class="tabela" style="background:#fff"><tr><th>Critério</th><th>Quando usar</th><th>Conclusão</th></tr>
+      <tr><td>Termo geral</td><td>sempre primeiro</td><td>se $a_n \not\to 0$, <b>diverge</b> (se $\to0$, nada se conclui)</td></tr>
+      <tr><td>Geométrica $\sum ar^n$</td><td>razão constante</td><td>converge se $|r|<1$, com soma $\frac{\text{1.º termo}}{1-r}$</td></tr>
+      <tr><td>Série de Dirichlet $\sum\frac{1}{n^p}$</td><td>potências</td><td>converge se $p > 1$</td></tr>
+      <tr><td>Comparação / limite</td><td>parecida com outra conhecida</td><td>$\lim\frac{a_n}{b_n} = L \in\ ]0,\infty[$ ⇒ mesma natureza</td></tr>
+      <tr><td>Razão (D'Alembert)</td><td>fatoriais, potências $c^n$</td><td>$\lim\left|\frac{a_{n+1}}{a_n}\right| < 1$ ⇒ converge</td></tr>
+      <tr><td>Raiz (Cauchy)</td><td>tudo elevado a $n$</td><td>$\lim\sqrt[n]{|a_n|} < 1$ ⇒ converge</td></tr>
+      <tr><td>Leibniz</td><td>alternada $\sum(-1)^n b_n$</td><td>$b_n$ decrescente e $\to0$ ⇒ converge</td></tr></table></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $\sum\dfrac{2^n}{n!}$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>Razão: $\dfrac{2^{n+1}/(n+1)!}{2^n/n!} = \dfrac{2}{n+1} \to 0 < 1$. Converge (a soma é $e^2 - 1$).</p></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> $\sum_{n=0}^{\infty}\dfrac{3}{4^n}$ converge? Quanto vale?
+    <details class="resp"><summary>Ver resposta</summary>Geométrica com $r = \frac14$: soma $= \dfrac{3}{1 - 1/4} = 4$. Na CAS: <code>sum(3/4^n,n,0,oo)</code>.</details></div>
+</section>
+
+<section id="taylor">
+  <h2>7. Séries de potências e de Taylor</h2>
+  <p>Qualquer função "suave" pode ser aproximada perto de um ponto por um polinómio. Quanto mais termos, melhor a aproximação. Aumenta a ordem $n$:</p>
+  <div class="gw" data-f="sin(x)|sen x|#9ca3af;tsin(x,n)|polinómio de Taylor|#dc2626" data-sliders="n:1:15:2:3:ordem n" data-x="-10,10" data-y="-3,3"></div>
+  <div class="caixa def"><b>Série de Taylor em torno de $a$</b>$f(x) = \displaystyle\sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(x-a)^n$. Com $a = 0$ chama-se série de Maclaurin.</div>
+  <table class="tabela"><tr><th>Função</th><th>Série (em torno de 0)</th><th>Converge para</th></tr>
+    <tr><td>$e^x$</td><td>$1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots$</td><td>todo o $x$</td></tr>
+    <tr><td>$\operatorname{sen}x$</td><td>$x - \frac{x^3}{3!} + \frac{x^5}{5!} - \dots$</td><td>todo o $x$</td></tr>
+    <tr><td>$\cos x$</td><td>$1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \dots$</td><td>todo o $x$</td></tr>
+    <tr><td>$\frac{1}{1-x}$</td><td>$1 + x + x^2 + x^3 + \dots$</td><td>$|x| < 1$</td></tr>
+    <tr><td>$\ln(1+x)$</td><td>$x - \frac{x^2}{2} + \frac{x^3}{3} - \dots$</td><td>$-1 < x \leq 1$</td></tr></table>
+  <div class="caixa def"><b>Raio de convergência</b>Uma série $\sum c_n(x-a)^n$ converge para $|x - a| < R$, com $R = \lim\left|\frac{c_n}{c_{n+1}}\right|$, e diverge para $|x-a| > R$. Nos extremos é preciso estudar à parte.</div>
+  <p>Repara: a série de $\frac{1}{1-x}$ só aproxima bem a função dentro de $]-1, 1[$:</p>
+  <div class="gw" data-f="1/(1-x)|1/(1−x)|#9ca3af;tgeo(x,n)|1 + x + … + xⁿ|#dc2626" data-sliders="n:1:30:1:5:ordem n" data-x="-2,1.5" data-y="-3,8" data-assintotas="x=1;x=-1"></div>
+  <div class="experimenta"><b>Experimenta</b> Usa Taylor para estimar $e^{0{,}1}$ com 3 termos.
+    <details class="resp"><summary>Ver resposta</summary>$1 + 0{,}1 + \frac{0{,}01}{2} = 1{,}105$ (o valor real é $1{,}10517\ldots$). Na CAS: <code>taylor(e^x,x,2)</code>.</details></div>
+</section>
+
+<section id="edo1">
+  <h2>8. Equações diferenciais de 1.ª ordem</h2>
+  <p>Uma EDO relaciona uma função com a sua derivada. $y' = f(x, y)$ dá, em cada ponto, o <b>declive</b> que a solução lá deve ter: é o <b>campo de direções</b>. A solução "segue as setas". Clica para escolher outra condição inicial:</p>
+  <div class="gw" data-tipo="campo" data-f="4-2y" data-x="-1,4" data-y="-1,4" data-ini="0,0"></div>
+  <p class="ajuda">Campo de $y' = 4 - 2y$. Todas as soluções aproximam-se de $y = 2$, o equilíbrio.</p>
+  <div class="caixa como"><b>EDO de variáveis separáveis: $y' = g(x)\,h(y)$</b><ol>
+    <li>Escreve $\dfrac{dy}{h(y)} = g(x)\,dx$.</li><li>Integra os dois lados.</li><li>Isola $y$ e usa a condição inicial.</li></ol></div>
+  <div class="caixa como"><b>EDO linear: $y' + p(x)\,y = q(x)$</b><ol>
+    <li>Fator integrante $\mu = e^{\int p(x)dx}$.</li>
+    <li>Multiplica tudo por $\mu$; o lado esquerdo fica $(\mu y)'$.</li>
+    <li>Integra: $\mu y = \int\mu q\,dx + C$.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplos</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p><b>Separável:</b> $y' = 2xy$: $\int\frac{dy}{y} = \int 2x\,dx \Rightarrow \ln|y| = x^2 + C \Rightarrow y = Ke^{x^2}$.</p>
+    <p><b>Linear:</b> $y' + 2y = 4$, com $\mu = e^{2x}$: $(ye^{2x})' = 4e^{2x} \Rightarrow ye^{2x} = 2e^{2x} + C \Rightarrow y = 2 + Ce^{-2x}$. Com $y(0) = 0$: $C = -2$.</p>
+    <p>Na CAS: <code>deSolve(y'+2y=4 and y(0)=0,x,y)</code></p></details></div></div>
+  <div class="caixa nota"><b>Circuito RC</b>Carga de um condensador: $RC\,v' + v = V_s$, uma EDO linear. A solução é $v(t) = V_s\left(1 - e^{-t/RC}\right)$, exatamente a forma do exemplo.</div>
+</section>
+
+<section id="edo2">
+  <h2>9. EDO lineares de 2.ª ordem</h2>
+  <div class="caixa como"><b>Homogénea com coeficientes constantes: $y'' + a\,y' + b\,y = 0$</b><ol>
+    <li>Equação característica: $r^2 + ar + b = 0$.</li>
+    <li>Duas raízes reais $r_1 \neq r_2$: $y = C_1e^{r_1x} + C_2e^{r_2x}$.</li>
+    <li>Raiz dupla $r$: $y = (C_1 + C_2x)e^{rx}$.</li>
+    <li>Complexas $\alpha \pm \beta i$: $y = e^{\alpha x}\big(C_1\cos\beta x + C_2\operatorname{sen}\beta x\big)$, uma oscilação.</li></ol></div>
+  <p>O caso complexo é um <b>oscilador amortecido</b> (massa-mola, ou circuito RLC). $\alpha$ controla o amortecimento e $\beta$ a frequência:</p>
+  <div class="gw" data-f="exp(-a*x)*cos(b*x)|y(t);exp(-a*x)||#9ca3af|tracejado;-exp(-a*x)||#9ca3af|tracejado" data-sliders="a:0:1.5:0.05:0.3:amortecimento α;b:0.5:6:0.25:3:frequência β" data-x="0,12" data-y="-1.2,1.2"
+       data-formula="y = e^{-{a}t}\cos({b}\,t)"></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $y'' + 3y' + 2y = 0$, com $y(0) = 1$ e $y'(0) = 0$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$r^2 + 3r + 2 = 0 \Rightarrow r = -1, -2$, logo $y = C_1e^{-x} + C_2e^{-2x}$.</p>
+    <p>$y(0) = C_1 + C_2 = 1$; $y'(0) = -C_1 - 2C_2 = 0$. Daí $C_1 = 2$ e $C_2 = -1$: $y = 2e^{-x} - e^{-2x}$.</p>
+    <p>Na CAS: <code>deSolve(y''+3y'+2y=0 and y(0)=1 and y'(0)=0,x,y)</code></p></details></div></div>
+  <div class="caixa def"><b>Não homogénea</b> $y'' + ay' + by = g(x)$: solução = solução da homogénea + uma <b>solução particular</b>. Para encontrar a particular, experimenta uma função "parecida" com $g$: polinómio → polinómio, $e^{kx}$ → $Ae^{kx}$, $\cos$/$\operatorname{sen}$ → $A\cos + B\operatorname{sen}$.</div>
+</section>
+
+<section id="varias-variaveis">
+  <h2>10. Funções de várias variáveis e derivadas parciais</h2>
+  <p>$f(x, y)$ é uma <b>superfície</b>. A derivada parcial $\frac{\partial f}{\partial x}$ é o declive quando andas <b>só na direção $x$</b>, mantendo $y$ fixo. É como cortar a superfície com um plano $y = y_0$ e derivar a curva que sai.</p>
+  <p>Corte de $f(x,y) = x^2y - y^2$ com $y = y_0$. Escolhe $y_0$ e passa o rato: o declive da tangente é $\frac{\partial f}{\partial x}$.</p>
+  <div class="gw" data-f="x^2*b-b^2|f(x, y₀)" data-sliders="b:-2:2:0.25:1:y₀" data-x="-3,3" data-y="-8,8" data-tangente="0"
+       data-formula="f(x, {b}) = {b}\,x^2 - ({b})^2 \qquad \tfrac{\partial f}{\partial x} = 2\cdot{b}\,x"></div>
+  <div class="caixa como"><b>Como calcular</b><ol>
+    <li>$\frac{\partial f}{\partial x}$: deriva em ordem a $x$, tratando $y$ como <b>constante</b>.</li>
+    <li>$\frac{\partial f}{\partial y}$: deriva em ordem a $y$, tratando $x$ como constante.</li>
+    <li>Gradiente: $\nabla f = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right)$. Aponta para onde $f$ cresce mais depressa.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $f(x,y) = x^2y + \operatorname{sen}(xy)$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$f_x = 2xy + y\cos(xy)$ · $f_y = x^2 + x\cos(xy)$</p>
+    <p>Na CAS: <code>derivative(x^2*y+sin(x*y),y)</code>.</p></details></div></div>
+  <div class="caixa def"><b>Extremos</b>Pontos críticos: $\nabla f = 0$. Classificam-se com o Hessiano $H = f_{xx}f_{yy} - f_{xy}^2$: com $H > 0$ e $f_{xx} > 0$ há um mínimo; com $H > 0$ e $f_{xx} < 0$, um máximo; com $H < 0$, um ponto de sela.</div>
+</section>
+
+<section id="integrais-duplos">
+  <h2>11. Integrais duplos</h2>
+  <p>$\iint_R f(x,y)\,dA$ é o <b>volume</b> debaixo da superfície $f$ e acima da região $R$. Calcula-se como dois integrais simples, um dentro do outro (teorema de Fubini).</p>
+  <div class="caixa como"><b>Como fazer</b><ol>
+    <li>Desenha a região $R$.</li>
+    <li>Decide a ordem. Para $dy\,dx$: $x$ vai de um número a outro número; para cada $x$, $y$ vai da curva de baixo à curva de cima.</li>
+    <li>Integra primeiro o de dentro, tratando a outra variável como constante.</li></ol></div>
+  <p>Região entre $y = x^2$ (em baixo) e $y = x$ (em cima), para $0 \leq x \leq 1$:</p>
+  <div class="gw" data-f="x|y = x (cima);x^2|y = x² (baixo)|#dc2626" data-x="-0.3,1.3" data-y="-0.2,1.2" data-area="0:0:1:1" data-proporcional></div>
+  <div class="exemplo"><div class="ex-tit">Exemplos</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p><b>Retângulo:</b> $\int_0^1\int_0^2 xy\,dy\,dx = \int_0^1 x\left[\frac{y^2}{2}\right]_0^2dx = \int_0^1 2x\,dx = 1$.</p>
+    <p><b>Região acima:</b> $\int_0^1\int_{x^2}^{x} x\,dy\,dx = \int_0^1 x(x - x^2)\,dx = \frac13 - \frac14 = \frac{1}{12}$.</p>
+    <p><b>Coordenadas polares</b> (para círculos): $dA = r\,dr\,d\theta$. A área do círculo de raio $R$ é $\int_0^{2\pi}\int_0^R r\,dr\,d\theta = 2\pi\cdot\frac{R^2}{2} = \pi R^2$ ✔</p></details></div></div>
+</section>

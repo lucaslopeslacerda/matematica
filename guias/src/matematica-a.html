@@ -1,0 +1,205 @@
+<!-- titulo: Matemática A -->
+<section id="inicio">
+  <h2>Matemática A — como usar este guia</h2>
+  <p>Este guia cobre o secundário (10.º–12.º ano), que é a base de MATE1. Cada tema tem a ideia principal, caixas <b>Como fazer</b>, exemplos resolvidos e exercícios <b>Experimenta</b>. Os gráficos mexem: arrasta os sliders e passa o rato por cima.</p>
+  <div class="caixa nota"><b>Funções</b>O tema "Funções" (domínio, gráficos, transformações, composição, inversa) tem um guia próprio, mais completo: <a href="funcoes.html">abrir o guia de Funções</a>.</div>
+</section>
+
+<section id="polinomios">
+  <h2>1. Polinómios e regra de Ruffini</h2>
+  <p>Um <b>polinómio</b> é uma soma de termos $a\,x^n$ com $n$ natural, por exemplo $P(x) = 2x^3 - x + 5$. O <b>grau</b> é o maior expoente (aqui, 3).</p>
+  <div class="caixa def"><b>Teorema do resto</b>O resto da divisão de $P(x)$ por $(x - a)$ é $P(a)$. Logo, <b>$a$ é raiz de $P$ se e só se $P(a) = 0$</b>, e nesse caso $P(x) = (x-a)\,Q(x)$.</div>
+  <div class="caixa como"><b>Como fatorizar um polinómio de grau 3</b><ol>
+    <li>Procura uma raiz entre os divisores do termo independente (experimenta $\pm1, \pm2, \pm3,\dots$).</li>
+    <li>Divide por $(x - a)$ com a regra de Ruffini e obténs um polinómio de grau 2.</li>
+    <li>Fatoriza o de grau 2 com a fórmula resolvente.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: fatorizar $P(x) = x^3 - 6x^2 + 11x - 6$</div><div class="ex-corpo">
+    <details class="resolucao"><summary>Ver resolução</summary>
+    <p>Divisores de $-6$: experimenta $x=1$: $P(1) = 1 - 6 + 11 - 6 = 0$ ✔. Ruffini por $(x-1)$:</p>
+    <table class="tabela" style="max-width:360px"><tr><td></td><td>1</td><td>−6</td><td>11</td><td>−6</td></tr>
+      <tr><td><b>1</b></td><td></td><td>1</td><td>−5</td><td>6</td></tr>
+      <tr><td></td><td><b>1</b></td><td><b>−5</b></td><td><b>6</b></td><td><b>0</b> ← resto</td></tr></table>
+    <p>Baixa-se o primeiro coeficiente; multiplica-se por 1 e soma-se à coluna seguinte; repete-se. Fica $Q(x) = x^2 - 5x + 6 = (x-2)(x-3)$.</p>
+    <p>Logo $P(x) = (x-1)(x-2)(x-3)$. As raízes são 1, 2 e 3, os pontos onde o gráfico corta o eixo dos $x$:</p>
+    <div class="gw" data-f="x^3-6x^2+11x-6|P(x)" data-x="-0.5,4.5" data-y="-3,3" data-pontos="1,0,1;2,0,2;3,0,3" data-ler></div>
+    </details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Fatoriza $x^3 + 2x^2 - 5x - 6$, sabendo que $-1$ é raiz.
+    <details class="resp"><summary>Ver resposta</summary>Ruffini por $(x+1)$: $1,\ 1,\ -6$ → $x^2 + x - 6 = (x+3)(x-2)$. Logo $(x+1)(x+3)(x-2)$.</details></div>
+</section>
+
+<section id="inequacoes">
+  <h2>2. Inequações e quadros de sinal</h2>
+  <p>Para resolver $\dfrac{A(x)}{B(x)} \geq 0$ (ou com produtos), não se "passa para o outro lado". Estuda-se o <b>sinal de cada fator</b> num quadro.</p>
+  <div class="caixa como"><b>Como fazer</b><ol>
+    <li>Passa tudo para um membro: "… $\geq 0$".</li>
+    <li>Fatoriza o numerador e o denominador.</li>
+    <li>Encontra os zeros de cada fator e põe-nos por ordem na primeira linha do quadro.</li>
+    <li>Preenche o sinal de cada fator em cada intervalo e multiplica os sinais.</li>
+    <li>Os zeros do denominador <b>nunca</b> entram na solução.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $\dfrac{(x-1)(x+2)}{x-3} \geq 0$</div><div class="ex-corpo">
+    <details class="resolucao"><summary>Ver resolução</summary>
+    <table class="tabela"><tr><th>$x$</th><td>$-\infty$</td><td></td><td>$-2$</td><td></td><td>$1$</td><td></td><td>$3$</td><td></td><td>$+\infty$</td></tr>
+      <tr><th>$x+2$</th><td></td><td>−</td><td>0</td><td>+</td><td>+</td><td>+</td><td>+</td><td>+</td><td></td></tr>
+      <tr><th>$x-1$</th><td></td><td>−</td><td>−</td><td>−</td><td>0</td><td>+</td><td>+</td><td>+</td><td></td></tr>
+      <tr><th>$x-3$</th><td></td><td>−</td><td>−</td><td>−</td><td>−</td><td>−</td><td>0</td><td>+</td><td></td></tr>
+      <tr><th>fração</th><td></td><td><b>−</b></td><td>0</td><td><b>+</b></td><td>0</td><td><b>−</b></td><td>n.d.</td><td><b>+</b></td><td></td></tr></table>
+    <p>Solução: $x \in [-2, 1] \cup\ ]3, +\infty[$. O gráfico confirma: verde onde é positiva, vermelho onde é negativa.</p>
+    <div class="gw" data-f="(x-1)(x+2)/(x-3)|f" data-x="-5,7" data-y="-10,10" data-sinal="0" data-assintotas="x=3"></div>
+    </details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Resolve $x^2 - 4 < 0$.
+    <details class="resp"><summary>Ver resposta</summary>$(x-2)(x+2) < 0$: parábola virada para cima com zeros $\pm 2$, negativa entre eles. $x \in\ ]-2, 2[$.</details></div>
+</section>
+
+<section id="modulo">
+  <h2>3. Módulo (valor absoluto)</h2>
+  <div class="caixa def"><b>Definição</b>$|x| = \begin{cases} x & x \geq 0 \\ -x & x < 0 \end{cases}$. Geometricamente, $|x - a|$ é a <b>distância</b> entre $x$ e $a$ na reta real.</div>
+  <p>Pensar em distâncias resolve quase tudo:</p>
+  <ul><li>$|x - a| < r$: "estar a menos de $r$ de $a$", ou seja, $a - r < x < a + r$.</li>
+    <li>$|x - a| > r$: "estar a mais de $r$ de $a$", ou seja, $x < a - r \ \lor\ x > a + r$.</li></ul>
+  <div class="gw" data-f="abs(x-a)|y = abs(x − a);r|y = r|#dc2626|tracejado" data-sliders="a:-4:4:0.5:1;r:0:5:0.5:2" data-x="-8,8" data-y="-1,8"
+       data-formula="|x - ({a})| \le {r} \iff {a}-{r} \le x \le {a}+{r}" data-pontos="a-r,r;a+r,r"></div>
+  <p>Onde a reta vermelha está acima do "V", temos $|x-a| < r$.</p>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $|2x - 3| \leq 5$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$-5 \leq 2x - 3 \leq 5 \iff -2 \leq 2x \leq 8 \iff -1 \leq x \leq 4$. Solução: $[-1, 4]$.</p></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Resolve $|x + 1| > 3$.
+    <details class="resp"><summary>Ver resposta</summary>$x + 1 < -3 \lor x + 1 > 3 \iff x < -4 \lor x > 2$.</details></div>
+</section>
+
+<section id="sucessoes">
+  <h2>4. Sucessões e progressões</h2>
+  <p>Uma <b>sucessão</b> é uma função de domínio $\mathbb{N}$: $u_1, u_2, u_3, \dots$ Por isso o gráfico são <b>pontos soltos</b> e não uma linha.</p>
+  <div class="duas">
+    <div class="caixa def"><b>Progressão aritmética (PA)</b>Soma-se sempre a mesma <b>razão</b> $r$.<br>$u_n = u_1 + (n-1)\,r$<br>$S_n = \dfrac{u_1 + u_n}{2}\cdot n$</div>
+    <div class="caixa def"><b>Progressão geométrica (PG)</b>Multiplica-se sempre pela mesma <b>razão</b> $r$.<br>$u_n = u_1 \cdot r^{\,n-1}$<br>$S_n = u_1 \cdot \dfrac{1 - r^n}{1 - r}$ ($r \neq 1$)</div>
+  </div>
+  <p>PG com $u_1 = 1$: mexe na razão. Os pontos azuis são os termos e os verdes as somas $S_n$. Com $|r| < 1$, as somas aproximam-se de $\frac{1}{1-r}$.</p>
+  <div class="gw" data-tipo="sucessao" data-u="r^(n-1)" data-sliders="r:-1.5:1.5:0.1:0.5" data-n="1,20" data-soma data-y="-4,6" data-formula="u_n = ({r})^{n-1}"></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: PA com $u_1 = 3$ e $r = 4$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$u_n = 3 + 4(n-1) = 4n - 1$. $u_{10} = 39$, $S_{10} = \frac{3 + 39}{2}\cdot 10 = 210$.</p></details></div></div>
+  <h3>Monotonia e limite</h3>
+  <p>Uma sucessão é <b>crescente</b> se $u_{n+1} - u_n > 0$ para todo o $n$. Converge para $L$ se os termos ficam tão perto de $L$ quanto se queira. Um limite famoso:</p>
+  <div class="gw" data-tipo="sucessao" data-u="(1+1/n)^n" data-n="1,40" data-lim="2.718" data-y="1.8,3"></div>
+  <p>$\displaystyle\lim_{n\to\infty}\left(1 + \frac1n\right)^n = e \approx 2{,}718$</p>
+  <div class="experimenta"><b>Experimenta</b> Numa PG, $u_1 = 2$ e $u_4 = 54$. Qual é a razão?
+    <details class="resp"><summary>Ver resposta</summary>$u_4 = 2 r^3 = 54 \Rightarrow r^3 = 27 \Rightarrow r = 3$.</details></div>
+</section>
+
+<section id="trigonometria">
+  <h2>5. Trigonometria e círculo trigonométrico</h2>
+  <p>No círculo de raio 1, um ângulo $\theta$ define um ponto. A <b>abcissa</b> desse ponto é $\cos\theta$ e a <b>ordenada</b> é $\operatorname{sen}\theta$. Por isso $\operatorname{sen}^2\theta + \cos^2\theta = 1$: é o teorema de Pitágoras dentro do círculo.</p>
+  <div class="gw" data-tipo="circulo"></div>
+  <table class="tabela"><tr><th>$\theta$</th><th>$0$</th><th>$\frac{\pi}{6}$ (30°)</th><th>$\frac{\pi}{4}$ (45°)</th><th>$\frac{\pi}{3}$ (60°)</th><th>$\frac{\pi}{2}$ (90°)</th></tr>
+    <tr><td>$\operatorname{sen}$</td><td>0</td><td>$\frac12$</td><td>$\frac{\sqrt2}{2}$</td><td>$\frac{\sqrt3}{2}$</td><td>1</td></tr>
+    <tr><td>$\cos$</td><td>1</td><td>$\frac{\sqrt3}{2}$</td><td>$\frac{\sqrt2}{2}$</td><td>$\frac12$</td><td>0</td></tr>
+    <tr><td>$\operatorname{tg}$</td><td>0</td><td>$\frac{\sqrt3}{3}$</td><td>1</td><td>$\sqrt3$</td><td>—</td></tr></table>
+  <div class="caixa nota"><b>Radianos</b>$180° = \pi$ rad. Para converter: graus $\times \frac{\pi}{180}$. Em cálculo usa-se <b>sempre</b> radianos.</div>
+  <h3>Gráficos: amplitude, período, deslocamento</h3>
+  <div class="gw" data-f="a*sin(b*(x-c))|y;sin(x)|sen x|#9ca3af|tracejado" data-sliders="a:-3:3:0.5:2;b:0.5:3:0.5:1;c:-3:3:0.25:0" data-x="-7,7" data-y="-3.5,3.5"
+       data-formula="y = {a}\,\operatorname{sen}\big({b}(x - {c})\big) \qquad \text{período} = \tfrac{2\pi}{b}"></div>
+  <div class="caixa como"><b>Equações trigonométricas</b><ol>
+    <li>$\operatorname{sen} x = \operatorname{sen}\alpha \iff x = \alpha + 2k\pi \ \lor\ x = \pi - \alpha + 2k\pi$</li>
+    <li>$\cos x = \cos\alpha \iff x = \pm\alpha + 2k\pi$</li>
+    <li>$\operatorname{tg} x = \operatorname{tg}\alpha \iff x = \alpha + k\pi$, com $k \in \mathbb{Z}$</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $2\operatorname{sen}x = 1$ em $[0, 2\pi]$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$\operatorname{sen}x = \frac12 = \operatorname{sen}\frac{\pi}{6}$, logo $x = \frac{\pi}{6} + 2k\pi \lor x = \frac{5\pi}{6} + 2k\pi$. Em $[0,2\pi]$: $x = \frac{\pi}{6}$ ou $x = \frac{5\pi}{6}$.</p></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Resolve $\cos x = -\frac{\sqrt2}{2}$ em $[0, 2\pi]$.
+    <details class="resp"><summary>Ver resposta</summary>$\cos x = \cos\frac{3\pi}{4}$: $x = \frac{3\pi}{4}$ ou $x = \frac{5\pi}{4}$.</details></div>
+</section>
+
+<section id="exponenciais">
+  <h2>6. Exponenciais e logaritmos</h2>
+  <p>O <b>logaritmo</b> responde à pergunta "a que expoente tenho de elevar $a$ para obter $y$?": $\log_a y = x \iff a^x = y$. Por isso $\log_a$ é a <b>inversa</b> de $a^x$, e os gráficos são reflexos na reta $y = x$.</p>
+  <div class="gw" data-f="b^x|y = bˣ;ln(x)/ln(b)|y = log_b x;x|y = x|#9ca3af|tracejado" data-sliders="b:0.2:5:0.1:2" data-x="-5,6" data-y="-4,6" data-proporcional
+       data-formula="y = {b}^x \quad \text{e} \quad y = \log_{ {b} } x"></div>
+  <table class="tabela"><tr><th>Exponencial</th><th>Logaritmo</th></tr>
+    <tr><td>$a^x a^y = a^{x+y}$</td><td>$\log(xy) = \log x + \log y$</td></tr>
+    <tr><td>$\frac{a^x}{a^y} = a^{x-y}$</td><td>$\log\frac{x}{y} = \log x - \log y$</td></tr>
+    <tr><td>$(a^x)^y = a^{xy}$</td><td>$\log(x^p) = p \log x$</td></tr>
+    <tr><td>$a^0 = 1$</td><td>$\log_a 1 = 0$, $\log_a a = 1$</td></tr>
+    <tr><td colspan="2">Mudança de base: $\log_a x = \dfrac{\ln x}{\ln a}$</td></tr></table>
+  <div class="caixa como"><b>Equações</b><ol>
+    <li>Exponenciais: escreve os dois lados com a mesma base, $a^{f(x)} = a^{g(x)} \iff f(x) = g(x)$. Se não der, aplica $\ln$ aos dois lados.</li>
+    <li>Logarítmicas: <b>primeiro o domínio</b> (argumentos $> 0$). Junta os logaritmos com as propriedades e depois $\log_a A = \log_a B \iff A = B$.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $\ln(x-1) + \ln(x+1) = \ln 3$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>Domínio: $x - 1 > 0 \land x + 1 > 0 \iff x > 1$.</p>
+    <p>$\ln\big((x-1)(x+1)\big) = \ln 3 \iff x^2 - 1 = 3 \iff x = \pm 2$. Pelo domínio, só $x = 2$.</p></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Resolve $3^{2x} = 27$ e $e^{x} = 5$.
+    <details class="resp"><summary>Ver resposta</summary>$3^{2x} = 3^3 \Rightarrow x = \frac32$. $x = \ln 5 \approx 1{,}609$.</details></div>
+</section>
+
+<section id="limites">
+  <h2>7. Limites e continuidade (introdução)</h2>
+  <p>$\displaystyle\lim_{x\to a} f(x) = L$ quer dizer que, quando $x$ se aproxima de $a$, $f(x)$ aproxima-se de $L$. O que interessa é o que acontece <b>perto</b> de $a$, e não em $a$.</p>
+  <p>Em $f(x) = \dfrac{x^2-1}{x-1}$, o ponto $x=1$ não pertence ao domínio (bola vazia), mas o limite existe e vale 2:</p>
+  <div class="gw" data-f="(x^2-1)/(x-1)|f(x)" data-x="-2,4" data-y="-1,5" data-pontos="1,2,limite = 2,v" data-ler></div>
+  <div class="caixa def"><b>Continuidade</b>$f$ é contínua em $a$ se $\lim_{x\to a} f(x) = f(a)$. Ou seja, o gráfico desenha-se sem levantar o lápis.</div>
+  <div class="caixa como"><b>Indeterminações mais comuns</b><ol>
+    <li>$\frac{0}{0}$ com polinómios: fatoriza e simplifica.</li>
+    <li>$\frac{\infty}{\infty}$ em $x \to \pm\infty$: põe em evidência a maior potência, ou seja, compara os graus.</li>
+    <li>$\infty - \infty$ com raízes: multiplica pelo conjugado.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $\displaystyle\lim_{x\to+\infty}\frac{2x^2+1}{x^2-3}$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>Mesmo grau no numerador e no denominador, por isso o limite é o quociente dos coeficientes principais: $\frac{2}{1} = 2$.</p>
+    <a class="btn sec peq" href="../index.html#solver?tipo=limite&a=(2x%5E2%2B1)%2F(x%5E2-3)&b=oo">Ver no solver</a></details></div></div>
+  <p>Há mais no <a href="calculo-1.html#limites">guia de Cálculo 1</a>.</p>
+</section>
+
+<section id="derivadas">
+  <h2>8. Derivadas e estudo de funções</h2>
+  <p>A <b>derivada</b> $f'(a)$ é o <b>declive da reta tangente</b> ao gráfico em $x = a$, ou seja, a taxa de variação instantânea. Passa o rato no gráfico e vê a tangente:</p>
+  <div class="gw" data-f="x^3-3x|f(x)" data-x="-3,3" data-y="-4,4" data-tangente="0"></div>
+  <table class="tabela"><tr><th>Função</th><th>Derivada</th><th>Função</th><th>Derivada</th></tr>
+    <tr><td>$k$</td><td>$0$</td><td>$x^n$</td><td>$n x^{n-1}$</td></tr>
+    <tr><td>$e^x$</td><td>$e^x$</td><td>$\ln x$</td><td>$\frac1x$</td></tr>
+    <tr><td>$\operatorname{sen}x$</td><td>$\cos x$</td><td>$\cos x$</td><td>$-\operatorname{sen}x$</td></tr>
+    <tr><td>$u+v$</td><td>$u'+v'$</td><td>$u\cdot v$</td><td>$u'v + uv'$</td></tr>
+    <tr><td>$\frac{u}{v}$</td><td>$\frac{u'v - uv'}{v^2}$</td><td>$f(g(x))$</td><td>$f'(g(x))\cdot g'(x)$</td></tr></table>
+  <div class="caixa como"><b>Estudar monotonia e extremos</b><ol>
+    <li>Calcula $f'(x)$.</li><li>Resolve $f'(x) = 0$.</li>
+    <li>Faz o quadro de sinal de $f'$: com $f' > 0$ a função cresce ↗, com $f' < 0$ decresce ↘.</li>
+    <li>Onde $f'$ muda de + para − há um máximo; de − para + há um mínimo.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $f(x) = x^3 - 3x$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$f'(x) = 3x^2 - 3 = 3(x-1)(x+1) = 0 \iff x = \pm 1$.</p>
+    <p>$f' > 0$ em $]-\infty,-1[$ e $]1,+\infty[$, onde $f$ cresce. $f' < 0$ em $]-1,1[$, onde $f$ decresce.</p>
+    <p>Máximo relativo $f(-1) = 2$; mínimo relativo $f(1) = -2$.</p>
+    <a class="btn sec peq" href="../index.html#solver?tipo=derivada&a=x%5E3-3x">Derivada passo a passo</a></details></div></div>
+  <p>A <b>segunda derivada</b> diz a concavidade: com $f'' > 0$ é virada para cima ∪ e com $f'' < 0$ para baixo ∩. Mais no <a href="calculo-1.html">guia de Cálculo 1</a>.</p>
+</section>
+
+<section id="complexos">
+  <h2>9. Números complexos</h2>
+  <p>$i$ é o número com $i^2 = -1$. Um complexo $z = a + bi$ é um <b>ponto do plano</b> $(a, b)$, também visto como vetor. A parte real fica no eixo horizontal e a imaginária no vertical.</p>
+  <p>Somar complexos é somar vetores, pela regra do paralelogramo. Aqui $u = u_1 + u_2 i$ e $v = v_1 + v_2 i$:</p>
+  <div class="gw" data-tipo="vetores"></div>
+  <div class="duas">
+    <div class="caixa def"><b>Forma algébrica</b>$z = a + bi$<br>conjugado $\bar z = a - bi$<br>módulo $|z| = \sqrt{a^2 + b^2}$</div>
+    <div class="caixa def"><b>Forma trigonométrica</b>$z = |z|\,e^{i\theta} = |z|(\cos\theta + i\operatorname{sen}\theta)$<br>$\theta = \arg z$, o ângulo com o eixo real</div>
+  </div>
+  <div class="caixa nota"><b>Multiplicar é rodar e esticar</b>$z_1 z_2$ tem módulo $|z_1||z_2|$ e argumento $\theta_1 + \theta_2$. Por isso multiplicar por $i$ (módulo 1, argumento $\frac{\pi}{2}$) roda 90°. Fórmula de De Moivre: $z^n = |z|^n e^{i n\theta}$.</div>
+  <div class="exemplo"><div class="ex-tit">Exemplos</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$(3+4i)(1-2i) = 3 - 6i + 4i - 8i^2 = 3 - 2i + 8 = 11 - 2i$</p>
+    <p>$\dfrac{1+i}{1-i} = \dfrac{(1+i)(1+i)}{(1-i)(1+i)} = \dfrac{2i}{2} = i$ (multiplica-se pelo conjugado do denominador)</p>
+    <p>$(1+i)^8$: $|1+i| = \sqrt2$, $\arg = \frac{\pi}{4}$, logo $(\sqrt2)^8 e^{i\,2\pi} = 16$.</p></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Escreve $z = -2 + 2i$ na forma trigonométrica.
+    <details class="resp"><summary>Ver resposta</summary>$|z| = \sqrt{8} = 2\sqrt2$, está no 2.º quadrante, logo $\theta = \frac{3\pi}{4}$. $z = 2\sqrt2\, e^{i 3\pi/4}$.</details></div>
+</section>
+
+<section id="probabilidades">
+  <h2>10. Probabilidades e combinatória</h2>
+  <div class="caixa como"><b>Contar sem listar: que fórmula usar?</b>
+    <table class="tabela" style="background:#fff"><tr><th>A ordem importa?</th><th>Há repetição?</th><th>Fórmula</th><th>Exemplo</th></tr>
+      <tr><td>sim</td><td>todos os elementos</td><td>$n!$ (permutações)</td><td>5 pessoas numa fila: $5! = 120$</td></tr>
+      <tr><td>sim</td><td>não</td><td>${}^nA_p = \frac{n!}{(n-p)!}$</td><td>pódio de 8 atletas: $8\cdot7\cdot6 = 336$</td></tr>
+      <tr><td>sim</td><td>sim</td><td>$n^p$</td><td>código de 4 dígitos: $10^4$</td></tr>
+      <tr><td>não</td><td>não</td><td>${}^nC_p = \binom{n}{p} = \frac{n!}{p!(n-p)!}$</td><td>3 alunos de 10: $\binom{10}{3} = 120$</td></tr></table></div>
+  <div class="caixa def"><b>Regra de Laplace</b>Se os casos são todos igualmente prováveis: $P(A) = \dfrac{\text{casos favoráveis}}{\text{casos possíveis}}$.<br>
+    Probabilidade condicionada: $P(A|B) = \dfrac{P(A\cap B)}{P(B)}$. $A$ e $B$ são independentes se $P(A\cap B) = P(A)P(B)$.</div>
+  <h3>Binómio de Newton e triângulo de Pascal</h3>
+  <p>$(a+b)^n = \sum_{k=0}^{n}\binom{n}{k}a^{n-k}b^k$. Os coeficientes são uma linha do triângulo de Pascal: $(a+b)^4 = a^4 + 4a^3b + 6a^2b^2 + 4ab^3 + b^4$.</p>
+  <p>Distribuição binomial: probabilidade de $k$ sucessos em $n$ tentativas, com $P(X=k) = \binom{n}{k}p^k(1-p)^{n-k}$. Arrasta $n$ e $p$:</p>
+  <div class="gw" data-tipo="sucessao" data-u="pw(n<=N, fact(N)/(fact(n)*fact(N-n))*p^n*(1-p)^(N-n), 0)" data-sliders="N:1:20:1:10:n (tentativas);p:0.05:0.95:0.05:0.5:p (sucesso)" data-n="0,20" data-y="0,0.5"></div>
+  <p class="ajuda">(cada ponto é $P(X = k)$, com $k$ no eixo horizontal)</p>
+  <div class="exemplo"><div class="ex-tit">Exemplo: lançar uma moeda 3 vezes. Qual é a probabilidade de sair exatamente 2 caras?</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>Casos possíveis: $2^3 = 8$. Favoráveis: escolher em que 2 dos 3 lançamentos sai cara, $\binom32 = 3$. $P = \frac38$.</p></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> De um baralho de 52 cartas tiram-se 2. Qual é a probabilidade de serem ambas ases?
+    <details class="resp"><summary>Ver resposta</summary>$\dfrac{\binom42}{\binom{52}{2}} = \dfrac{6}{1326} = \dfrac{1}{221} \approx 0{,}45\%$.</details></div>
+</section>

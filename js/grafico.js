@@ -41,7 +41,7 @@
     funcao(f, op = {}) { this.curvas.push(Object.assign({ f, cor: CORES[this.curvas.length % CORES.length], largura: 2.5 }, op)); return this; }
     amostra(pontos, op = {}) { this.curvas.push(Object.assign({ pontos, cor: CORES[this.curvas.length % CORES.length], largura: 2.5 }, op)); return this; }
     ponto(x, y, op = {}) { this.pontos.push(Object.assign({ x, y, cor: '#111827' }, op)); return this; }
-    area(f, a, b, cor = 'rgba(37,99,235,.18)') { this.areas.push({ f, a, b, cor }); return this; }
+    area(f, a, b, cor = 'rgba(37,99,235,.18)', g = null) { this.areas.push({ f, a, b, cor, g }); return this; }
 
     _amostrar(c) {
       if (c.pontos) return c.pontos;
@@ -110,9 +110,10 @@
       // áreas
       this.areas.forEach(a => {
         g.fillStyle = a.cor; g.beginPath();
-        const n = 200; g.moveTo(this.x2px(a.a), this.y2py(0));
+        const n = 200, base = a.g || (() => 0); g.moveTo(this.x2px(a.a), this.y2py(base(a.a)));
         for (let i = 0; i <= n; i++) { const x = a.a + (a.b - a.a) * i / n; let y = a.f(x); if (!isFinite(y)) y = 0; g.lineTo(this.x2px(x), this.y2py(y)); }
-        g.lineTo(this.x2px(a.b), this.y2py(0)); g.closePath(); g.fill();
+        for (let i = n; i >= 0; i--) { const x = a.a + (a.b - a.a) * i / n; let y = base(x); if (!isFinite(y)) y = 0; g.lineTo(this.x2px(x), this.y2py(y)); }
+        g.closePath(); g.fill();
       });
       // eixos
       g.strokeStyle = '#9ca3af'; g.lineWidth = 1.2;

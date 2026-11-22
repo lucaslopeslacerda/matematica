@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cálculo 1 — Guia de estudo</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+<header class="topo"><div class="topo-in">
+  <a class="logo" href="../index.html"><b>∫</b> Matemática Passo a Passo</a>
+  <nav class="nav">
+    <a href="../index.html#solver">Resolver</a>
+    <a href="../index.html#cas">Calculadora CAS</a>
+    <a href="index.html" class="ativo">Guias de estudo</a>
+  </nav>
+</div></header>
+<div class="guia">
+<aside class="guia-indice">
+  <b>Cálculo 1</b>
+  <a href="#inicio">Cálculo 1 — o mapa</a>
+  <a href="#limites">1. Limites</a>
+  <a href="#continuidade">2. Continuidade e Teorema de Bolzano</a>
+  <a href="#assintotas">3. Assíntotas</a>
+  <a href="#derivada-def">4. Derivada: definição</a>
+  <a href="#regras">5. Regras de derivação</a>
+  <a href="#cadeia">6. Regra da cadeia e derivação implícita</a>
+  <a href="#lhopital">7. Regra de L'Hôpital</a>
+  <a href="#estudo">8. Estudo completo de uma função</a>
+  <a href="#otimizacao">9. Otimização</a>
+  <a href="#primitivas">10. Primitivas</a>
+  <a href="#integral-definido">11. Integral definido e Teorema Fundamental</a>
+  <a href="#areas">12. Áreas entre curvas</a>
+  <hr><a href="index.html">← Todos os guias</a>
+</aside>
+<article class="guia-conteudo">
+<!-- titulo: Cálculo 1 -->
+<section id="inicio">
+  <h2>Cálculo 1 — o mapa</h2>
+  <p>Cálculo 1 assenta em duas ideias e numa ponte entre elas:</p>
+  <ul><li><b>Derivada</b>: a inclinação do gráfico, ou seja, quão depressa uma coisa muda.</li>
+    <li><b>Integral</b>: a área debaixo do gráfico, ou seja, quanto se acumula.</li>
+    <li><b>Teorema Fundamental do Cálculo</b>: uma é a inversa da outra.</li></ul>
+  <p>Tudo assenta em <b>limites</b>, por isso é por aí que começamos. Pré-requisitos: <a href="funcoes.html">Funções</a> e <a href="algebra.html">Álgebra</a>.</p>
+</section>
+
+<section id="limites">
+  <h2>1. Limites</h2>
+  <p>$\displaystyle\lim_{x\to a} f(x) = L$ significa que $f(x)$ fica tão perto de $L$ quanto quisermos, desde que $x$ esteja suficientemente perto de $a$ (mas $x \neq a$). O valor de $f$ <b>em</b> $a$ é irrelevante.</p>
+  <div class="gw" data-f="sin(x)/x|sen x / x" data-x="-10,10" data-y="-0.5,1.3" data-pontos="0,1,limite 1,v" data-ler></div>
+  <p>$f(x) = \frac{\operatorname{sen}x}{x}$ não existe em $0$, mas aproxima-se de 1: $\displaystyle\lim_{x\to0}\frac{\operatorname{sen}x}{x} = 1$.</p>
+  <div class="caixa def"><b>Limites laterais</b>$\lim_{x\to a^-}$ (pela esquerda) e $\lim_{x\to a^+}$ (pela direita). O limite existe se e só se os dois existem e são iguais.</div>
+  <div class="caixa como"><b>Levantar indeterminações</b>
+    <table class="tabela" style="background:#fff"><tr><th>Forma</th><th>O que fazer</th></tr>
+      <tr><td>$\frac00$ (polinómios)</td><td>fatorizar e simplificar</td></tr>
+      <tr><td>$\frac00$ (raízes)</td><td>multiplicar pelo conjugado</td></tr>
+      <tr><td>$\frac{\infty}{\infty}$</td><td>dividir pela maior potência / comparar graus</td></tr>
+      <tr><td>$\infty - \infty$</td><td>juntar numa só fração ou usar o conjugado</td></tr>
+      <tr><td>$0\cdot\infty$</td><td>reescrever como $\frac00$ ou $\frac\infty\infty$</td></tr>
+      <tr><td>$1^\infty$, $0^0$, $\infty^0$</td><td>usar $f^g = e^{g\ln f}$</td></tr>
+      <tr><td>qualquer $\frac00$ ou $\frac\infty\infty$</td><td><a href="#lhopital">regra de L'Hôpital</a></td></tr></table></div>
+  <div class="caixa def"><b>Limites notáveis</b>$\displaystyle\lim_{x\to0}\frac{\operatorname{sen}x}{x} = 1$ · $\lim_{x\to0}\frac{e^x - 1}{x} = 1$ · $\lim_{x\to0}\frac{\ln(1+x)}{x} = 1$ · $\lim_{x\to\infty}\left(1 + \frac1x\right)^x = e$</div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $\displaystyle\lim_{x\to4}\frac{\sqrt x - 2}{x - 4}$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>Dá $\frac00$. Multiplica pelo conjugado: $\dfrac{(\sqrt x - 2)(\sqrt x + 2)}{(x-4)(\sqrt x + 2)} = \dfrac{x - 4}{(x-4)(\sqrt x+2)} = \dfrac{1}{\sqrt x + 2} \to \dfrac14$.</p>
+    <a class="btn sec peq" href="../index.html#solver?tipo=limite&a=(sqrt(x)-2)%2F(x-4)&b=4">Ver no solver</a></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Calcula $\displaystyle\lim_{x\to+\infty}\left(\sqrt{x^2 + x} - x\right)$.
+    <details class="resp"><summary>Ver resposta</summary>Conjugado: $\dfrac{x}{\sqrt{x^2+x} + x} = \dfrac{1}{\sqrt{1 + 1/x} + 1} \to \dfrac12$.</details></div>
+</section>
+
+<section id="continuidade">
+  <h2>2. Continuidade e Teorema de Bolzano</h2>
+  <div class="caixa def"><b>Continuidade em $a$</b>(1) $f(a)$ existe, (2) $\lim_{x\to a}f(x)$ existe e (3) são iguais. As funções elementares (polinómios, exp, log, trig, raízes) são contínuas em todo o seu domínio.</div>
+  <p>Tipos de descontinuidade: <b>removível</b> (um "buraco"), <b>de salto</b> (limites laterais diferentes) e <b>infinita</b> (assíntota vertical).</p>
+  <div class="caixa def"><b>Teorema de Bolzano (valores intermédios)</b>Se $f$ é contínua em $[a,b]$ e $f(a)$ e $f(b)$ têm <b>sinais contrários</b>, então existe pelo menos um $c \in\ ]a,b[$ com $f(c) = 0$. O gráfico tem de atravessar o eixo para passar de baixo para cima.</div>
+  <div class="gw" data-f="x^3+x-1|f(x) = x³ + x − 1" data-x="-1.5,2" data-y="-4,4" data-sinal="0" data-pontos="0,-1,f(0) = −1;1,1,f(1) = 1"></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: mostra que $x^3 + x - 1 = 0$ tem uma solução em $]0,1[$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$f$ é polinomial, logo contínua. $f(0) = -1 < 0$ e $f(1) = 1 > 0$. Pelo Teorema de Bolzano, existe $c \in\ ]0,1[$ com $f(c) = 0$. (Na CAS: <code>nSolve(x^3+x-1=0,x)</code> dá $c \approx 0{,}682$.)</p></details></div></div>
+</section>
+
+<section id="assintotas">
+  <h2>3. Assíntotas</h2>
+  <div class="caixa como"><b>Como determinar</b><ol>
+    <li><b>Verticais</b> $x = a$: onde $\lim_{x\to a^\pm}f(x) = \pm\infty$. Candidatos: pontos fora do domínio, como zeros do denominador ou o 0 num $\ln$.</li>
+    <li><b>Não verticais</b> $y = mx + b$ (em $+\infty$ e em $-\infty$, separadamente): $m = \lim\dfrac{f(x)}{x}$ e $b = \lim\big(f(x) - mx\big)$. Com $m = 0$ é horizontal.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $f(x) = \dfrac{x^2}{x - 1}$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>AV: $x = 1$, porque $\lim_{x\to1^+} = +\infty$ e $\lim_{x\to1^-} = -\infty$.</p>
+    <p>$m = \lim\frac{x^2}{x(x-1)} = 1$; $b = \lim\left(\frac{x^2}{x-1} - x\right) = \lim\frac{x}{x-1} = 1$. Assíntota oblíqua: $y = x + 1$.</p>
+    <div class="gw" data-f="x^2/(x-1)|f;x+1|y = x + 1|#9ca3af|tracejado" data-x="-6,8" data-y="-8,12" data-assintotas="x=1"></div></details></div></div>
+</section>
+
+<section id="derivada-def">
+  <h2>4. Derivada: definição</h2>
+  <p>O declive da reta <b>secante</b> entre $x = a$ e $x = a + h$ é $\dfrac{f(a+h) - f(a)}{h}$. Quando $h \to 0$, a secante tende para a <b>tangente</b>. Arrasta $h$ para 0:</p>
+  <div class="gw" data-f="x^2|f(x) = x²;a^2+((a+h)^2-a^2)/h*(x-a)|secante|#ea580c;a^2+2a*(x-a)|tangente|#16a34a|tracejado" data-sliders="a:-2:2:0.25:1;h:0.05:3:0.05:2"
+       data-x="-3,4" data-y="-2,10" data-pontos="a,a^2,P;a+h,(a+h)^2,Q" data-formula="\text{declive da secante} = \dfrac{f({a}+{h}) - f({a})}{ {h} } \;\longrightarrow\; f'({a}) = 2\cdot {a}"></div>
+  <div class="caixa def"><b>Definição</b>$f'(a) = \displaystyle\lim_{h\to0}\frac{f(a+h) - f(a)}{h}$. Equação da reta tangente em $x = a$: $y = f(a) + f'(a)(x - a)$.</div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: derivada de $f(x) = x^2$ pela definição</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$\dfrac{(x+h)^2 - x^2}{h} = \dfrac{2xh + h^2}{h} = 2x + h \xrightarrow{h\to0} 2x$. Logo $f'(x) = 2x$.</p></details></div></div>
+  <div class="caixa nota"><b>Derivável ⇒ contínua</b>, mas não ao contrário: $|x|$ é contínua em 0 e não tem derivada aí (tem um "bico").</div>
+</section>
+
+<section id="regras">
+  <h2>5. Regras de derivação</h2>
+  <table class="tabela"><tr><th>$f$</th><th>$f'$</th><th>$f$</th><th>$f'$</th></tr>
+    <tr><td>$x^n$</td><td>$nx^{n-1}$</td><td>$a^x$</td><td>$a^x\ln a$</td></tr>
+    <tr><td>$e^x$</td><td>$e^x$</td><td>$\ln x$</td><td>$\frac1x$</td></tr>
+    <tr><td>$\operatorname{sen}x$</td><td>$\cos x$</td><td>$\cos x$</td><td>$-\operatorname{sen}x$</td></tr>
+    <tr><td>$\operatorname{tg}x$</td><td>$\frac{1}{\cos^2x}$</td><td>$\log_a x$</td><td>$\frac{1}{x\ln a}$</td></tr>
+    <tr><td>$\operatorname{arcsen}x$</td><td>$\frac{1}{\sqrt{1-x^2}}$</td><td>$\operatorname{arctg}x$</td><td>$\frac{1}{1+x^2}$</td></tr></table>
+  <div class="caixa def"><b>Regras operatórias</b>$(u\pm v)' = u' \pm v'$ · $(ku)' = ku'$ · $(uv)' = u'v + uv'$ · $\left(\dfrac uv\right)' = \dfrac{u'v - uv'}{v^2}$</div>
+  <p>Para ver qualquer derivada passo a passo, com a regra usada em cada passo: <a href="../index.html#solver?tipo=derivada&a=x%5E2*sen(x)">abrir o solver</a>.</p>
+  <div class="experimenta"><b>Experimenta</b> Deriva $f(x) = \dfrac{x^2}{e^x}$.
+    <details class="resp"><summary>Ver resposta</summary>$\dfrac{2x e^x - x^2 e^x}{e^{2x}} = \dfrac{x(2-x)}{e^x}$.</details></div>
+</section>
+
+<section id="cadeia">
+  <h2>6. Regra da cadeia e derivação implícita</h2>
+  <div class="caixa def"><b>Regra da cadeia</b>$\big(f(g(x))\big)' = f'\big(g(x)\big)\cdot g'(x)$. Deriva-se a função "de fora", mantendo a "de dentro" intacta, e multiplica-se pela derivada da de dentro.</div>
+  <p>Imagem mental: engrenagens. Se $g$ gira 3 vezes mais depressa do que $x$ e $f$ gira 2 vezes mais depressa do que $g$, então $f$ gira $2\times3 = 6$ vezes mais depressa do que $x$.</p>
+  <div class="exemplo"><div class="ex-tit">Exemplos</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$(\operatorname{sen}(3x^2))' = \cos(3x^2)\cdot 6x$ · $(e^{-x^2})' = -2x\,e^{-x^2}$ · $(\ln(\cos x))' = \dfrac{-\operatorname{sen}x}{\cos x} = -\operatorname{tg}x$</p>
+    <a class="btn sec peq" href="../index.html#solver?tipo=derivada&a=sen(3x%5E2%2B1)">Ver a cadeia passo a passo</a></details></div></div>
+  <h3>Derivação implícita</h3>
+  <p>Quando $y$ não está isolado, como em $x^2 + y^2 = 25$, deriva-se tudo em ordem a $x$, tratando $y$ como $y(x)$. Cada vez que se deriva algo com $y$, aparece $y'$ (é a regra da cadeia).</p>
+  <div class="exemplo"><div class="ex-tit">Exemplo: tangente à circunferência $x^2 + y^2 = 25$ em $(3,4)$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$2x + 2y\,y' = 0 \Rightarrow y' = -\dfrac{x}{y}$. Em $(3,4)$: $y' = -\frac34$.</p>
+    <p>Tangente: $y = 4 - \frac34(x - 3)$.</p>
+    <div class="gw" data-f="sqrt(25-x^2)|circunferência;-sqrt(25-x^2)||#2563eb;4-0.75*(x-3)|tangente|#ea580c" data-x="-8,8" data-y="-6,7" data-proporcional data-pontos="3,4,(3, 4)"></div></details></div></div>
+</section>
+
+<section id="lhopital">
+  <h2>7. Regra de L'Hôpital</h2>
+  <div class="caixa def"><b>Regra de L'Hôpital</b>Se $\lim\frac{f}{g}$ dá $\frac00$ ou $\frac{\infty}{\infty}$, então $\displaystyle\lim\frac{f(x)}{g(x)} = \lim\frac{f'(x)}{g'(x)}$, desde que este último exista. Atenção: derivam-se numerador e denominador <b>em separado</b>. Não é a regra do quociente!</div>
+  <div class="exemplo"><div class="ex-tit">Exemplos</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$\displaystyle\lim_{x\to0}\frac{e^x - 1 - x}{x^2} \overset{0/0}{=} \lim\frac{e^x - 1}{2x} \overset{0/0}{=} \lim\frac{e^x}{2} = \frac12$ (aplicada duas vezes)</p>
+    <p>$\displaystyle\lim_{x\to0^+}x\ln x$ ($0\cdot\infty$) $= \lim\frac{\ln x}{1/x} \overset{\infty/\infty}{=} \lim\frac{1/x}{-1/x^2} = \lim(-x) = 0$</p>
+    <a class="btn sec peq" href="../index.html#solver?tipo=limite&a=(e%5Ex-1-x)%2Fx%5E2&b=0">Ver no solver</a></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> $\displaystyle\lim_{x\to+\infty}\frac{x^2}{e^x}$.
+    <details class="resp"><summary>Ver resposta</summary>Duas vezes L'Hôpital: $\frac{2x}{e^x} \to \frac{2}{e^x} \to 0$. A exponencial "ganha" a qualquer polinómio.</details></div>
+</section>
+
+<section id="estudo">
+  <h2>8. Estudo completo de uma função</h2>
+  <p>A <b>primeira derivada</b> diz se a função sobe ou desce. A <b>segunda derivada</b> diz para onde está "virada" (concavidade). Repara no gráfico: onde $f'$ (vermelho) é positiva, $f$ (azul) sobe. Onde $f''$ (verde) muda de sinal, $f$ muda de concavidade (ponto de inflexão).</p>
+  <div class="gw" data-f="x*exp(-x)|f(x) = x·e⁻ˣ;(1-x)*exp(-x)|f′(x);(x-2)*exp(-x)|f″(x)" data-x="-1,7" data-y="-1.2,1.2" data-pontos="1,1/e,máximo;2,2/e^2,inflexão" data-ler></div>
+  <div class="caixa como"><b>Roteiro</b><ol>
+    <li>Domínio, zeros, sinal e paridade.</li>
+    <li>Assíntotas (verticais e não verticais).</li>
+    <li>$f'$: zeros, quadro de sinal, monotonia e extremos.</li>
+    <li>$f''$: zeros, quadro de sinal, concavidade e pontos de inflexão.</li>
+    <li>Esboço do gráfico e contradomínio.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $f(x) = x\,e^{-x}$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$D = \mathbb{R}$; zero em $x = 0$. Quando $x \to +\infty$, $f \to 0$ (AH $y = 0$). Quando $x \to -\infty$, $f \to -\infty$.</p>
+    <p>$f'(x) = e^{-x} - xe^{-x} = (1-x)e^{-x}$: positiva para $x < 1$ e negativa para $x > 1$. <b>Máximo</b> em $x=1$: $f(1) = \frac1e$.</p>
+    <p>$f''(x) = -e^{-x} - (1-x)e^{-x} = (x-2)e^{-x}$: concavidade para baixo em $x<2$, para cima em $x>2$. <b>Inflexão</b> em $(2, \frac{2}{e^2})$.</p>
+    <p>Contradomínio: $]-\infty, \frac1e]$.</p></details></div></div>
+</section>
+
+<section id="otimizacao">
+  <h2>9. Otimização</h2>
+  <div class="caixa como"><b>Receita</b><ol>
+    <li>Faz um desenho e dá nomes às variáveis.</li>
+    <li>Escreve a quantidade a otimizar (área, custo, volume…).</li>
+    <li>Usa a restrição para ficar com <b>uma só variável</b>, e indica o intervalo onde ela faz sentido.</li>
+    <li>Deriva, iguala a zero e confirma que é máximo ou mínimo (quadro de sinal ou $f''$).</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: de uma folha 12×12 cm cortam-se quadrados de lado $x$ nos cantos para fazer uma caixa sem tampa. Qual é o volume máximo?</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$V(x) = x(12 - 2x)^2$, com $0 < x < 6$.</p>
+    <p>$V'(x) = (12-2x)^2 - 4x(12-2x) = (12-2x)(12 - 6x) = 0 \Rightarrow x = 2$ (o $x = 6$ está fora do intervalo).</p>
+    <p>$V'$ passa de + para −, logo é máximo: $V(2) = 2\cdot 8^2 = 128$ cm³.</p>
+    <div class="gw" data-f="x*(12-2x)^2|V(x)" data-x="-0.5,6.5" data-y="-10,140" data-tangente="0" data-pontos="2,128,máximo"></div>
+    <p class="ajuda">Passa o rato: no máximo, a tangente fica horizontal ($V' = 0$).</p></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Entre os retângulos de perímetro 20, qual tem área máxima?
+    <details class="resp"><summary>Ver resposta</summary>Lados $x$ e $10 - x$: $A = x(10-x)$, $A' = 10 - 2x = 0 \Rightarrow x = 5$. É o quadrado 5×5, com área 25.</details></div>
+</section>
+
+<section id="primitivas">
+  <h2>10. Primitivas</h2>
+  <p>Primitivar é <b>derivar ao contrário</b>: $F$ é primitiva de $f$ se $F' = f$. Como as constantes desaparecem ao derivar, junta-se sempre $+C$.</p>
+  <table class="tabela"><tr><th>$f(x)$</th><th>$\int f(x)\,dx$</th><th>$f(x)$</th><th>$\int f(x)\,dx$</th></tr>
+    <tr><td>$x^n$ ($n\neq-1$)</td><td>$\frac{x^{n+1}}{n+1}$</td><td>$\frac1x$</td><td>$\ln|x|$</td></tr>
+    <tr><td>$e^x$</td><td>$e^x$</td><td>$a^x$</td><td>$\frac{a^x}{\ln a}$</td></tr>
+    <tr><td>$\cos x$</td><td>$\operatorname{sen}x$</td><td>$\operatorname{sen}x$</td><td>$-\cos x$</td></tr>
+    <tr><td>$\frac{1}{\cos^2x}$</td><td>$\operatorname{tg}x$</td><td>$\frac{1}{1+x^2}$</td><td>$\operatorname{arctg}x$</td></tr>
+    <tr><td>$\frac{1}{\sqrt{1-x^2}}$</td><td>$\operatorname{arcsen}x$</td><td></td><td>(todas com $+C$)</td></tr></table>
+  <div class="caixa como"><b>Primitivas quase imediatas</b> (procura "uma função e a sua derivada")<ol>
+    <li>$\int u'\,u^n = \dfrac{u^{n+1}}{n+1}$, por exemplo $\int 2x(x^2+1)^3dx = \frac{(x^2+1)^4}{4}$</li>
+    <li>$\int \dfrac{u'}{u} = \ln|u|$, por exemplo $\int\frac{2x}{x^2+1}dx = \ln(x^2+1)$</li>
+    <li>$\int u'e^u = e^u$, por exemplo $\int 2x e^{x^2}dx = e^{x^2}$</li>
+    <li>$\int u'\cos u = \operatorname{sen}u$, por exemplo $\int 3\cos(3x)dx = \operatorname{sen}(3x)$</li></ol></div>
+  <p>Se a derivada não aparece completa, falta só uma <b>constante</b>: acerta-se multiplicando e dividindo. Por exemplo, $\int x e^{x^2}dx = \frac12\int 2xe^{x^2}dx = \frac12 e^{x^2}$.</p>
+  <div class="experimenta"><b>Experimenta</b> $\int \dfrac{\cos x}{\operatorname{sen}x}dx$ e $\int (3x - 1)^5dx$.
+    <details class="resp"><summary>Ver resposta</summary>$\ln|\operatorname{sen}x| + C$. $\frac13\cdot\frac{(3x-1)^6}{6} = \frac{(3x-1)^6}{18} + C$.
+      <a class="btn sec peq" href="../index.html#solver?tipo=integral&a=(3x-1)%5E5">Ver no solver</a></details></div>
+</section>
+
+<section id="integral-definido">
+  <h2>11. Integral definido e Teorema Fundamental</h2>
+  <p>O integral $\int_a^b f(x)\,dx$ é o <b>limite das somas de retângulos</b> (somas de Riemann) quando os retângulos ficam infinitamente finos. Aumenta $n$:</p>
+  <div class="gw" data-tipo="riemann" data-f="x^2/2+1" data-a="0" data-b="3" data-x="-0.5,3.5" data-y="-0.5,6"></div>
+  <div class="caixa def"><b>Teorema Fundamental do Cálculo</b>Se $F$ é uma primitiva de $f$: $\displaystyle\int_a^b f(x)\,dx = F(b) - F(a) = \Big[F(x)\Big]_a^b$.<br>Também: $\dfrac{d}{dx}\displaystyle\int_a^x f(t)\,dt = f(x)$. Derivar "desfaz" integrar.</div>
+  <div class="caixa nota"><b>Área com sinal</b>O integral conta como <b>negativa</b> a área abaixo do eixo. Para a área geométrica, separa nos zeros e soma os valores absolutos.</div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $\int_0^2 x^2\,dx$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$\left[\frac{x^3}{3}\right]_0^2 = \frac83 - 0 = \frac83$.</p>
+    <a class="btn sec peq" href="../index.html#solver?tipo=integral&a=x%5E2&b=0&c=2">Ver no solver</a></details></div></div>
+  <div class="caixa def"><b>Propriedades</b>$\int_a^b (f+g) = \int_a^b f + \int_a^b g$ · $\int_a^b f = -\int_b^a f$ · $\int_a^b f = \int_a^c f + \int_c^b f$</div>
+</section>
+
+<section id="areas">
+  <h2>12. Áreas entre curvas</h2>
+  <div class="caixa como"><b>Como fazer</b><ol>
+    <li>Encontra os pontos de interseção (resolve $f(x) = g(x)$).</li>
+    <li>Vê qual das curvas está <b>por cima</b> em cada intervalo.</li>
+    <li>Área $= \int_a^b \big(\text{cima} - \text{baixo}\big)\,dx$.</li></ol></div>
+  <div class="gw" data-f="x|y = x;x^2|y = x²|#dc2626" data-x="-0.5,1.5" data-y="-0.3,1.5" data-area="0:0:1:1" data-proporcional data-pontos="0,0;1,1"></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: área entre $y = x$ e $y = x^2$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>Interseções: $x = x^2 \iff x = 0 \lor x = 1$. Em $]0,1[$, $x > x^2$ (a reta está por cima).</p>
+    <p>$A = \int_0^1 (x - x^2)\,dx = \left[\frac{x^2}{2} - \frac{x^3}{3}\right]_0^1 = \frac12 - \frac13 = \frac16$.</p></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Área entre $y = 4 - x^2$ e o eixo dos $x$.
+    <details class="resp"><summary>Ver resposta</summary>Zeros $\pm2$: $\int_{-2}^2(4-x^2)dx = \left[4x - \frac{x^3}{3}\right]_{-2}^2 = \frac{16}{3} - \left(-\frac{16}{3}\right) = \frac{32}{3}$.</details></div>
+</section>
+
+<section><p><a class="btn" href="index.html">← Voltar aos guias</a> <a class="btn sec" href="../index.html#solver">Ir para o solver</a> <a class="btn sec" href="../index.html#cas">Calculadora CAS</a></p></section>
+</article>
+</div>
+<script src="../js/grafico.js"></script>
+<script src="widgets.js"></script>
+</body>
+</html>

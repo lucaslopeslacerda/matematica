@@ -1,0 +1,120 @@
+<!-- titulo: Álgebra -->
+<section id="inicio">
+  <h2>Álgebra — as ferramentas de base</h2>
+  <p>Quase todos os erros em Cálculo são, na verdade, erros de álgebra: um sinal trocado, uma fração mal simplificada, um quadrado mal desenvolvido. Este guia é a "caixa de ferramentas". Vale a pena dominá-la bem.</p>
+</section>
+
+<section id="potencias">
+  <h2>1. Potências e radicais</h2>
+  <table class="tabela"><tr><th>Regra</th><th>Exemplo</th></tr>
+    <tr><td>$a^m \cdot a^n = a^{m+n}$</td><td>$x^2\cdot x^3 = x^5$</td></tr>
+    <tr><td>$\dfrac{a^m}{a^n} = a^{m-n}$</td><td>$\dfrac{x^7}{x^4} = x^3$</td></tr>
+    <tr><td>$(a^m)^n = a^{mn}$</td><td>$(x^2)^3 = x^6$</td></tr>
+    <tr><td>$(ab)^n = a^n b^n$</td><td>$(2x)^3 = 8x^3$</td></tr>
+    <tr><td>$a^{-n} = \dfrac{1}{a^n}$</td><td>$x^{-2} = \dfrac{1}{x^2}$</td></tr>
+    <tr><td>$a^{m/n} = \sqrt[n]{a^m}$</td><td>$x^{1/2} = \sqrt x$, $\ 8^{2/3} = 4$</td></tr>
+    <tr><td>$a^0 = 1$ ($a \neq 0$)</td><td>$(3x)^0 = 1$</td></tr></table>
+  <div class="caixa nota"><b>Erros clássicos</b>$(a+b)^2 \neq a^2 + b^2$ · $\sqrt{a+b} \neq \sqrt a + \sqrt b$ · $\dfrac{1}{a+b} \neq \dfrac1a + \dfrac1b$ · $-x^2 \neq (-x)^2$</div>
+  <div class="caixa como"><b>Racionalizar denominadores</b><ol><li>$\dfrac{1}{\sqrt a} = \dfrac{\sqrt a}{a}$</li><li>$\dfrac{1}{\sqrt a - \sqrt b} = \dfrac{\sqrt a + \sqrt b}{a - b}$ (multiplica-se pelo <b>conjugado</b>)</li></ol></div>
+  <div class="experimenta"><b>Experimenta</b> Simplifica $\dfrac{(2x^3)^2 \cdot x^{-1}}{4x^2}$ e racionaliza $\dfrac{2}{\sqrt5 - 1}$.
+    <details class="resp"><summary>Ver resposta</summary>$\dfrac{4x^6 x^{-1}}{4x^2} = x^3$. $\dfrac{2(\sqrt5+1)}{5-1} = \dfrac{\sqrt5+1}{2}$.</details></div>
+</section>
+
+<section id="casos-notaveis">
+  <h2>2. Casos notáveis</h2>
+  <div class="caixa def"><b>Os três que tens de saber de cor</b>$(a+b)^2 = a^2 + 2ab + b^2$<br>$(a-b)^2 = a^2 - 2ab + b^2$<br>$(a+b)(a-b) = a^2 - b^2$ (diferença de quadrados)</div>
+  <p>Visualmente, $(a+b)^2$ é um quadrado de lado $a+b$, formado por <b>quatro</b> peças: um quadrado $a^2$, um quadrado $b^2$ e <b>dois</b> retângulos $ab$. É por isso que aparece o "$2ab$".</p>
+  <svg class="diagrama" viewBox="0 0 300 300" style="max-width:280px" font-family="system-ui" font-size="18">
+    <rect x="20" y="20" width="170" height="170" fill="#c7d2fe" stroke="#4f46e5"/><text x="90" y="112">a²</text>
+    <rect x="190" y="20" width="90" height="170" fill="#bbf7d0" stroke="#16a34a"/><text x="220" y="112">ab</text>
+    <rect x="20" y="190" width="170" height="90" fill="#bbf7d0" stroke="#16a34a"/><text x="90" y="242">ab</text>
+    <rect x="190" y="190" width="90" height="90" fill="#fecaca" stroke="#dc2626"/><text x="222" y="242">b²</text>
+    <text x="100" y="14" font-size="14">a</text><text x="230" y="14" font-size="14">b</text></svg>
+  <div class="caixa nota"><b>Também úteis</b>$(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$ · $a^3 - b^3 = (a-b)(a^2+ab+b^2)$ · $a^3 + b^3 = (a+b)(a^2-ab+b^2)$</div>
+  <div class="experimenta"><b>Experimenta</b> Desenvolve $(3x - 2)^2$ e fatoriza $9x^2 - 16$.
+    <details class="resp"><summary>Ver resposta</summary>$9x^2 - 12x + 4$. $(3x-4)(3x+4)$.</details></div>
+</section>
+
+<section id="fatorizacao">
+  <h2>3. Fatorização</h2>
+  <div class="caixa como"><b>Ordem de tentativas</b><ol>
+    <li><b>Fator comum</b>: $6x^3 - 9x^2 = 3x^2(2x - 3)$.</li>
+    <li><b>Casos notáveis</b>: $x^2 - 25 = (x-5)(x+5)$; $x^2 + 6x + 9 = (x+3)^2$.</li>
+    <li><b>Trinómio do 2.º grau</b>: $ax^2 + bx + c = a(x - x_1)(x - x_2)$, com $x_1, x_2$ dados pela fórmula resolvente.</li>
+    <li><b>Grau 3 ou mais</b>: encontra uma raiz e usa a regra de Ruffini (ver <a href="matematica-a.html#polinomios">Matemática A</a>).</li>
+    <li><b>Agrupamento</b>: $x^3 + x^2 - 4x - 4 = x^2(x+1) - 4(x+1) = (x+1)(x-2)(x+2)$.</li></ol></div>
+  <p>As raízes da fatorização são os pontos onde o gráfico corta o eixo dos $x$:</p>
+  <div class="gw" data-f="x^3+x^2-4x-4|x³ + x² − 4x − 4" data-x="-3.5,3.5" data-y="-8,6" data-pontos="-2,0,−2;-1,0,−1;2,0,2"></div>
+  <div class="experimenta"><b>Experimenta</b> Fatoriza $2x^2 - 7x + 3$.
+    <details class="resp"><summary>Ver resposta</summary>$\Delta = 49 - 24 = 25$; $x = \frac{7 \pm 5}{4}$, ou seja, $3$ ou $\frac12$. Logo $2(x-3)\left(x - \frac12\right) = (x-3)(2x-1)$.
+      <a class="btn sec peq" href="../index.html#cas">Confirma na CAS com factor(2x^2-7x+3)</a></details></div>
+</section>
+
+<section id="fracoes">
+  <h2>4. Frações algébricas</h2>
+  <div class="caixa como"><b>Regras</b><ol>
+    <li><b>Simplificar</b>: fatoriza em cima e em baixo e corta <b>fatores</b>, nunca parcelas. $\dfrac{x^2-9}{x^2+3x} = \dfrac{(x-3)(x+3)}{x(x+3)} = \dfrac{x-3}{x}$, com $x \neq -3$.</li>
+    <li><b>Somar</b>: reduz ao mesmo denominador, usando o m.m.c. dos fatores.</li>
+    <li><b>Dividir</b>: multiplica pelo inverso: $\dfrac{A}{B} : \dfrac{C}{D} = \dfrac{A}{B}\cdot\dfrac{D}{C}$.</li></ol></div>
+  <div class="caixa nota"><b>Atenção ao domínio</b>Ao simplificar, as restrições do denominador <b>original</b> continuam a valer. Na simplificação acima, $x = -3$ continua fora do domínio, apesar de já não aparecer.</div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $\dfrac{2}{x-1} - \dfrac{1}{x+1}$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$= \dfrac{2(x+1) - (x-1)}{(x-1)(x+1)} = \dfrac{x + 3}{x^2 - 1}$</p></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Simplifica $\dfrac{x^2 - 4x + 4}{x^2 - 4}$.
+    <details class="resp"><summary>Ver resposta</summary>$\dfrac{(x-2)^2}{(x-2)(x+2)} = \dfrac{x-2}{x+2}$, com $x \neq \pm 2$.</details></div>
+</section>
+
+<section id="equacoes">
+  <h2>5. Equações do 1.º e 2.º grau</h2>
+  <p>Uma equação $f(x) = g(x)$ pergunta <b>onde os gráficos se cruzam</b>. Uma equação $f(x) = 0$ pergunta <b>onde o gráfico corta o eixo dos $x$</b>.</p>
+  <div class="caixa def"><b>Fórmula resolvente</b> (no Brasil, "fórmula de Bhaskara")<br>$ax^2 + bx + c = 0 \iff x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$<br>
+    $\Delta = b^2 - 4ac$: com $\Delta > 0$ há 2 soluções, com $\Delta = 0$ há 1 e com $\Delta < 0$ não há soluções reais.</div>
+  <div class="gw" data-f="a*x^2+b*x+c|y = ax² + bx + c" data-sliders="a:-3:3:0.5:1;b:-6:6:0.5:-2;c:-6:6:0.5:-3" data-x="-6,6" data-y="-8,8"
+       data-formula="{a}x^2 + {b}x + {c} = 0 \qquad \Delta = {b}^2 - 4\cdot{a}\cdot{c}"></div>
+  <div class="caixa como"><b>Atalhos (sem fórmula resolvente)</b><ol>
+    <li>Sem termo independente: $ax^2 + bx = 0 \iff x(ax + b) = 0 \iff x = 0 \lor x = -\frac{b}{a}$.</li>
+    <li>Sem termo em $x$: $ax^2 + c = 0 \iff x^2 = -\frac{c}{a}$.</li>
+    <li>Soma e produto: $x_1 + x_2 = -\frac{b}{a}$ e $x_1 x_2 = \frac{c}{a}$.</li></ol></div>
+  <div class="experimenta"><b>Experimenta</b> Resolve $3x^2 - 12x = 0$ e $x^2 + x + 1 = 0$.
+    <details class="resp"><summary>Ver resposta</summary>$3x(x - 4) = 0 \iff x = 0 \lor x = 4$. $\Delta = 1 - 4 = -3 < 0$: não tem soluções reais (tem duas complexas, $\frac{-1 \pm i\sqrt3}{2}$).</details></div>
+</section>
+
+<section id="inequacoes">
+  <h2>6. Inequações</h2>
+  <div class="caixa nota"><b>A regra que causa mais erros</b>Ao multiplicar ou dividir uma inequação por um número <b>negativo</b>, o sinal <b>inverte-se</b>: $-2x > 6 \iff x < -3$.<br>Por isso <b>nunca</b> se multiplica por algo com $x$ (o seu sinal é desconhecido). Faz-se um quadro de sinal.</div>
+  <p>Inequação do 2.º grau, como $x^2 - x - 6 \leq 0$: desenha a parábola e lê onde está abaixo do eixo.</p>
+  <div class="gw" data-f="x^2-x-6|x² − x − 6" data-x="-5,6" data-y="-8,10" data-sinal="0" data-pontos="-2,0,−2;3,0,3"></div>
+  <p>Zeros $-2$ e $3$; concavidade para cima; negativa entre os zeros. Solução: $[-2, 3]$.</p>
+  <p>Para frações e produtos, usa o quadro de sinal (ver <a href="matematica-a.html#inequacoes">Matemática A</a>).</p>
+  <div class="experimenta"><b>Experimenta</b> Resolve $\dfrac{x+1}{x-2} < 0$.
+    <details class="resp"><summary>Ver resposta</summary>Zeros: $-1$ (numerador) e $2$ (denominador). É negativa entre eles: $]-1, 2[$.</details></div>
+</section>
+
+<section id="sistemas">
+  <h2>7. Sistemas de equações</h2>
+  <p>Um sistema de duas equações lineares com duas incógnitas são <b>duas retas</b>. A solução é o <b>ponto onde se cruzam</b>.</p>
+  <div class="gw" data-f="(c1-x)/1|x + y = c₁;(m*x-c2)|mx − y = c₂" data-sliders="c1:-5:5:0.5:3;m:-3:3:0.5:1;c2:-5:5:0.5:1" data-x="-6,6" data-y="-6,6" data-proporcional
+       data-formula="\begin{cases} x + y = {c1} \\ {m}x - y = {c2}\end{cases}"></div>
+  <p>Com retas paralelas (experimenta $m = -1$) não há solução: é um <b>sistema impossível</b>. Com retas coincidentes há infinitas soluções: <b>possível e indeterminado</b>.</p>
+  <div class="caixa como"><b>Métodos</b><ol>
+    <li><b>Substituição</b>: isola uma incógnita numa equação e substitui na outra.</li>
+    <li><b>Adição ordenada</b>: soma múltiplos das equações para eliminar uma incógnita. É a base do método de Gauss (<a href="algebra-linear.html#gauss">Álgebra Linear</a>).</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $\begin{cases} x + y = 3 \\ x - y = 1 \end{cases}$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>Somando as equações: $2x = 4 \Rightarrow x = 2$. Logo $y = 1$. Solução: $(2, 1)$.</p></details></div></div>
+</section>
+
+<section id="modulo-radicais">
+  <h2>8. Equações com módulo e com radicais</h2>
+  <div class="caixa como"><b>Módulo</b><ol>
+    <li>$|A| = k$, com $k \geq 0$: $A = k \lor A = -k$. Se $k < 0$, é impossível.</li>
+    <li>$|A| = |B|$: $A = B \lor A = -B$.</li></ol></div>
+  <div class="caixa como"><b>Radicais</b><ol>
+    <li>Isola a raiz.</li><li>Eleva os dois membros ao quadrado.</li>
+    <li><b>Verifica sempre</b> as soluções na equação original. Elevar ao quadrado pode criar soluções falsas.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $\sqrt{x + 2} = x$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$x + 2 = x^2 \iff x^2 - x - 2 = 0 \iff x = 2 \lor x = -1$.</p>
+    <p>Verificação: $x = 2$ dá $\sqrt4 = 2$ ✔. $x = -1$ dá $\sqrt1 = 1 \neq -1$ ✘. Solução: só $x = 2$.</p>
+    <div class="gw" data-f="sqrt(x+2)|√(x+2);x|x|#dc2626" data-x="-3,4" data-y="-2,3" data-pontos="2,2,solução"></div>
+    <p>O gráfico mostra que só há <b>um</b> cruzamento.</p></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Resolve $|2x - 1| = 5$.
+    <details class="resp"><summary>Ver resposta</summary>$2x - 1 = 5 \lor 2x - 1 = -5 \iff x = 3 \lor x = -2$.</details></div>
+</section>

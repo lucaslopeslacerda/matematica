@@ -1,0 +1,117 @@
+<!-- titulo: Pré-Cálculo -->
+<section id="inicio">
+  <h2>Pré-Cálculo — o que vais encontrar</h2>
+  <p>O Pré-Cálculo junta as famílias de funções que vais derivar e integrar em Cálculo. A ideia é <b>reconhecer cada família pelo gráfico</b> e saber o que controla a sua forma. Começa pelo <a href="funcoes.html">guia de Funções</a> se ainda não o leste: domínio, transformações, composição e inversa estão lá.</p>
+</section>
+
+<section id="polinomiais">
+  <h2>1. Funções polinomiais</h2>
+  <p>O comportamento "lá longe" ($x \to \pm\infty$) depende só do <b>termo de maior grau</b> $a_n x^n$:</p>
+  <table class="tabela"><tr><th></th><th>$a_n > 0$</th><th>$a_n < 0$</th></tr>
+    <tr><td>grau par</td><td>↖ … ↗ (os dois braços sobem)</td><td>↙ … ↘ (os dois descem)</td></tr>
+    <tr><td>grau ímpar</td><td>↙ … ↗</td><td>↖ … ↘</td></tr></table>
+  <div class="caixa def"><b>Multiplicidade de uma raiz</b>Se $(x - r)^m$ aparece na fatorização, $r$ tem multiplicidade $m$. Com $m$ <b>ímpar</b> o gráfico <b>atravessa</b> o eixo; com $m$ <b>par</b> <b>toca e volta para trás</b>.</div>
+  <div class="gw" data-f="0.15(x+2)^m*(x-1)^k|P(x)" data-sliders="m:1:4:1:1:multiplicidade de −2;k:1:4:1:2:multiplicidade de 1" data-x="-4,3.5" data-y="-4,4"
+       data-formula="P(x) = 0{,}15\,(x+2)^{ {m} }(x-1)^{ {k} }" data-pontos="-2,0;1,0"></div>
+  <div class="experimenta"><b>Experimenta</b> Descreve o gráfico de $P(x) = -x(x-2)^2$ sem calculadora.
+    <details class="resp"><summary>Ver resposta</summary>Grau 3 com coeficiente principal $-1$: começa em cima à esquerda e acaba em baixo à direita. Atravessa o eixo em $x = 0$ (multiplicidade 1) e toca em $x = 2$ (multiplicidade 2).</details></div>
+</section>
+
+<section id="racionais">
+  <h2>2. Funções racionais e assíntotas</h2>
+  <p>$f(x) = \dfrac{P(x)}{Q(x)}$. O gráfico tem "paredes" e "tetos" invisíveis, as <b>assíntotas</b>, de que se aproxima sem nunca as atingir (ou atingindo só nalguns pontos, no caso das horizontais).</p>
+  <div class="caixa como"><b>Como encontrar as assíntotas</b><ol>
+    <li><b>Verticais</b>: zeros de $Q$ que não são zeros de $P$, depois de simplificar a fração.</li>
+    <li><b>Horizontal</b>: compara os graus. Se o numerador tem grau menor, $y = 0$. Se os graus são iguais, $y = \frac{\text{coef. principal de }P}{\text{coef. principal de }Q}$. Se o numerador tem grau maior, não há assíntota horizontal.</li>
+    <li><b>Oblíqua</b>: se o grau de $P$ é o de $Q$ mais 1, divide $P$ por $Q$. O quociente $mx + b$ é a assíntota.</li></ol></div>
+  <div class="gw" data-f="(a*x+1)/(x-c)|f(x)" data-sliders="a:-3:3:0.5:2;c:-3:3:0.5:1" data-x="-8,8" data-y="-8,8" data-assintotas="x=c;y=a"
+       data-formula="f(x) = \dfrac{ {a}x + 1}{x - ({c})} \qquad \text{AV: } x = {c} \qquad \text{AH: } y = {a}"></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: assíntota oblíqua de $f(x) = \dfrac{x^2 + 1}{x}$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$\dfrac{x^2+1}{x} = x + \dfrac1x$. Quando $x \to \pm\infty$, $\frac1x \to 0$, logo a assíntota oblíqua é $y = x$. Há ainda uma assíntota vertical em $x = 0$.</p>
+    <div class="gw" data-f="(x^2+1)/x|f;x|y = x|#9ca3af|tracejado" data-x="-6,6" data-y="-8,8" data-assintotas="x=0"></div></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Assíntotas de $g(x) = \dfrac{x^2 - 4}{x^2 - x - 2}$.
+    <details class="resp"><summary>Ver resposta</summary>$\dfrac{(x-2)(x+2)}{(x-2)(x+1)} = \dfrac{x+2}{x+1}$ para $x \neq 2$. AV: $x = -1$ (em $x = 2$ há só um "buraco"). AH: $y = 1$.</details></div>
+</section>
+
+<section id="exp-log">
+  <h2>3. Funções exponenciais e logarítmicas</h2>
+  <p>Modelam tudo o que cresce ou decresce <b>em percentagem</b>: populações, juros, decaimento radioativo, carga e descarga de um condensador num circuito RC.</p>
+  <div class="caixa def"><b>Modelo exponencial</b>$N(t) = N_0\,e^{kt}$. Com $k > 0$ há crescimento; com $k < 0$, decaimento. O tempo de duplicação é $\frac{\ln 2}{k}$; a meia-vida é $\frac{\ln 2}{|k|}$.</div>
+  <div class="gw" data-f="N*exp(k*x)|N(t)" data-sliders="N:1:10:1:5:N₀;k:-1:1:0.05:-0.3" data-x="-1,10" data-y="0,20" data-ler
+       data-formula="N(t) = {N}\,e^{ {k}\,t}"></div>
+  <div class="caixa nota"><b>Ligação a circuitos (TCIRC)</b>A tensão num condensador a descarregar é $v_C(t) = V_0\,e^{-t/(RC)}$: é um decaimento exponencial com $k = -\frac{1}{RC}$. A constante de tempo $\tau = RC$ é o tempo que demora a cair para cerca de 37% ($e^{-1}$).</div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: uma substância tem meia-vida de 5 anos. Quanto resta de 80 g ao fim de 12 anos?</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$\frac12 = e^{5k} \Rightarrow k = \frac{\ln(1/2)}{5} \approx -0{,}1386$.</p>
+    <p>$N(12) = 80\,e^{-0{,}1386\cdot 12} \approx 80 \cdot 0{,}1895 \approx 15{,}2$ g.</p>
+    <p>Atalho: $N(t) = N_0 \left(\frac12\right)^{t/5}$, logo $80\cdot(0{,}5)^{2{,}4} \approx 15{,}2$ g.</p></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Quanto tempo demora um capital a duplicar a 3% ao ano (juro composto contínuo, $e^{0{,}03t}$)?
+    <details class="resp"><summary>Ver resposta</summary>$e^{0{,}03t} = 2 \Rightarrow t = \frac{\ln 2}{0{,}03} \approx 23{,}1$ anos.</details></div>
+</section>
+
+<section id="trigonometricas">
+  <h2>4. Funções trigonométricas</h2>
+  <table class="tabela"><tr><th></th><th>$\operatorname{sen} x$</th><th>$\cos x$</th><th>$\operatorname{tg} x$</th></tr>
+    <tr><td>Domínio</td><td>$\mathbb{R}$</td><td>$\mathbb{R}$</td><td>$x \neq \frac{\pi}{2} + k\pi$</td></tr>
+    <tr><td>Contradomínio</td><td>$[-1,1]$</td><td>$[-1,1]$</td><td>$\mathbb{R}$</td></tr>
+    <tr><td>Período</td><td>$2\pi$</td><td>$2\pi$</td><td>$\pi$</td></tr>
+    <tr><td>Paridade</td><td>ímpar</td><td>par</td><td>ímpar</td></tr></table>
+  <div class="gw" data-f="sin(x)|sen x;cos(x)|cos x;tan(x)|tg x|#16a34a" data-x="-7,7" data-y="-3,3"
+       data-assintotas="x=-3*pi/2;x=-pi/2;x=pi/2;x=3*pi/2"></div>
+  <h3>Modelo sinusoidal: $y = A\cos\big(\omega(t - \varphi)\big) + D$</h3>
+  <p>$A$ é a amplitude, $\omega$ a frequência angular (período $T = \frac{2\pi}{\omega}$), $\varphi$ o desfasamento e $D$ o valor médio. Em corrente alternada (FEELE, TCIRC), $v(t) = V_m\cos(\omega t + \phi)$ é exatamente isto.</p>
+  <div class="gw" data-f="A*cos(w*(x-f))+D|y" data-sliders="A:0:3:0.25:2;w:0.5:4:0.5:1;f:-3:3:0.25:0;D:-2:2:0.25:0" data-x="-7,7" data-y="-5,5"
+       data-formula="y = {A}\cos\big({w}(t - {f})\big) + {D}"></div>
+</section>
+
+<section id="inversas-trig">
+  <h2>5. Funções trigonométricas inversas</h2>
+  <p>O seno não é injetivo. Para ter inversa, restringe-se o domínio a um troço onde é injetivo.</p>
+  <table class="tabela"><tr><th>Função</th><th>Domínio</th><th>Contradomínio</th><th>Pergunta que responde</th></tr>
+    <tr><td>$\operatorname{arcsen} x$</td><td>$[-1,1]$</td><td>$[-\frac{\pi}{2}, \frac{\pi}{2}]$</td><td>que ângulo tem seno $x$?</td></tr>
+    <tr><td>$\arccos x$</td><td>$[-1,1]$</td><td>$[0, \pi]$</td><td>que ângulo tem cosseno $x$?</td></tr>
+    <tr><td>$\operatorname{arctg} x$</td><td>$\mathbb{R}$</td><td>$]-\frac{\pi}{2}, \frac{\pi}{2}[$</td><td>que ângulo tem tangente $x$?</td></tr></table>
+  <div class="gw" data-f="asin(x)|arcsen;acos(x)|arccos;atan(x)|arctg" data-x="-4,4" data-y="-2,3.5" data-proporcional data-assintotas="y=pi/2;y=-pi/2"></div>
+  <div class="exemplo"><div class="ex-tit">Exemplos</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$\operatorname{arcsen}\frac12 = \frac{\pi}{6}$ · $\arccos\left(-\frac12\right) = \frac{2\pi}{3}$ · $\operatorname{arctg}1 = \frac{\pi}{4}$</p>
+    <p>$\operatorname{sen}(\arccos x) = \sqrt{1 - x^2}$. Se $\theta = \arccos x$, então $\cos\theta = x$, e $\operatorname{sen}\theta \geq 0$ porque $\theta \in [0,\pi]$.</p></details></div></div>
+  <div class="caixa nota"><b>Atenção</b>$\operatorname{arcsen}(\operatorname{sen} x) = x$ <b>só</b> se $x \in [-\frac{\pi}{2}, \frac{\pi}{2}]$. Por exemplo, $\operatorname{arcsen}(\operatorname{sen}\pi) = \operatorname{arcsen} 0 = 0 \neq \pi$.</div>
+</section>
+
+<section id="identidades">
+  <h2>6. Identidades trigonométricas</h2>
+  <div class="duas">
+    <div class="caixa def"><b>Fundamentais</b>$\operatorname{sen}^2 x + \cos^2 x = 1$<br>$1 + \operatorname{tg}^2 x = \dfrac{1}{\cos^2 x}$<br>$\operatorname{tg} x = \dfrac{\operatorname{sen}x}{\cos x}$</div>
+    <div class="caixa def"><b>Soma e diferença</b>$\operatorname{sen}(a \pm b) = \operatorname{sen}a\cos b \pm \cos a\operatorname{sen}b$<br>$\cos(a \pm b) = \cos a\cos b \mp \operatorname{sen}a\operatorname{sen}b$</div>
+  </div>
+  <div class="caixa def"><b>Ângulo duplo e "baixar a potência"</b> (muito usadas em integrais)<br>
+    $\operatorname{sen}2x = 2\operatorname{sen}x\cos x$ · $\cos 2x = \cos^2x - \operatorname{sen}^2x = 1 - 2\operatorname{sen}^2x = 2\cos^2x - 1$<br>
+    $\operatorname{sen}^2 x = \dfrac{1 - \cos 2x}{2}$ · $\cos^2 x = \dfrac{1 + \cos 2x}{2}$</div>
+  <p>Uma identidade é verdadeira para todo o $x$, por isso os dois gráficos sobrepõem-se perfeitamente:</p>
+  <div class="gw" data-f="sin(x)^2|sen² x;(1-cos(2x))/2|(1 − cos 2x)/2|#dc2626|tracejado" data-x="-6.5,6.5" data-y="-0.5,1.5"></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: simplificar $\dfrac{\operatorname{sen}2x}{1 + \cos 2x}$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$= \dfrac{2\operatorname{sen}x\cos x}{1 + 2\cos^2 x - 1} = \dfrac{2\operatorname{sen}x\cos x}{2\cos^2 x} = \operatorname{tg} x$</p></details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Calcula o valor exato de $\cos 75°$.
+    <details class="resp"><summary>Ver resposta</summary>$\cos(45°+30°) = \frac{\sqrt2}{2}\cdot\frac{\sqrt3}{2} - \frac{\sqrt2}{2}\cdot\frac12 = \frac{\sqrt6 - \sqrt2}{4} \approx 0{,}259$.</details></div>
+</section>
+
+<section id="conicas">
+  <h2>7. Cónicas</h2>
+  <p>São as curvas que resultam de cortar um cone com um plano. Cada uma tem uma equação típica:</p>
+  <table class="tabela"><tr><th>Cónica</th><th>Equação (centro na origem)</th><th>Ideia</th></tr>
+    <tr><td>Circunferência</td><td>$x^2 + y^2 = r^2$</td><td>pontos à distância $r$ do centro</td></tr>
+    <tr><td>Elipse</td><td>$\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} = 1$</td><td>soma das distâncias a 2 focos é constante</td></tr>
+    <tr><td>Hipérbole</td><td>$\dfrac{x^2}{a^2} - \dfrac{y^2}{b^2} = 1$</td><td>diferença das distâncias aos focos é constante</td></tr>
+    <tr><td>Parábola</td><td>$y = a x^2$</td><td>pontos à mesma distância do foco e da diretriz</td></tr></table>
+  <p>Elipse (azul) e hipérbole (vermelho) com os mesmos $a$ e $b$. As assíntotas da hipérbole são $y = \pm\frac{b}{a}x$.</p>
+  <div class="gw" data-f="b*sqrt(1-x^2/a^2)|elipse;-b*sqrt(1-x^2/a^2)||#2563eb;b*sqrt(x^2/a^2-1)|hipérbole|#dc2626;-b*sqrt(x^2/a^2-1)||#dc2626;b/a*x||#9ca3af|tracejado;-b/a*x||#9ca3af|tracejado"
+       data-sliders="a:0.5:5:0.25:3;b:0.5:5:0.25:2" data-x="-8,8" data-y="-6,6" data-proporcional
+       data-formula="\dfrac{x^2}{ {a}^2} \pm \dfrac{y^2}{ {b}^2} = 1"></div>
+  <div class="caixa como"><b>Completar o quadrado para encontrar o centro</b><ol>
+    <li>Agrupa os termos em $x$ e os termos em $y$.</li>
+    <li>$x^2 + px = \left(x + \frac{p}{2}\right)^2 - \frac{p^2}{4}$ (e o mesmo para $y$).</li>
+    <li>Passa as constantes para o outro lado.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $x^2 + y^2 - 4x + 6y - 12 = 0$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$(x^2 - 4x) + (y^2 + 6y) = 12$</p>
+    <p>$(x-2)^2 - 4 + (y+3)^2 - 9 = 12 \iff (x-2)^2 + (y+3)^2 = 25$</p>
+    <p>Circunferência de centro $(2, -3)$ e raio $5$.</p></details></div></div>
+</section>

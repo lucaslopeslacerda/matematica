@@ -11,9 +11,10 @@ Ferramenta pessoal de matemática para estudar: solver passo a passo (como o Sym
   - **gráfico** ligado ao exercício (função, derivada, primitiva, área do integral)
   - **modo treino**: resolves tu e o site verifica
   - **"Dá-me outro igual"**: gera um exercício parecido
+  - **📋 colar contas** com Cmd+V / Ctrl+V (LaTeX, Symbolab, Wolfram, PDF, Unicode). O tipo de exercício é detetado sozinho
   - **📷 foto do exercício** (ou colar uma imagem com Ctrl+V)
-- **Calculadora CAS**: cálculo simbólico exato (derivar, integrar, limites, equações, matrizes, determinantes, valores próprios, Laplace, EDOs, complexos, Taylor…), com "ver passos".
-- **Guias de estudo**: Matemática A, Pré-Cálculo, Álgebra, Álgebra Linear, Cálculo 1 e Cálculo 2. O guia de **Funções** está completo. Os outros têm o índice de temas e vão sendo escritos.
+- **Calculadora CAS ao estilo TI-Nspire CX CAS**: teclado virtual, tecla **menu** com as mesmas categorias (Ações, Número, Álgebra, Cálculo, Probabilidade, Estatística, Matriz e vetor), modelos, `var`, `ans` e os mesmos comandos (`solve`, `factor`, `zeros`, `nSolve`, `derivative`, `integral`, `limit`, `deSolve`, `rref`, `eigVl`, `nCr`…).
+- **Guias de estudo** com gráficos interativos: Funções, Matemática A, Pré-Cálculo, Álgebra, Álgebra Linear, Cálculo 1 e Cálculo 2.
 
 ## Como funciona (sem custos)
 
@@ -29,11 +30,14 @@ js/app.js           interface
 js/grafico.js       desenhador de gráficos (canvas)
 js/engine_src.js    gerado a partir de py/engine.py (não editar à mão)
 py/engine.py        motor matemático (passos)
-guias/              guias de estudo
+js/colar.js         interpreta texto colado
+guias/src/          texto dos guias (editar aqui)
+guias/gerar.py      gera as páginas dos guias a partir de guias/src/
+guias/widgets.js    gráficos interativos declarativos dos guias
 build.py            gera js/engine_src.js
 ```
 
-Depois de alterar `py/engine.py`, corre `python3 build.py`.
+Depois de alterar `py/engine.py`, corre `python3 build.py`. Depois de alterar um guia em `guias/src/`, corre `python3 guias/gerar.py`.
 
 ## Publicar com GitHub Pages
 

@@ -20,7 +20,7 @@
   <p class="sub">Explicações com gráficos interativos, exemplos resolvidos e exercícios "Experimenta". Os termos usados são os de Portugal e cada guia tem os equivalentes do Brasil.</p>
 
   <div class="cartao" style="background:#eef2ff;border-color:#c7d2fe">
-    <b>⭐ Começa por aqui:</b> <a href="funcoes.html"><b>Funções</b></a>. É a base de tudo o resto: domínio, gráficos, transformações, composição, inversa…
+    <b>⭐ Começa por aqui:</b> <a href="funcoes.html"><b>Funções</b></a>. É a base de tudo o resto: domínio, gráficos, transformações, composição, inversa… Ordem sugerida: Funções → Álgebra → Cálculo 1 → Álgebra Linear → Cálculo 2. A Matemática A e o Pré-Cálculo servem para rever.
   </div>
 
   <div class="guias-grelha" id="grelha"></div>
@@ -28,34 +28,37 @@
 <footer class="rodape">Estrutura inspirada nos guias da OpenStax (licença CC BY 4.0), com texto original em português de Portugal.</footer>
 <script>
 const MATERIAS = [
-  { nome: 'Matemática A (secundário)', cor: '#4f46e5', temas: [
+  { nome: 'Matemática A (secundário)', cor: '#4f46e5', f: 'matematica-a.html', temas: [
     ['Funções: generalidades, domínio, gráficos', 'funcoes.html'], ['Função afim e quadrática', 'funcoes.html#afim'], ['Transformações de gráficos', 'funcoes.html#transformacoes'],
-    ['Polinómios e regra de Ruffini'], ['Inequações e módulo'], ['Sucessões e progressões'], ['Trigonometria e círculo trigonométrico'],
-    ['Exponenciais e logaritmos'], ['Limites e continuidade (introdução)'], ['Derivadas e estudo de funções'], ['Números complexos'], ['Probabilidades e combinatória'] ] },
-  { nome: 'Pré-Cálculo', cor: '#0891b2', temas: [
+    ['Polinómios e regra de Ruffini', '#polinomios'], ['Inequações e quadros de sinal', '#inequacoes'], ['Módulo', '#modulo'], ['Sucessões e progressões', '#sucessoes'],
+    ['Trigonometria e círculo trigonométrico', '#trigonometria'], ['Exponenciais e logaritmos', '#exponenciais'], ['Limites e continuidade (introdução)', '#limites'],
+    ['Derivadas e estudo de funções', '#derivadas'], ['Números complexos', '#complexos'], ['Probabilidades e combinatória', '#probabilidades'] ] },
+  { nome: 'Pré-Cálculo', cor: '#0891b2', f: 'pre-calculo.html', temas: [
     ['Funções e os seus gráficos', 'funcoes.html'], ['Composição e função inversa', 'funcoes.html#composicao'], ['Funções definidas por ramos', 'funcoes.html#ramos'],
-    ['Funções polinomiais e racionais'], ['Funções exponenciais e logarítmicas'], ['Funções trigonométricas e inversas'], ['Identidades trigonométricas'], ['Cónicas'] ] },
-  { nome: 'Álgebra (elementar)', cor: '#16a34a', temas: [
-    ['Números reais, potências e radicais'], ['Expressões algébricas e casos notáveis'], ['Fatorização de polinómios'], ['Frações algébricas'],
-    ['Equações do 1.º e 2.º grau'], ['Inequações e quadros de sinal'], ['Sistemas de equações'], ['Equações com módulo e radicais'] ] },
-  { nome: 'Álgebra Linear', cor: '#9333ea', temas: [
-    ['Matrizes e operações'], ['Sistemas lineares e método de Gauss'], ['Característica e classificação (SPD/SPI/SI)'], ['Matriz inversa'],
-    ['Determinantes'], ['Vetores, produto interno e externo'], ['Retas e planos no espaço'], ['Espaços vetoriais, bases e dimensão'], ['Valores e vetores próprios'] ] },
-  { nome: 'Cálculo 1', cor: '#dc2626', temas: [
-    ['Limites e continuidade'], ['Assíntotas'], ['Derivadas: definição e regras'], ['Regra da cadeia e derivação implícita'], ['Regra de L\'Hôpital'],
-    ['Estudo de funções (monotonia, extremos, concavidade)'], ['Otimização'], ['Primitivas imediatas'], ['Integral definido e Teorema Fundamental'], ['Áreas entre curvas'] ] },
-  { nome: 'Cálculo 2', cor: '#ea580c', temas: [
-    ['Integração por partes'], ['Integração por substituição'], ['Frações simples (funções racionais)'], ['Integrais trigonométricos'], ['Integrais impróprios'],
-    ['Séries numéricas e critérios de convergência'], ['Séries de potências e de Taylor'], ['Equações diferenciais de 1.ª ordem'], ['EDO lineares de 2.ª ordem'], ['Funções de várias variáveis e derivadas parciais'], ['Integrais duplos'] ] },
+    ['Funções polinomiais', '#polinomiais'], ['Funções racionais e assíntotas', '#racionais'], ['Exponenciais e logarítmicas (modelos)', '#exp-log'],
+    ['Funções trigonométricas', '#trigonometricas'], ['Trigonométricas inversas', '#inversas-trig'], ['Identidades trigonométricas', '#identidades'], ['Cónicas', '#conicas'] ] },
+  { nome: 'Álgebra (elementar)', cor: '#16a34a', f: 'algebra.html', temas: [
+    ['Potências e radicais', '#potencias'], ['Casos notáveis', '#casos-notaveis'], ['Fatorização', '#fatorizacao'], ['Frações algébricas', '#fracoes'],
+    ['Equações do 1.º e 2.º grau', '#equacoes'], ['Inequações', '#inequacoes'], ['Sistemas de equações', '#sistemas'], ['Equações com módulo e radicais', '#modulo-radicais'] ] },
+  { nome: 'Álgebra Linear', cor: '#9333ea', f: 'algebra-linear.html', temas: [
+    ['Matrizes como transformações', '#inicio'], ['Matrizes e operações', '#matrizes'], ['Sistemas lineares e método de Gauss', '#gauss'], ['Característica e classificação (SPD/SPI/SI)', '#caracteristica'],
+    ['Matriz inversa', '#inversa'], ['Determinantes', '#determinantes'], ['Vetores, produto interno e externo', '#vetores'], ['Retas e planos no espaço', '#retas-planos'],
+    ['Espaços vetoriais, bases e dimensão', '#espacos'], ['Valores e vetores próprios', '#valores-proprios'] ] },
+  { nome: 'Cálculo 1', cor: '#dc2626', f: 'calculo-1.html', temas: [
+    ['Limites', '#limites'], ['Continuidade e Bolzano', '#continuidade'], ['Assíntotas', '#assintotas'], ['Derivada: definição', '#derivada-def'], ['Regras de derivação', '#regras'],
+    ['Regra da cadeia e derivação implícita', '#cadeia'], ['Regra de L\'Hôpital', '#lhopital'], ['Estudo completo de uma função', '#estudo'], ['Otimização', '#otimizacao'],
+    ['Primitivas', '#primitivas'], ['Integral definido e Teorema Fundamental', '#integral-definido'], ['Áreas entre curvas', '#areas'] ] },
+  { nome: 'Cálculo 2', cor: '#ea580c', f: 'calculo-2.html', temas: [
+    ['Que técnica de integração usar?', '#inicio'], ['Integração por partes', '#partes'], ['Integração por substituição', '#substituicao'], ['Frações simples', '#fracoes'],
+    ['Integrais trigonométricos', '#trigonometricos'], ['Integrais impróprios', '#improprios'], ['Séries numéricas e critérios', '#series'], ['Séries de potências e Taylor', '#taylor'],
+    ['EDO de 1.ª ordem', '#edo1'], ['EDO lineares de 2.ª ordem', '#edo2'], ['Várias variáveis e derivadas parciais', '#varias-variaveis'], ['Integrais duplos', '#integrais-duplos'] ] },
 ];
-document.getElementById('grelha').innerHTML = MATERIAS.map(m => {
-  const prontos = m.temas.filter(t => t[1]).length;
-  return `<div class="guia-cartao" style="border-top:4px solid ${m.cor}">
-    <h3>${m.nome}</h3>
-    <span class="etiqueta ${prontos ? 'pronto' : ''}">${prontos ? prontos + ' tema(s) disponível(is)' : 'em preparação'}</span>
-    <ul>${m.temas.map(([t, l]) => l ? `<li><a href="${l}">${t}</a></li>` : `<li>${t} <span class="etiqueta">em breve</span></li>`).join('')}</ul>
-  </div>`;
-}).join('');
+document.getElementById('grelha').innerHTML = MATERIAS.map(m => `<div class="guia-cartao" style="border-top:4px solid ${m.cor}">
+    <h3><a href="${m.f}" style="color:inherit;text-decoration:none">${m.nome}</a></h3>
+    <span class="etiqueta pronto">${m.temas.length} temas</span>
+    <ul>${m.temas.map(([t, l]) => `<li><a href="${l.startsWith('#') ? m.f + l : l}">${t}</a></li>`).join('')}</ul>
+    <p style="margin:10px 0 0"><a class="btn peq" href="${m.f}">Abrir guia →</a></p>
+  </div>`).join('');
 </script>
 </body>
 </html>
