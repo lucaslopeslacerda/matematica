@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guias de estudo — Matemática Passo a Passo</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="topo"><div class="topo-in">
+  <a class="logo" href="../index.html"><b>∫</b> Matemática Passo a Passo</a>
+  <nav class="nav">
+    <a href="../index.html#solver">Resolver</a>
+    <a href="../index.html#cas">Calculadora CAS</a>
+    <a href="index.html" class="ativo">Guias de estudo</a>
+  </nav>
+</div></header>
+<main>
+  <h1>Guias de estudo</h1>
+  <p class="sub">Explicações com gráficos interativos, exemplos resolvidos e exercícios "Experimenta". Os termos usados são os de Portugal e cada guia tem os equivalentes do Brasil.</p>
+
+  <div class="cartao" style="background:#eef2ff;border-color:#c7d2fe">
+    <b>⭐ Começa por aqui:</b> <a href="funcoes.html"><b>Funções</b></a>. É a base de tudo o resto: domínio, gráficos, transformações, composição, inversa…
+  </div>
+
+  <div class="guias-grelha" id="grelha"></div>
+</main>
+<footer class="rodape">Estrutura inspirada nos guias da OpenStax (licença CC BY 4.0), com texto original em português de Portugal.</footer>
+<script>
+const MATERIAS = [
+  { nome: 'Matemática A (secundário)', cor: '#4f46e5', temas: [
+    ['Funções: generalidades, domínio, gráficos', 'funcoes.html'], ['Função afim e quadrática', 'funcoes.html#afim'], ['Transformações de gráficos', 'funcoes.html#transformacoes'],
+    ['Polinómios e regra de Ruffini'], ['Inequações e módulo'], ['Sucessões e progressões'], ['Trigonometria e círculo trigonométrico'],
+    ['Exponenciais e logaritmos'], ['Limites e continuidade (introdução)'], ['Derivadas e estudo de funções'], ['Números complexos'], ['Probabilidades e combinatória'] ] },
+  { nome: 'Pré-Cálculo', cor: '#0891b2', temas: [
+    ['Funções e os seus gráficos', 'funcoes.html'], ['Composição e função inversa', 'funcoes.html#composicao'], ['Funções definidas por ramos', 'funcoes.html#ramos'],
+    ['Funções polinomiais e racionais'], ['Funções exponenciais e logarítmicas'], ['Funções trigonométricas e inversas'], ['Identidades trigonométricas'], ['Cónicas'] ] },
+  { nome: 'Álgebra (elementar)', cor: '#16a34a', temas: [
+    ['Números reais, potências e radicais'], ['Expressões algébricas e casos notáveis'], ['Fatorização de polinómios'], ['Frações algébricas'],
+    ['Equações do 1.º e 2.º grau'], ['Inequações e quadros de sinal'], ['Sistemas de equações'], ['Equações com módulo e radicais'] ] },
+  { nome: 'Álgebra Linear', cor: '#9333ea', temas: [
+    ['Matrizes e operações'], ['Sistemas lineares e método de Gauss'], ['Característica e classificação (SPD/SPI/SI)'], ['Matriz inversa'],
+    ['Determinantes'], ['Vetores, produto interno e externo'], ['Retas e planos no espaço'], ['Espaços vetoriais, bases e dimensão'], ['Valores e vetores próprios'] ] },
+  { nome: 'Cálculo 1', cor: '#dc2626', temas: [
+    ['Limites e continuidade'], ['Assíntotas'], ['Derivadas: definição e regras'], ['Regra da cadeia e derivação implícita'], ['Regra de L\'Hôpital'],
+    ['Estudo de funções (monotonia, extremos, concavidade)'], ['Otimização'], ['Primitivas imediatas'], ['Integral definido e Teorema Fundamental'], ['Áreas entre curvas'] ] },
+  { nome: 'Cálculo 2', cor: '#ea580c', temas: [
+    ['Integração por partes'], ['Integração por substituição'], ['Frações simples (funções racionais)'], ['Integrais trigonométricos'], ['Integrais impróprios'],
+    ['Séries numéricas e critérios de convergência'], ['Séries de potências e de Taylor'], ['Equações diferenciais de 1.ª ordem'], ['EDO lineares de 2.ª ordem'], ['Funções de várias variáveis e derivadas parciais'], ['Integrais duplos'] ] },
+];
+document.getElementById('grelha').innerHTML = MATERIAS.map(m => {
+  const prontos = m.temas.filter(t => t[1]).length;
+  return `<div class="guia-cartao" style="border-top:4px solid ${m.cor}">
+    <h3>${m.nome}</h3>
+    <span class="etiqueta ${prontos ? 'pronto' : ''}">${prontos ? prontos + ' tema(s) disponível(is)' : 'em preparação'}</span>
+    <ul>${m.temas.map(([t, l]) => l ? `<li><a href="${l}">${t}</a></li>` : `<li>${t} <span class="etiqueta">em breve</span></li>`).join('')}</ul>
+  </div>`;
+}).join('');
+</script>
+</body>
+</html>

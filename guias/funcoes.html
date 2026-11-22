@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Funções — Guia de estudo</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+<header class="topo"><div class="topo-in">
+  <a class="logo" href="../index.html"><b>∫</b> Matemática Passo a Passo</a>
+  <nav class="nav">
+    <a href="../index.html#solver">Resolver</a>
+    <a href="../index.html#cas">Calculadora CAS</a>
+    <a href="index.html" class="ativo">Guias de estudo</a>
+  </nav>
+</div></header>
+
+<div class="guia">
+<aside class="guia-indice">
+  <b>Funções</b>
+  <a href="#intro">1. Para que servem</a>
+  <a href="#definicao">2. O que é uma função</a>
+  <a href="#reta-vertical">3. Teste da reta vertical</a>
+  <a href="#dominio">4. Domínio e contradomínio</a>
+  <a href="#leitura">5. Ler um gráfico</a>
+  <a href="#biblioteca">6. Funções de referência</a>
+  <a href="#afim">7. Função afim</a>
+  <a href="#quadratica">8. Função quadrática</a>
+  <a href="#transformacoes">9. Transformações de gráficos</a>
+  <a href="#paridade">10. Funções pares e ímpares</a>
+  <a href="#composicao">11. Operações e composição</a>
+  <a href="#inversa">12. Injetividade e função inversa</a>
+  <a href="#ramos">13. Funções definidas por ramos</a>
+  <a href="#resumo">14. Resumo e glossário</a>
+  <hr><a href="index.html">← Todos os guias</a>
+</aside>
+
+<article class="guia-conteudo">
+<!-- ===================================================== 1 -->
+<section id="intro">
+  <h2>1. Para que servem as funções</h2>
+  <p>Uma função é uma <b>máquina de regras</b>: entra um número, sai outro número. Está em todo o lado:</p>
+  <ul>
+    <li>Num táxi, o <b>preço</b> depende dos <b>quilómetros</b>.</li>
+    <li>Num circuito, a <b>corrente</b> numa resistência depende da <b>tensão</b>: $I = V/R$.</li>
+    <li>A <b>temperatura</b> do dia depende da <b>hora</b>.</li>
+  </ul>
+  <p>Mexe o rato (ou o dedo) sobre o gráfico. Cada quilómetro dá <b>um e um só</b> preço.</p>
+  <div class="formula-viva">$P(d) = 3{,}25 + 0{,}90\,d$</div>
+  <div id="g-taxi"></div>
+  <div class="leitura" id="l-taxi">passa o rato sobre o gráfico</div>
+  <div class="caixa nota"><b>Ideia-chave</b>Uma função descreve como uma quantidade <b>depende</b> de outra. A que escolhemos livremente (os km) é a <b>variável independente</b>, $x$. A que resulta (o preço) é a <b>variável dependente</b>, $y = f(x)$.</div>
+</section>
+
+<!-- ===================================================== 2 -->
+<section id="definicao">
+  <h2>2. O que é uma função</h2>
+  <div class="caixa def"><b>Definição</b>Uma <b>função</b> $f$ de um conjunto $A$ num conjunto $B$ é uma correspondência que associa a <b>cada</b> elemento $x$ de $A$ <b>um e um só</b> elemento $y$ de $B$. Escreve-se $f: A \to B$, $x \mapsto f(x)$.</div>
+  <p>Vocabulário (em Portugal):</p>
+  <ul>
+    <li>$x$ é o <b>objeto</b> e $f(x)$ é a <b>imagem</b> de $x$.</li>
+    <li>$A$ é o <b>domínio</b> ($D_f$): os objetos que podem entrar.</li>
+    <li>$B$ é o <b>conjunto de chegada</b>. As imagens que realmente saem formam o <b>contradomínio</b> ($D'_f$).</li>
+  </ul>
+  <p>O diagrama de setas mostra a diferença entre o que é e o que não é função:</p>
+  <svg class="diagrama" viewBox="0 0 560 230" font-family="system-ui" font-size="15">
+    <defs><marker id="seta" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#4f46e5"/></marker>
+    <marker id="seta2" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#dc2626"/></marker></defs>
+    <text x="70" y="20" font-weight="700" fill="#16a34a">✔ É função</text>
+    <ellipse cx="40" cy="120" rx="32" ry="80" fill="#eef2ff" stroke="#c7d2fe"/><ellipse cx="190" cy="120" rx="32" ry="80" fill="#f0fdf4" stroke="#bbf7d0"/>
+    <text x="34" y="75">1</text><text x="34" y="125">2</text><text x="34" y="175">3</text>
+    <text x="182" y="90">a</text><text x="182" y="150">b</text>
+    <line x1="48" y1="70" x2="178" y2="86" stroke="#4f46e5" stroke-width="2" marker-end="url(#seta)"/>
+    <line x1="48" y1="120" x2="178" y2="90" stroke="#4f46e5" stroke-width="2" marker-end="url(#seta)"/>
+    <line x1="48" y1="170" x2="178" y2="146" stroke="#4f46e5" stroke-width="2" marker-end="url(#seta)"/>
+    <text x="10" y="222" font-size="12" fill="#6b7280">Cada objeto tem UMA seta (podem ir 2 para o mesmo).</text>
+    <text x="355" y="20" font-weight="700" fill="#dc2626">✘ Não é função</text>
+    <ellipse cx="330" cy="120" rx="32" ry="80" fill="#eef2ff" stroke="#c7d2fe"/><ellipse cx="480" cy="120" rx="32" ry="80" fill="#fef2f2" stroke="#fecaca"/>
+    <text x="324" y="75">1</text><text x="324" y="125">2</text><text x="324" y="175">3</text>
+    <text x="472" y="80">a</text><text x="472" y="125">b</text><text x="472" y="170">c</text>
+    <line x1="338" y1="70" x2="468" y2="76" stroke="#4f46e5" stroke-width="2" marker-end="url(#seta)"/>
+    <line x1="338" y1="72" x2="468" y2="120" stroke="#dc2626" stroke-width="2.5" marker-end="url(#seta2)"/>
+    <line x1="338" y1="120" x2="468" y2="166" stroke="#4f46e5" stroke-width="2" marker-end="url(#seta)"/>
+    <text x="300" y="222" font-size="12" fill="#6b7280">O 1 tem duas setas e o 3 nenhuma.</text>
+  </svg>
+  <p>No diagrama da direita há dois problemas, e basta um deles para não ser função: o objeto 1 tem <b>duas</b> imagens e o objeto 3 não tem <b>nenhuma</b>.</p>
+
+  <div class="exemplo"><div class="ex-tit">Exemplo 1: calcular imagens</div><div class="ex-corpo">
+    Seja $f(x) = x^2 - 3x$. Calcula $f(2)$, $f(-1)$ e $f(a+1)$.
+    <details class="resolucao"><summary>Ver resolução</summary>
+      <p>Substitui-se o $x$ pelo que está dentro dos parênteses, sempre <b>entre parênteses</b>:</p>
+      <p>$f(2) = 2^2 - 3\cdot 2 = 4 - 6 = -2$</p>
+      <p>$f(-1) = (-1)^2 - 3\cdot(-1) = 1 + 3 = 4$</p>
+      <p>$f(a+1) = (a+1)^2 - 3(a+1) = a^2 + 2a + 1 - 3a - 3 = a^2 - a - 2$</p>
+    </details>
+  </div></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo 2: o caminho inverso (dada a imagem, achar o objeto)</div><div class="ex-corpo">
+    Para $f(x) = x^2 - 3x$, que objetos têm imagem $4$?
+    <details class="resolucao"><summary>Ver resolução</summary>
+      <p>Queremos $f(x) = 4$, ou seja, $x^2 - 3x = 4 \iff x^2 - 3x - 4 = 0$.</p>
+      <p>Pela fórmula resolvente: $x = \dfrac{3 \pm \sqrt{9 + 16}}{2} = \dfrac{3 \pm 5}{2}$, logo $x = 4$ ou $x = -1$.</p>
+      <p>Há <b>dois</b> objetos com a mesma imagem. Uma função pode fazer isto. O que não pode é um objeto ter duas imagens.</p>
+      <a class="btn sec peq" href="../index.html#solver?tipo=equacao&a=x%5E2-3x%3D4">Ver no solver passo a passo</a>
+    </details>
+  </div></div>
+  <div class="experimenta"><b>Experimenta</b> Para $g(x) = \dfrac{2x+1}{x-3}$, calcula $g(0)$, $g(4)$ e explica porque não existe $g(3)$.
+    <details class="resp"><summary>Ver resposta</summary>$g(0) = \frac{1}{-3} = -\frac13$; $g(4) = \frac{9}{1} = 9$. $g(3)$ daria $\frac{7}{0}$, e não se divide por zero: $3$ não pertence ao domínio.</details></div>
+</section>
+
+<!-- ===================================================== 3 -->
+<section id="reta-vertical">
+  <h2>3. Teste da reta vertical</h2>
+  <p>Como se vê num <b>gráfico</b> se é função? Cada $x$ só pode ter um $y$. Imagina uma reta vertical a deslizar da esquerda para a direita:</p>
+  <div class="caixa como"><b>Como fazer</b><ol><li>Passa retas verticais ($x = $ constante) por todo o gráfico.</li><li>Se <b>alguma</b> cortar o gráfico em <b>2 ou mais pontos</b>, <b>não é função</b> (esse $x$ teria duas imagens).</li><li>Se todas cortarem em <b>no máximo 1 ponto</b>, é o gráfico de uma função.</li></ol></div>
+  <div class="controlos"><label>Curva: <select id="sel-rv">
+    <option value="parabola">y = x² − 2 (parábola)</option>
+    <option value="circ">x² + y² = 16 (circunferência)</option>
+    <option value="deitada">x = y² (parábola deitada)</option>
+    <option value="seno">y = 3 sen x</option></select></label></div>
+  <div id="g-rv"></div>
+  <div class="leitura" id="l-rv">passa o rato sobre o gráfico</div>
+</section>
+
+<!-- ===================================================== 4 -->
+<section id="dominio">
+  <h2>4. Domínio e contradomínio</h2>
+  <div class="caixa def"><b>Definição</b>O <b>domínio</b> $D_f$ é o conjunto dos valores de $x$ para os quais $f(x)$ <b>existe</b>. O <b>contradomínio</b> $D'_f$ é o conjunto de <b>todas as imagens</b> $f(x)$.</div>
+  <p>No gráfico, o domínio é a <b>"sombra" do gráfico no eixo dos $x$</b> (projeção vertical). O contradomínio é a <b>sombra no eixo dos $y$</b> (projeção horizontal).</p>
+  <div class="controlos"><label>Função: <select id="sel-dom">
+    <option value="raiz">f(x) = √(x + 2)</option>
+    <option value="quad">f(x) = x² − 4x + 1</option>
+    <option value="frac">f(x) = 1 / (x − 1)</option>
+    <option value="ln">f(x) = ln(x − 1)</option>
+    <option value="seno">f(x) = 2 sen x + 1</option></select></label></div>
+  <div id="g-dom"></div>
+  <div class="formula-viva" id="f-dom"></div>
+  <p>Em expressões algébricas, o domínio só fica limitado por <b>três situações</b>. São as únicas a procurar:</p>
+  <table class="tabela"><tr><th>Se aparece…</th><th>Condição</th><th>Exemplo</th></tr>
+    <tr><td>uma fração $\dfrac{A}{B}$</td><td>$B \neq 0$</td><td>$\dfrac{1}{x-1}$: $x \neq 1$</td></tr>
+    <tr><td>uma raiz de índice par $\sqrt{A}$</td><td>$A \geq 0$</td><td>$\sqrt{x+2}$: $x \geq -2$</td></tr>
+    <tr><td>um logaritmo $\ln(A)$</td><td>$A > 0$</td><td>$\ln(x-1)$: $x > 1$</td></tr></table>
+  <div class="caixa como"><b>Como determinar o domínio</b><ol><li>Procura frações, raízes de índice par e logaritmos.</li><li>Escreve uma condição para cada um.</li><li>Resolve as condições e faz a <b>interseção</b> (têm de se verificar todas ao mesmo tempo).</li><li>Escreve o resultado em intervalo.</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $f(x) = \dfrac{\sqrt{x+3}}{x - 2}$</div><div class="ex-corpo">
+    <details class="resolucao"><summary>Ver resolução</summary>
+      <p>Raiz: $x + 3 \geq 0 \iff x \geq -3$. Fração: $x - 2 \neq 0 \iff x \neq 2$.</p>
+      <p>Interseção: $D_f = [-3, 2[ \,\cup\, ]2, +\infty[$.</p>
+    </details></div></div>
+  <div class="experimenta"><b>Experimenta</b> Determina o domínio de $h(x) = \ln(4 - x^2)$.
+    <details class="resp"><summary>Ver resposta</summary>$4 - x^2 > 0 \iff x^2 < 4 \iff -2 < x < 2$. Logo $D_h = ]-2, 2[$.</details></div>
+</section>
+
+<!-- ===================================================== 5 -->
+<section id="leitura">
+  <h2>5. Ler um gráfico: zeros, sinal, monotonia e extremos</h2>
+  <p>Num gráfico consegues ler quase tudo sobre uma função. Mexe o rato e acompanha a leitura em baixo.</p>
+  <div id="g-leitura"></div>
+  <div class="leitura" id="l-leitura">passa o rato sobre o gráfico</div>
+  <div class="duas">
+    <div>
+      <h3>Zeros e sinal</h3>
+      <p>Os <b>zeros</b> são os $x$ onde $f(x) = 0$, ou seja, onde o gráfico <b>toca o eixo dos $x$</b> (pontos pretos).</p>
+      <p>No eixo dos $x$, a <span style="color:#16a34a;font-weight:700">verde</span> estão os $x$ com $f(x) > 0$ (gráfico <b>acima</b> do eixo). A <span style="color:#dc2626;font-weight:700">vermelho</span> estão os $x$ com $f(x) < 0$ (gráfico <b>abaixo</b>).</p>
+    </div>
+    <div>
+      <h3>Monotonia e extremos</h3>
+      <p>$f$ é <b>crescente</b> num intervalo se, lendo da esquerda para a direita, o gráfico <b>sobe</b>. É <b>decrescente</b> se <b>desce</b>.</p>
+      <p>Um <b>máximo relativo</b> é um "topo de colina" e um <b>mínimo relativo</b> é um "fundo de vale". São os pontos onde a monotonia muda.</p>
+    </div>
+  </div>
+  <p>Toda esta informação resume-se num <b>quadro de variação</b>. Para esta função, $f(x) = \frac14 (x+3)(x-1)(x-4)$:</p>
+  <div id="quadro-var"></div>
+  <div class="caixa nota"><b>Ligação ao Cálculo</b>Mais à frente (Cálculo 1) vais encontrar os extremos sem gráfico: são os pontos onde a <b>derivada</b> é zero e muda de sinal. $f' > 0$ significa que $f$ cresce e $f' < 0$ que $f$ decresce.</div>
+  <div class="experimenta"><b>Experimenta</b> No gráfico acima, em que intervalo é a função negativa <b>e</b> crescente ao mesmo tempo?
+    <details class="resp"><summary>Ver resposta</summary>É negativa em $]-\infty,-3[$ e em $]1,4[$. É crescente até ao máximo (x ≈ −1,36) e depois do mínimo (x ≈ 2,69). A interseção é $]-\infty, -3[ \,\cup\, ]2{,}69;\ 4[$, aproximadamente.</details></div>
+</section>
+
+<!-- ===================================================== 6 -->
+<section id="biblioteca">
+  <h2>6. Funções de referência</h2>
+  <p>São as "peças de LEGO" de todas as outras funções. Vale a pena reconhecer cada uma à primeira vista: a forma, o domínio e o contradomínio.</p>
+  <div class="mini-grelha" id="biblioteca-grelha"></div>
+</section>
+
+<!-- ===================================================== 7 -->
+<section id="afim">
+  <h2>7. Função afim: $f(x) = mx + b$</h2>
+  <p>O gráfico é uma <b>reta</b>.</p>
+  <ul>
+    <li>$m$ é o <b>declive</b>: quanto sobe o $y$ quando o $x$ avança 1. Com $m > 0$ a reta sobe, com $m < 0$ desce e com $m = 0$ é horizontal.</li>
+    <li>$b$ é a <b>ordenada na origem</b>: onde a reta corta o eixo dos $y$, porque $f(0) = b$.</li>
+  </ul>
+  <div class="controlos">
+    <label>m <input type="range" id="af-m" min="-4" max="4" step="0.25" value="1.5"><output id="af-mo"></output></label>
+    <label>b <input type="range" id="af-b" min="-6" max="6" step="0.5" value="-2"><output id="af-bo"></output></label>
+  </div>
+  <div class="formula-viva" id="af-f"></div>
+  <div id="g-afim"></div>
+  <p>O triângulo laranja mostra o declive: anda 1 para a direita e sobe (ou desce) $m$.</p>
+  <div class="caixa como"><b>Equação da reta que passa em dois pontos</b><ol><li>Declive: $m = \dfrac{y_2 - y_1}{x_2 - x_1}$ (variação de $y$ sobre variação de $x$).</li><li>Substitui um dos pontos em $y = mx + b$ para descobrir $b$.</li></ol></div>
+  <div class="experimenta"><b>Experimenta</b> Determina a reta que passa em $A(1, 3)$ e $B(4, 9)$.
+    <details class="resp"><summary>Ver resposta</summary>$m = \frac{9-3}{4-1} = 2$. Com $A$: $3 = 2\cdot 1 + b \Rightarrow b = 1$. Logo $y = 2x + 1$.</details></div>
+</section>
+
+<!-- ===================================================== 8 -->
+<section id="quadratica">
+  <h2>8. Função quadrática: $f(x) = a(x-h)^2 + k$</h2>
+  <p>O gráfico é uma <b>parábola</b>. Na forma canónica $a(x-h)^2 + k$ lê-se tudo diretamente:</p>
+  <ul>
+    <li><b>Vértice</b> em $V(h, k)$.</li>
+    <li><b>Eixo de simetria</b>: a reta $x = h$.</li>
+    <li><b>Concavidade</b>: virada para cima ($\cup$) se $a > 0$, para baixo ($\cap$) se $a < 0$.</li>
+  </ul>
+  <div class="controlos">
+    <label>a <input type="range" id="q-a" min="-3" max="3" step="0.25" value="1"><output id="q-ao"></output></label>
+    <label>h <input type="range" id="q-h" min="-5" max="5" step="0.5" value="1"><output id="q-ho"></output></label>
+    <label>k <input type="range" id="q-k" min="-6" max="6" step="0.5" value="-4"><output id="q-ko"></output></label>
+  </div>
+  <div class="formula-viva" id="q-f"></div>
+  <div id="g-quad"></div>
+  <div class="leitura" id="l-quad"></div>
+  <div class="caixa como"><b>Da forma geral ao vértice</b><ol><li>$h = -\dfrac{b}{2a}$</li><li>$k = f(h)$</li><li>Zeros pela fórmula resolvente $x = \dfrac{-b \pm \sqrt{\Delta}}{2a}$, com $\Delta = b^2 - 4ac$. Com $\Delta > 0$ há 2 zeros, com $\Delta = 0$ há 1 (o vértice toca o eixo) e com $\Delta < 0$ não há nenhum.</li></ol></div>
+  <div class="experimenta"><b>Experimenta</b> Para $f(x) = 2x^2 - 8x + 6$, encontra o vértice e os zeros.
+    <details class="resp"><summary>Ver resposta</summary>$h = -\frac{-8}{4} = 2$ e $k = f(2) = 8 - 16 + 6 = -2$, logo $V(2,-2)$. Zeros: $x^2 - 4x + 3 = 0 \Rightarrow x = 1$ ou $x = 3$.
+    <a class="btn sec peq" href="../index.html#solver?tipo=equacao&a=2x%5E2-8x%2B6%3D0">Ver no solver</a></details></div>
+</section>
+
+<!-- ===================================================== 9 -->
+<section id="transformacoes">
+  <h2>9. Transformações de gráficos</h2>
+  <p>Conhecendo o gráfico de $f$, consegues desenhar o de $g(x) = a\cdot f\big(b(x - h)\big) + k$ sem fazer contas, só a deslocar, esticar e refletir. A tracejado está o original e a cheio o transformado.</p>
+  <div class="controlos">
+    <label>Base: <select id="t-base"><option value="x2">x²</option><option value="abs">|x|</option><option value="sqrt">√x</option><option value="x3">x³</option><option value="sen">sen x</option><option value="inv">1/x</option><option value="exp">eˣ</option></select></label>
+    <label>a <input type="range" id="t-a" min="-3" max="3" step="0.25" value="1"><output id="t-ao"></output></label>
+    <label>b <input type="range" id="t-b" min="-3" max="3" step="0.25" value="1"><output id="t-bo"></output></label>
+    <label>h <input type="range" id="t-h" min="-5" max="5" step="0.5" value="0"><output id="t-ho"></output></label>
+    <label>k <input type="range" id="t-k" min="-5" max="5" step="0.5" value="0"><output id="t-ko"></output></label>
+    <button class="btn cinza peq" id="t-reset">Repor</button>
+  </div>
+  <div class="formula-viva" id="t-f"></div>
+  <div id="g-transf"></div>
+  <table class="tabela">
+    <tr><th>Mudança</th><th>Efeito no gráfico</th><th>Mexe em</th></tr>
+    <tr><td>$f(x) + k$</td><td>sobe $k$ (desce se $k<0$)</td><td>$y$ — "fora" da função, faz o que diz</td></tr>
+    <tr><td>$f(x - h)$</td><td>vai $h$ para a <b>direita</b> (esquerda se $h<0$)</td><td>$x$ — "dentro", faz o <b>contrário</b> do que parece</td></tr>
+    <tr><td>$a\,f(x)$</td><td>estica na vertical ($|a|>1$) ou encolhe ($|a|<1$)</td><td>$y$</td></tr>
+    <tr><td>$-f(x)$</td><td>reflexão no eixo dos $x$</td><td>$y$</td></tr>
+    <tr><td>$f(bx)$</td><td>encolhe na horizontal ($|b|>1$) ou estica ($|b|<1$)</td><td>$x$ — contrário</td></tr>
+    <tr><td>$f(-x)$</td><td>reflexão no eixo dos $y$</td><td>$x$</td></tr>
+  </table>
+  <div class="caixa nota"><b>Regra de ouro</b>O que está <b>fora</b> da função mexe no $y$ e faz exatamente o que diz. O que está <b>dentro</b> (junto ao $x$) mexe no $x$ e faz o <b>contrário</b>: $(x-3)$ anda para a direita e $2x$ encolhe.</div>
+  <div class="experimenta"><b>Experimenta</b> Partindo de $y = x^2$, descreve o gráfico de $y = -(x+2)^2 + 3$. Depois confirma com os sliders.
+    <details class="resp"><summary>Ver resposta</summary>Anda 2 para a esquerda ($h=-2$), reflete no eixo dos $x$ ($a=-1$) e sobe 3 ($k=3$). É uma parábola virada para baixo com vértice em $(-2, 3)$.</details></div>
+</section>
+
+<!-- ===================================================== 10 -->
+<section id="paridade">
+  <h2>10. Funções pares e ímpares (simetria)</h2>
+  <div class="duas">
+    <div class="caixa def"><b>Função par</b>$f(-x) = f(x)$ para todo o $x$. O gráfico é <b>simétrico em relação ao eixo dos $y$</b>, como um espelho. Exemplos: $x^2$, $|x|$, $\cos x$.</div>
+    <div class="caixa def"><b>Função ímpar</b>$f(-x) = -f(x)$ para todo o $x$. O gráfico é <b>simétrico em relação à origem</b>: rodando meia volta fica igual. Exemplos: $x^3$, $\operatorname{sen} x$, $1/x$.</div>
+  </div>
+  <div class="controlos"><label>Função: <select id="sel-par"><option value="par">f(x) = x² − 3 (par)</option><option value="impar">f(x) = x³/4 − x (ímpar)</option><option value="nenhuma">f(x) = x² + 2x (nem par nem ímpar)</option><option value="cos">f(x) = 3cos x (par)</option></select></label></div>
+  <div id="g-par"></div>
+  <div class="leitura" id="l-par">passa o rato: compara o ponto em x (azul) com o ponto em −x (vermelho)</div>
+  <div class="caixa como"><b>Como verificar algebricamente</b><ol><li>Calcula $f(-x)$, substituindo $x$ por $(-x)$.</li><li>Se der igual a $f(x)$, é par. Se der $-f(x)$, é ímpar. Se não der nenhum, não é nem par nem ímpar.</li></ol></div>
+  <div class="experimenta"><b>Experimenta</b> $f(x) = x^4 - 2x^2$ é par, ímpar ou nenhuma?
+    <details class="resp"><summary>Ver resposta</summary>$f(-x) = (-x)^4 - 2(-x)^2 = x^4 - 2x^2 = f(x)$. É <b>par</b>.</details></div>
+</section>
+
+<!-- ===================================================== 11 -->
+<section id="composicao">
+  <h2>11. Operações com funções e composição</h2>
+  <p>Funções somam-se, subtraem-se, multiplicam-se e dividem-se <b>ponto a ponto</b>: $(f+g)(x) = f(x) + g(x)$ e $(f\cdot g)(x) = f(x)\,g(x)$. Para $\frac{f}{g}$, exclui-se do domínio onde $g(x)=0$.</p>
+  <p>A <b>composição</b> é encadear máquinas: o que sai de uma entra na outra.</p>
+  <svg class="diagrama" viewBox="0 0 560 130" font-family="system-ui" font-size="15">
+    <defs><marker id="s3" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#374151"/></marker></defs>
+    <text x="10" y="70" font-weight="700">x = 3</text>
+    <line x1="62" y1="65" x2="120" y2="65" stroke="#374151" stroke-width="2" marker-end="url(#s3)"/>
+    <rect x="122" y="30" width="120" height="70" rx="12" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
+    <text x="150" y="60" font-weight="700" fill="#4f46e5">g</text><text x="140" y="82" font-size="13">g(x) = x + 1</text>
+    <line x1="242" y1="65" x2="300" y2="65" stroke="#374151" stroke-width="2" marker-end="url(#s3)"/>
+    <text x="256" y="55" font-size="13" font-weight="700">4</text>
+    <rect x="302" y="30" width="120" height="70" rx="12" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+    <text x="355" y="60" font-weight="700" fill="#16a34a">f</text><text x="322" y="82" font-size="13">f(x) = x²</text>
+    <line x1="422" y1="65" x2="480" y2="65" stroke="#374151" stroke-width="2" marker-end="url(#s3)"/>
+    <text x="486" y="70" font-weight="700">16</text>
+    <text x="140" y="122" font-size="13" fill="#6b7280">(f ∘ g)(3) = f(g(3)) = f(4) = 16 — primeiro g, depois f</text>
+  </svg>
+  <div class="caixa def"><b>Definição</b>$(f \circ g)(x) = f\big(g(x)\big)$. Lê-se "$f$ após $g$". <b>Aplica-se primeiro a função da direita.</b></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $f(x) = x^2$ e $g(x) = x + 1$</div><div class="ex-corpo">
+    <details class="resolucao"><summary>Ver resolução</summary>
+      <p>$(f\circ g)(x) = f(x+1) = (x+1)^2$</p>
+      <p>$(g\circ f)(x) = g(x^2) = x^2 + 1$</p>
+      <p>São diferentes: <b>a ordem importa</b>, $f\circ g \neq g \circ f$ em geral.</p>
+    </details></div></div>
+  <div class="caixa nota"><b>Porque é que isto importa</b>A <b>regra da cadeia</b> das derivadas é sobre composições. Em $\operatorname{sen}(3x^2+1)$, a função de fora é o seno e a de dentro é $3x^2+1$. <a href="../index.html#solver?tipo=derivada&a=sen(3x%5E2%2B1)">Ver a derivada passo a passo</a>.</div>
+  <div class="experimenta"><b>Experimenta</b> Com $f(x) = \sqrt{x}$ e $g(x) = 2x - 4$, escreve $(f\circ g)(x)$ e o seu domínio.
+    <details class="resp"><summary>Ver resposta</summary>$(f\circ g)(x) = \sqrt{2x-4}$. Domínio: $2x - 4 \geq 0 \iff x \geq 2$, logo $[2, +\infty[$.</details></div>
+</section>
+
+<!-- ===================================================== 12 -->
+<section id="inversa">
+  <h2>12. Injetividade e função inversa</h2>
+  <div class="caixa def"><b>Função injetiva</b>Objetos diferentes têm imagens diferentes: se $x_1 \neq x_2$, então $f(x_1) \neq f(x_2)$. No gráfico, <b>nenhuma reta horizontal o corta em mais de um ponto</b> (teste da reta horizontal).</div>
+  <div class="controlos"><label>Curva: <select id="sel-rh"><option value="x2">y = x² (não injetiva)</option><option value="x3">y = x³/8 (injetiva)</option><option value="exp">y = eˣ (injetiva)</option><option value="sen">y = 3 sen x (não injetiva)</option></select></label></div>
+  <div id="g-rh"></div>
+  <div class="leitura" id="l-rh">passa o rato: a reta horizontal laranja segue-o</div>
+  <h3>Função inversa $f^{-1}$</h3>
+  <p>Se $f$ é injetiva, podemos "andar para trás": $f^{-1}$ desfaz o que $f$ fez. Se $f(2) = 5$, então $f^{-1}(5) = 2$.</p>
+  <p>O gráfico de $f^{-1}$ é o <b>reflexo</b> do de $f$ na reta $y = x$, porque trocar $x$ com $y$ é refletir nessa reta.</p>
+  <div class="controlos"><label>f(x) = <select id="sel-inv"><option value="afim">2x + 1</option><option value="cubo">x³/4</option><option value="exp">eˣ  (inversa: ln x)</option><option value="quad">x², x ≥ 0  (inversa: √x)</option></select></label></div>
+  <div id="g-inv"></div>
+  <div class="leitura" id="l-inv">passa o rato: o ponto (a, b) de f reflete-se em (b, a) de f⁻¹</div>
+  <div class="caixa como"><b>Como calcular a inversa</b><ol><li>Escreve $y = f(x)$.</li><li>Resolve em ordem a $x$.</li><li>Troca os nomes de $x$ e $y$: obténs $y = f^{-1}(x)$.</li><li>Domínio de $f^{-1}$ = contradomínio de $f$ (e vice-versa).</li></ol></div>
+  <div class="exemplo"><div class="ex-tit">Exemplo: $f(x) = 2x + 1$</div><div class="ex-corpo"><details class="resolucao"><summary>Ver resolução</summary>
+    <p>$y = 2x + 1 \iff 2x = y - 1 \iff x = \dfrac{y-1}{2}$. Trocando: $f^{-1}(x) = \dfrac{x - 1}{2}$.</p>
+    <p>Verificação: $f^{-1}(f(3)) = f^{-1}(7) = 3$ ✔</p></details></div></div>
+</section>
+
+<!-- ===================================================== 13 -->
+<section id="ramos">
+  <h2>13. Funções definidas por ramos</h2>
+  <p>Usam uma fórmula diferente em cada parte do domínio. Exemplo:</p>
+  <div class="formula-viva">$f(x) = \begin{cases} x + 3 & \text{se } x < -1 \\ x^2 & \text{se } -1 \leq x < 2 \\ 5 - x & \text{se } x \geq 2 \end{cases}$</div>
+  <div id="g-ramos"></div>
+  <div class="leitura" id="l-ramos">passa o rato para ver que ramo está a ser usado</div>
+  <div class="caixa como"><b>Como calcular uma imagem</b><ol><li>Vê em que intervalo está o $x$.</li><li>Usa <b>só</b> a fórmula desse ramo.</li></ol><p style="margin:4px 0 0">Bola <b>cheia</b> = o ponto pertence ao gráfico. Bola <b>vazia</b> = não pertence.</p></div>
+  <div class="experimenta"><b>Experimenta</b> Calcula $f(-3)$, $f(-1)$, $f(2)$. A função é contínua em $x = -1$? E em $x = 2$?
+    <details class="resp"><summary>Ver resposta</summary>$f(-3) = 0$, $f(-1) = 1$, $f(2) = 3$. Em $x=-1$: à esquerda $\to 2$, mas $f(-1)=1$, logo há um salto e <b>não</b> é contínua. Em $x=2$: à esquerda $\to 4$, $f(2) = 3$, também há salto.</details></div>
+  <div class="caixa nota"><b>Exemplo famoso</b>O módulo é uma função por ramos: $|x| = \begin{cases} x & x \geq 0 \\ -x & x < 0\end{cases}$</div>
+</section>
+
+<!-- ===================================================== 14 -->
+<section id="resumo">
+  <h2>14. Resumo e glossário</h2>
+  <table class="tabela">
+    <tr><th>Conceito</th><th>O que é</th><th>No gráfico</th></tr>
+    <tr><td>Função</td><td>cada $x$ tem uma só imagem</td><td>teste da reta vertical</td></tr>
+    <tr><td>Domínio</td><td>os $x$ permitidos</td><td>sombra no eixo $Ox$</td></tr>
+    <tr><td>Contradomínio</td><td>as imagens obtidas</td><td>sombra no eixo $Oy$</td></tr>
+    <tr><td>Zero</td><td>$f(x) = 0$</td><td>onde corta o eixo $Ox$</td></tr>
+    <tr><td>Ordenada na origem</td><td>$f(0)$</td><td>onde corta o eixo $Oy$</td></tr>
+    <tr><td>Crescente / decrescente</td><td>sobe / desce</td><td>da esquerda para a direita</td></tr>
+    <tr><td>Máximo / mínimo</td><td>maior / menor valor (local)</td><td>topo / fundo</td></tr>
+    <tr><td>Par / ímpar</td><td>$f(-x) = f(x)$ / $f(-x) = -f(x)$</td><td>simetria no $Oy$ / na origem</td></tr>
+    <tr><td>Injetiva</td><td>$x$ diferentes → imagens diferentes</td><td>teste da reta horizontal</td></tr>
+    <tr><td>Inversa</td><td>desfaz $f$</td><td>reflexo em $y = x$</td></tr>
+  </table>
+  <div class="caixa br"><b>Portugal 🇵🇹 ↔ Brasil 🇧🇷</b>
+    <table class="tabela" style="background:#fff"><tr><th>Em Portugal (ISEP)</th><th>No Brasil</th></tr>
+    <tr><td>contradomínio</td><td>imagem (conjunto imagem)</td></tr>
+    <tr><td>conjunto de chegada</td><td>contradomínio</td></tr>
+    <tr><td>objeto / imagem</td><td>elemento do domínio / imagem</td></tr>
+    <tr><td>zero da função</td><td>raiz / zero</td></tr>
+    <tr><td>ordenada na origem</td><td>coeficiente linear</td></tr>
+    <tr><td>declive</td><td>coeficiente angular / inclinação</td></tr>
+    <tr><td>função afim</td><td>função do 1.º grau</td></tr>
+    <tr><td>função quadrática</td><td>função do 2.º grau</td></tr>
+    <tr><td>fórmula resolvente</td><td>fórmula de Bhaskara</td></tr>
+    <tr><td>binómio discriminante</td><td>discriminante (delta)</td></tr>
+    <tr><td>concavidade voltada para cima</td><td>concavidade para cima</td></tr>
+    <tr><td>função injetiva / sobrejetiva / bijetiva</td><td>injetora / sobrejetora / bijetora</td></tr>
+    <tr><td>sen, tg</td><td>sen, tg (igual)</td></tr>
+    </table>
+    <p style="margin:6px 0 0">Atenção: <b>"contradomínio" quer dizer coisas diferentes</b> nos dois países! Em Portugal é o conjunto das imagens.</p>
+  </div>
+  <p><a class="btn" href="index.html">← Voltar aos guias</a> <a class="btn sec" href="../index.html#solver">Ir para o solver</a></p>
+</section>
+</article>
+</div>
+
+<script src="../js/grafico.js"></script>
+<script src="funcoes.js"></script>
+</body>
+</html>
